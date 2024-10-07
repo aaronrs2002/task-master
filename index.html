@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" data-module="home">
+
+<head>
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+
+    <meta name="keywords" content="grocery  list, to do list" />
+    <meta name="description" content="list of things to buy at the Store" />
+
+
+
+    <title>GROCERY GETTER</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="16x16" />
+    <link href="https://bootswatch.com/5/spacelab/bootstrap.css" rel="stylesheet" id="themedStyle">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/brands.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/solid.css" rel="stylesheet" />
+    <link href="https://raw.githubusercontent.com/aaronrs2002/2024-jwt-login-framework/main/client/css/style.css"
+        rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/animate.min.css" rel="stylesheet" />
+
+
+
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark p-2">
+            <a class="navbar-brand badge text-bg-secondary userEmail" href="#">user</a>
+            <button class="navbar-toggler" onClick="toggleMobileNav(null)">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="mobileNav" class="collapse navbar-collapse">
+
+                <ul class="navbar-nav mr-auto"></ul>
+            </div>
+            <div class=" float-end desktopOnly"><img src="" class="img-fluid  companyLogo" /></div>
+        </nav>
+
+
+    </header>
+    <main class="mt-5 pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 id="contentTitle"></h3>
+                    <div id="contentText"></div>
+                </div>
+                <div class="col-md-12">
+
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="searchStore"><span
+                            class="input-group-btn">
+                            <button class="btn btn-dark" onClick="searchForItem()"> <i
+                                    class="fab fa-searchengin"></i></button></span>
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <input class="form-control mt-3" type="text" placeholder="Filter groceries..." name="filter"
+                        onKeyUp="filterList()" />
+
+                </div>
+                <div class='col-md-12'>
+                    <ul class='list-group' id='groceryListTarget'></ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="hide alert fadeInUp" role="alert" id="globalAlert"></div>
+    <footer class="footer mt-auto py-3 animated fadeInUp">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="btn-group block my-2" role="group" id="footerLinks"></div>
+                </div>
+                <div class="col-md-2 my-2"> <select class="form-control" onChange="changeTheme()" id="themes"></select>
+                </div>
+                <div class="col-md-4 my-2" id="socialMediaList">
+                </div>
+                <div class="col-md-2 my-3"><a href="" class="companyWebsite companyName" target="_blank"></a></div>
+            </div>
+        </div>
+    </footer>
+</body>
+<script src="../config/profile.js"></script>
+<script src="js/sharedFunctionality.js"></script>
+<script src="js/footer.js"></script>
+<script src="localData/groceryList.json"></script>
+<script src="js/functionality.js"></script>
