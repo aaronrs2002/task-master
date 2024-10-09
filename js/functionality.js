@@ -22,7 +22,7 @@ if (localStorage.getItem("toGetList")) {
 
 
 const buildList = (data) => {
-
+    customDictionary = data;
 
     let groceryListHTML = "";
     console.log("data.length:" + data.length);
@@ -33,7 +33,9 @@ const buildList = (data) => {
         }
 
 
-        groceryListHTML = groceryListHTML + "<a href='#' onClick='editList(" + i + ")' class='list-group-item pointer list-group-item-" + colorCode + "'  data-num='" + i + "' data-name='" + data[i].task + "' >" + data[i].task + " <span class='badge bg bg-" + data[i].details.substring(0, data[i].details.indexOf(":")) + "'>" + data[i].details.substring(data[i].details.indexOf(":") + 1) + "</span> </a>"
+        groceryListHTML = groceryListHTML + "<li onClick='editList(" + i + ")' class='d-flex list-group-item pointer list-group-item-" + colorCode
+            + "'  data-num='" + i + "' data-name='" + data[i].task + "' ><div class='p-2 flex-grow-1'>" + data[i].task + "</div> <div class='p-2'><span class='badge bg bg-" + data[i].details.substring(0, data[i].details.indexOf(":"))
+            + "'>" + data[i].details.substring(data[i].details.indexOf(":") + 1) + "</span></div> <div class='p-2'><i onClick='deleteTask(" + i + ")' class='pointer fas fa-trash'></i></div></li>"
     }
     document.getElementById("groceryListTarget").innerHTML = groceryListHTML;
 
@@ -164,6 +166,23 @@ function updateCRUD(update) {
 }
 
 
+function deleteTask(num) {
+    let deletedTask = customDictionary[num].task;
+    let tempList = [];
+    for (let i = 0; i < customDictionary.length; i++) {
+        if (i !== Number(num)) {
+            tempList.push(customDictionary[i]);
+        }
+    }
+    customDictionary = tempList;
+    localStorage.setItem("customDictionary", JSON.stringify(customDictionary));
+    buildList(customDictionary);
+    loadList(customDictionary);
+    document.querySelector("input[name='updateWord']").value = ""
+    document.querySelector("[name='updateDefinition']").selectedIndex = 0;
+    globalAlert("alert-success", deletedTask + " deleted.");
+}
+
 function updateCustom() {
     if (document.querySelector("input[name='updateWord']").value === "") {
         document.querySelector("input[name='updateWord']").classList.add("error");
@@ -226,23 +245,19 @@ function updateCustom() {
 
     }
     if (update === "delete") {
-        let tempList = [];
-        for (let i = 0; i < customDictionary.length; i++) {
-            if (i !== Number(whichIndex)) {
-                tempList.push(customDictionary[i]);
-            }
-        }
-
-        customDictionary = tempList;
-        globalAlert("alert-success", "Deleted.");
+        deleteTask(whichIndex);
+        return false;
     }
     localStorage.setItem("customDictionary", JSON.stringify(customDictionary));
-    buildList(customDictionary)
+    buildList(customDictionary);
+    loadList(customDictionary);
     document.querySelector("input[name='updateWord']").value = ""
     document.querySelector("[name='updateDefinition']").selectedIndex = 0;
     tempWordList.push(document.querySelector("input[name='updateWord']").value);
 
 }
+
+
 
 
 function selectWord() {
