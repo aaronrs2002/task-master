@@ -107,22 +107,27 @@ function toggleEdit(hideShow) {
 }
 
 function loadList(data) {
+    /*  if ((typeof data) === "string") {
+          data = data.split(",");
+      }*/
+
+    console.log("data.length: " + data.length)
     let customListHTML = "<option>Select Word</option>";
     document.getElementById("localList").innerHTML = "";
     let listCk = [];
-    let tempCustomDictionary = data.split(",");
+    let tempCustomDictionary = data;
+
+    /*
+        try {
+            tempCustomDictionary = JSON.parse(tempCustomDictionary);
+        } catch (error) {
+            console.error(error);
+            globalAlert("alert-danger", "That data looks strange. Are your sure that is one of ours? Clear your local storage or cache.");
+            return false;
+        }
+    */
 
 
-    try {
-        tempCustomDictionary = JSON.parse(tempCustomDictionary);
-    } catch (error) {
-        console.error(error);
-        globalAlert("alert-danger", "That data looks strange. Are your sure that is one of ours? Clear your local storage or cache.");
-        return false;
-    }
-
-
-    words = tempCustomDictionary;
     for (let i = 0; i < tempCustomDictionary.length; i++) {
         if (listCk.indexOf(tempCustomDictionary[i]) === -1) {
             customListHTML = customListHTML + "<option value='" + i + "'>" + tempCustomDictionary[i].task + "</option>";
@@ -139,9 +144,7 @@ function loadList(data) {
 
 }
 
-if (localStorage.getItem("customDictionary")) {
-    loadList(localStorage.getItem("customDictionary"));
-}
+
 
 function updateCRUD(update) {
     document.getElementById("updateBt").innerHTML = "Submit: " + update + " item.";
@@ -288,6 +291,8 @@ function handleOnSubmit(event, type) {
                 //loadList(tempObj);
 
                 buildList(JSON.parse(tempObj));
+
+                loadList(JSON.parse(tempObj));
             }
             else {
                 console.log("That wasn't json.")
@@ -303,5 +308,6 @@ function handleOnSubmit(event, type) {
 
 
 if (localStorage.getItem("customDictionary")) {
-    buildList(JSON.parse(localStorage.getItem("customDictionary")))
+    buildList(JSON.parse(localStorage.getItem("customDictionary")));
+    loadList(JSON.parse(localStorage.getItem("customDictionary")));
 }
