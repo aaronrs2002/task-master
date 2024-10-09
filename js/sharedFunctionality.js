@@ -107,3 +107,22 @@ const logout = () => {
         })
 
 }
+
+const TodayFormatStamp = () => {
+
+    let today;
+    var date = new Date();
+    let theMonth = (date.getMonth() + 1);
+    if (theMonth < 10) {
+        theMonth = "0" + theMonth
+    }
+    let theDay = date.getDate();
+    if (theDay < 10) {
+        theDay = "0" + theDay;
+    }
+    today = theMonth + "/" + theDay + "/" + date.getFullYear();
+
+    return today;
+
+}
+
