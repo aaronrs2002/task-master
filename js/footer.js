@@ -22,7 +22,7 @@ function navigateOut(selected) {
     document.querySelector("#footerLinks").innerHTML = footerLinksHTML;
 })();
 document.getElementById("contentTitle").innerHTML = profile[0].content[0].title;
-document.getElementById("contentText").innerHTML = profile[0].content[0].text;
+//document.getElementById("contentText").innerHTML = profile[0].content[0].text;
 /*START NAVIGATING ANIMATION*/
 function tadaRollover(element) {
 
@@ -68,18 +68,24 @@ function changeTheme() {
     if (whichTheme === "default") {
         return false;
     }
-    axios.put(profile[0].serverUrl + "/edit-theme", {
-        email: userEmail,
-        theme: whichTheme
-    }, config).then(
-        (res) => {
-            document.getElementById("themedStyle").setAttribute("href", "https://bootswatch.com/5/" + whichTheme + "/bootstrap.css");
-            localStorage.setItem("theme", whichTheme);
-        }, (error) => {
-            globalAlert("alert-danger", "Theme Change failed.");
-        }
-    );
+    document.getElementById("themedStyle").setAttribute("href", "https://bootswatch.com/5/" + whichTheme + "/bootstrap.css");
+    localStorage.setItem("theme", whichTheme);
+    /* axios.put(profile[0].serverUrl + "/edit-theme", {
+         email: userEmail,
+         theme: whichTheme
+     }, config).then(
+         (res) => {
+             document.getElementById("themedStyle").setAttribute("href", "https://bootswatch.com/5/" + whichTheme + "/bootstrap.css");
+             localStorage.setItem("theme", whichTheme);
+         }, (error) => {
+             globalAlert("alert-danger", "Theme Change failed.");
+         }
+     );*/
 
+}
+
+if (localStorage.getItem("theme")) {
+    document.getElementById("themedStyle").setAttribute("href", "https://bootswatch.com/5/" + localStorage.getItem("theme") + "/bootstrap.css");
 }
 
 /*
