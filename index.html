@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    <header class="header">
+    <!-- <header class="header">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark p-2">
             <a class="navbar-brand badge text-bg-secondary userEmail" href="#">user</a>
             <button class="navbar-toggler" onClick="toggleMobileNav(null)">
@@ -42,16 +42,16 @@
         </nav>
 
 
-    </header>
-    <main class="mt-5 pt-5">
-        <div class="container">
+    </header>-->
+    <main>
+        <div class="container pt-1">
             <div class="row">
                 <div class="col-md-12">
                     <h3 id="contentTitle"></h3>
-                    <div id="contentText"></div>
+
                 </div>
                 <div class="col-md-12">
-                    <input class="form-control mt-3" type="text" placeholder="Filter groceries..." name="filter"
+                    <input class="form-control " type="text" placeholder="Filter list..." name="filter"
                         onKeyUp="filterList()" />
 
                 </div>
@@ -140,14 +140,7 @@
                                     Upload</button>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="alert alert-light" role="alert"><i>This application runs off local storage
-                                    in your
-                                    browser.
-                                    Remember to "download" your "todo list" data before you clear your browser
-                                    cache.</i></div>
 
-                        </div>
                     </div>
                 </div>
             </div>
@@ -166,6 +159,14 @@
                 <div class="col-md-4 my-2" id="socialMediaList">
                 </div>
                 <div class="col-md-2 my-3"><a href="" class="companyWebsite companyName" target="_blank"></a></div>
+                <div class="col-md-12">
+                    <div class="alert alert-light" role="alert"><i>This application runs off local storage
+                            in your
+                            browser.
+                            Remember to "download" your "todo list" data before you clear your browser
+                            cache.</i></div>
+
+                </div>
             </div>
         </div>
     </footer>
