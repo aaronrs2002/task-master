@@ -51,16 +51,6 @@
                     <div id="contentText"></div>
                 </div>
                 <div class="col-md-12">
-
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" name="searchStore"><span
-                            class="input-group-btn">
-                            <button class="btn btn-dark" onClick="searchForItem()"> <i
-                                    class="fab fa-searchengin"></i></button></span>
-                    </div>
-
-                </div>
-                <div class="col-md-12">
                     <input class="form-control mt-3" type="text" placeholder="Filter groceries..." name="filter"
                         onKeyUp="filterList()" />
 
@@ -68,8 +58,110 @@
                 <div class='col-md-12'>
                     <ul class='list-group' id='groceryListTarget'></ul>
                 </div>
-            </div>
-        </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <button class="btn btn-secondary w-100 hide" data-editpanel="show"
+                            onclick="javascript:toggleEdit('show')">
+                            <i class="fas fa-pen pointer"></i> <span></span>Build your own
+                            task list.
+                        </button>
+                    </div>
+                    <div class="col-md-12">
+
+                        <button class="btn btn-secondary w-100" data-editpanel="hide"
+                            onClick="javascript:toggleEdit('hide')">
+                            <i class="fas fa-pen pointer"></i>Toggle Editing Panel
+                        </button>
+                    </div>
+                    <div class="col-md-12 " id="buildingCustom">
+
+                        <div class="btn-group block" role="group">
+                            <button type="button" class="btn btn-info active" data-edit="add"
+                                onClick="javascript:updateCRUD('add')">Add</button>
+                            <button type="button" class="btn btn-info " data-edit="edit"
+                                onClick="javascript:updateCRUD('edit')">Edit</button>
+                            <button type="button" class="btn btn-info" data-edit="delete"
+                                onClick="javascript:updateCRUD('delete')">Delete</button>
+
+                        </div>
+
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <select class="form-control hide" id="localList" onChange="javascript:selectWord()">
+                                    <option>Select Word</option>;
+                                </select>
+                            </li>
+                            <li><input type="text" placeholder="Task/Item" name="updateWord" class="form-control" />
+                            </li>
+                            <li>
+                                <select name="updateDefinition" class="form-control">
+                                    <option value="info">Standard Priority</option>
+                                    <option value="warning">Elevated Priority</option>
+                                    <option value="danger">High Priority</option>
+                                </select>
+                            </li>
+
+                            <li>
+                                <div class="d-grid gap-2"><button class="btn btn-primary capitalize" id="updateBt"
+                                        onClick="javascript:updateCustom()">Submit: Add Item</button></div>
+                            </li>
+                        </ul>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="d-grid gap-2  py-2">
+                                    <button class="btn btn-light" onClick="javascript:downloadData();"><i
+                                            class="fas fa-file-download"></i>
+                                        Download</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6 py-2">
+                                <div class="d-grid gap-2">
+
+
+
+                                    <label class="custom-file-upload btn btn-light">
+                                        <input type="file" name="importFile" accept=".json"
+                                            onChange="javascript:handleOnChange(event)" />
+                                        <i class="fa fa-cloud-upload"></i> Select a "wordFun" file to upload
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="d-grid gap-2  py-2">
+                                    <button id="fileUpload" class="btn btn-danger hide"
+                                        onClick="javascript:handleOnSubmit(event, 'json')"><i
+                                            class="fas fa-file-upload"></i>
+                                        Upload</button>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="alert alert-light" role="alert"><i>This application runs off local storage
+                                        in your
+                                        browser.
+                                        Remember to "download" your "wordFun" data before you clear your browser
+                                        cache.</i></div>
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
 
     </main>
 
@@ -90,6 +182,7 @@
     </footer>
 </body>
 <script src="../config/profile.js"></script>
+
 <script src="js/sharedFunctionality.js"></script>
 <script src="js/footer.js"></script>
 <script src="localData/groceryList.json"></script>
