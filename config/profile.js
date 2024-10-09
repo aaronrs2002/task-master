@@ -7,9 +7,12 @@ const profile = [{
     companyName: "Web-Presence LLC",
     companyAddress: "YOUR ADDRESS",
     userEmail: "YOUR@EMAIL.COM",
+    companyEmail: "INFO@YOUR-COMPANY.biz",
     companyPhone: "555-555-5555",
     companyLogo: "https://web-presence.biz/img/MA_Logo.png",
     relay: "../endpoint/EmailRelay.php",
+    client_id: "webpresencegrocerygetter-9d122d6b61b93bcfd30a29b76665a1f33443688439640601618",
+    client_sec: "reobU7igpz9GRQ_SJTTsDZogcy1Qyd5Jy6fLDaKX",
     socialMedia: [
         { link: "https://www.linkedin.com/in/aaronrs2002", theClass: "fab fa-linkedin" },
         { link: "https://github.com/aaronrs2002", theClass: "fab fa-github" },
@@ -24,8 +27,8 @@ const profile = [{
         { link: "https://aaronrs2002.github.io/javascript-slot-machine/index.html?" + gaParam + "&", name: "Slots" },
         { link: "https://aaronrs2002.github.io/word-game/?" + gaParam + "&", name: "WordFun" }],
     content: [{
-        title: "home",
-        text: "<div class='col-md-12'><p>Let us prepare:</p></div>",
+        title: "TASK-MASTER",
+        text: "<div class='col-md-12'><p>GET IT DONE:</p></div>",
     },
     {
         title: "about",
@@ -59,7 +62,18 @@ const profile = [{
 [].forEach.call(document.querySelectorAll(".companyWebsite"), (e) => {
     e.innerHTML = profile[0].companyName;
     e.setAttribute("href", profile[0].companyWebsite);
-})
+});
+
+[].forEach.call(document.querySelectorAll(".companyPhone"), (e) => {
+    e.innerHTML = profile[0].companyPhone;
+});
+
+[].forEach.call(document.querySelectorAll(".companyAddress"), (e) => {
+    e.innerHTML = profile[0].companyAddress;
+});
+[].forEach.call(document.querySelectorAll(".companyEmail"), (e) => {
+    e.innerHTML = profile[0].companyEmail;
+});
 
 /*
                 <div class='col-md-12'><ul class='list-unstyled' id='groceryListTarget'></ul></div>
