@@ -139,6 +139,7 @@ if (sessionStorage.getItem("token") && checkedToken === false) {
 */
 
 //START NAVIGATION
+/*
 const toggleMobileNav = (num) => {
 
     try {
@@ -171,7 +172,7 @@ if (!localStorage.getItem("activeModule")) {
 toggleMobileNav(goHere);
 
 
-
+*/
 //START PASSWORD CHANGE
 const changePassword = () => {
     const newPasswordElem = document.querySelector("input[name='new-password']");
