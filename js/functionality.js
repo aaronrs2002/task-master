@@ -261,8 +261,7 @@ function updateCustom() {
 
 function selectWord() {
     let whichIndex = document.getElementById("localList").value;
-    document.querySelector("input[name='updateWord']").value = words[Number(whichIndex)].substring(2, words[Number(whichIndex)].indexOf(":") - 1).replaceAll("'", "");
-    document.querySelector("[name='updateDefinition']").value = words[Number(whichIndex)].substring(words[Number(whichIndex)].indexOf(":") + 2, words[Number(whichIndex)].length - 2).replaceAll("'", "");
+    document.querySelector("input[name='updateWord']").value = customDictionary[whichIndex].task;
 }
 
 function downloadData() {
