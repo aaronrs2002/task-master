@@ -25,16 +25,16 @@ const buildList = (data) => {
     customDictionary = data;
 
     let groceryListHTML = "";
-    console.log("data.length:" + data.length);
+
     for (let i = 0; i < data.length; i++) {
         let colorCode = "danger";
-        if (toGetList.indexOf(i) !== -1) {
+        if (data[i].finished) {
             colorCode = "success";
         }
 
 
         groceryListHTML = groceryListHTML + "<li onClick='editList(" + i + ")' class='d-flex list-group-item pointer list-group-item-" + colorCode
-            + "'  data-num='" + i + "' data-name='" + data[i].task + "' ><div class='p-2 flex-grow-1'>" + data[i].task + "</div> <div class='p-2'><span class='badge bg bg-" + data[i].details.substring(0, data[i].details.indexOf(":"))
+            + "' data-finished='" + data[i].finished + "'  data-num='" + i + "' data-name='" + data[i].task + "' ><div class='p-2 flex-grow-1'>" + data[i].task + "</div> <div class='p-2'><span class='badge bg bg-" + data[i].details.substring(0, data[i].details.indexOf(":"))
             + "'>" + data[i].details.substring(data[i].details.indexOf(":") + 1) + "</span></div> <div class='p-2'><i onClick='deleteTask(" + i + ")' class='pointer fas fa-trash'></i></div></li>"
     }
     document.getElementById("groceryListTarget").innerHTML = groceryListHTML;
@@ -61,29 +61,28 @@ const filterList = () => {
 
 
 const editList = (num) => {
-
-    let tempList = [];
-
-    if (toGetList.indexOf(num) === -1) {
-        toGetList = [...toGetList, num];
-        document.querySelector("[data-num='" + num + "']").classList.add("list-group-item-success");
-        document.querySelector("[data-num='" + num + "']").classList.remove("list-group-item-danger");
-        console.log("toGetList: " + toGetList)
-    } else {
-        document.querySelector("[data-num='" + num + "']").classList.remove("list-group-item-success");
-        document.querySelector("[data-num='" + num + "']").classList.add("list-group-item-danger");
-        for (let i = 0; i < toGetList.length; i++) {
-            if (toGetList[i] !== num && (typeof toGetList[i]) === "number") {
-
-                tempList = [...tempList, toGetList[i]];
-
+    for (let i = 0; i < customDictionary.length; i++) {
+        if (i === parseInt(num)) {
+            if (customDictionary[i].finished === false) {
+                customDictionary[i].finished = true;
+                document.querySelector("[data-num='" + i + "']").setAttribute("data-finished", true);
+                document.querySelector("[data-num='" + num + "']").classList.add("list-group-item-success");
+                document.querySelector("[data-num='" + num + "']").classList.remove("list-group-item-danger");
+            } else {
+                customDictionary[i].finished = false;
+                document.querySelector("[data-num='" + i + "']").setAttribute("data-finished", false);
+                document.querySelector("[data-num='" + num + "']").classList.remove("list-group-item-success");
+                document.querySelector("[data-num='" + num + "']").classList.add("list-group-item-danger");
             }
         }
-        console.log("tempList: " + tempList)
-        toGetList = tempList;
+
+
     }
 
-    localStorage.setItem("toGetList", toGetList);
+    localStorage.setItem("customDictionary", JSON.stringify(customDictionary));
+    buildList(customDictionary);
+    loadList(customDictionary);
+
 }
 
 
@@ -113,7 +112,7 @@ function loadList(data) {
           data = data.split(",");
       }*/
 
-    console.log("data.length: " + data.length)
+
     let customListHTML = "<option>Select Word</option>";
     document.getElementById("localList").innerHTML = "";
     let listCk = [];
@@ -206,7 +205,7 @@ function updateCustom() {
         if (document.querySelector("input[name='updateWord']").value && document.querySelector("[name='updateDefinition']").value) {
             let newWord = document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart();
             if (tempWordList.indexOf(newWord) === -1) {
-                customDictionary = [...customDictionary, { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + TodayFormatStamp() }];
+                customDictionary = [...customDictionary, { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + TodayFormatStamp(), finished: false }];
                 globalAlert("alert-success", newWord + " added.");
                 newWord = "";
                 document.querySelector("[name='updateDefinition']").value = "";
@@ -231,7 +230,7 @@ function updateCustom() {
 
             for (let i = 0; i < customDictionary.length; i++) {
                 if (i === Number(whichIndex)) {
-                    customDictionary[i] = { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + TodayFormatStamp() };
+                    customDictionary[i] = { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + TodayFormatStamp(), finished: document.querySelector("[data-finished]").getAttribute("data-finished") };
                 }
             }
             globalAlert("alert-success", editWord + " edited.");
@@ -253,7 +252,7 @@ function updateCustom() {
     loadList(customDictionary);
     document.querySelector("input[name='updateWord']").value = ""
     document.querySelector("[name='updateDefinition']").selectedIndex = 0;
-    tempWordList.push(document.querySelector("input[name='updateWord']").value);
+    //tempWordList.push(document.querySelector("input[name='updateWord']").value);
 
 }
 
@@ -275,7 +274,7 @@ function downloadData() {
     a.href = URL.createObjectURL(new Blob([JSON.stringify(tempData, null, 2)], {
         type: 'application/json'
     }));
-    a.setAttribute("download", "wordFun.json");
+    a.setAttribute("download", "taskList.json");
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
