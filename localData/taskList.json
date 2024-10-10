@@ -1,0 +1,17 @@
+[
+  {
+    "task": "haircut",
+    "details": "info:10/10/2024",
+    "finished": false
+  },
+  {
+    "task": "update code",
+    "details": "warning:10/10/2024",
+    "finished": true
+  },
+  {
+    "task": "lunch",
+    "details": "info:10/10/2024",
+    "finished": false
+  }
+]
