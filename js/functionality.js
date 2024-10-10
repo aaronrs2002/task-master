@@ -261,7 +261,21 @@ function updateCustom() {
 
 function selectWord() {
     let whichIndex = document.getElementById("localList").value;
+    if (whichIndex === "default") {
+        return false;
+    }
     document.querySelector("input[name='updateWord']").value = customDictionary[whichIndex].task;
+    let priorityMenu;
+    if (customDictionary[whichIndex].details.indexOf("info") !== -1) {
+        priorityMenu = 0;
+    }
+    if (customDictionary[whichIndex].details.indexOf("warning") !== -1) {
+        priorityMenu = 1;
+    }
+    if (customDictionary[whichIndex].details.indexOf("danger") !== -1) {
+        priorityMenu = 2;
+    }
+    document.querySelector("[name='updateDefinition']").selectedIndex = priorityMenu;
 }
 
 function downloadData() {
