@@ -97,11 +97,44 @@
                         <li><input type="text" placeholder="Task/Item" name="updateWord" class="form-control" />
                         </li>
                         <li>
-                            <select name="updateDefinition" class="form-control">
-                                <option value="info">Standard Priority</option>
-                                <option value="warning">Elevated Priority</option>
-                                <option value="danger">High Priority</option>
-                            </select>
+
+
+
+
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Target Year</label>
+                                    <select name="taskYear" class="form-control futureYears"
+                                        onChange="setDayMax('task')">
+                                        <option value="default">Select task year</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Target Payment Month</label>
+                                    <select name="taskMonth" class="form-control monthsNum"
+                                        onChange="setDayMax('task')">
+                                        <option value="default">Select task month</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Target Payment Day</label>
+                                    <select name="taskDay" class="form-control daysNum"
+                                        onChange="Validate(['taskYear', 'taskMonth', 'taskDay'])">
+                                        <option value="default">Select task day</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Priority level</label>
+                                    <select name="updateDefinition" class="form-control">
+                                        <option value="info">Standard Priority</option>
+                                        <option value="warning">Elevated Priority</option>
+                                        <option value="danger">High Priority</option>
+                                    </select>
+                                </div>
+                            </div>
+
                         </li>
 
                         <li>
@@ -171,8 +204,11 @@
         </div>
     </footer>
 </body>
-
+<script src="js/validate.js"></script>
 <script src="config/profile.js"></script>
+
 <script src="js/sharedFunctionality.js"></script>
+<script src="js/dateSelector.js"></script>
+<script src="js/lengthOfTime.js"></script>
 <script src="js/footer.js"></script>
 <script src="js/functionality.js"></script>
