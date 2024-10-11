@@ -31,10 +31,16 @@ const buildList = (data) => {
         if (data[i].finished) {
             colorCode = "success";
         }
-
+        let urgencyColor = "info";
+        if (LenghtOfTime(data[i].details.substring(data[i].details.indexOf(":") + 1)) < 2) {
+            urgencyColor = "warning";
+        }
+        if (LenghtOfTime(data[i].details.substring(data[i].details.indexOf(":") + 1)) < 0) {
+            urgencyColor = "danger";
+        }
 
         groceryListHTML = groceryListHTML + "<li onClick='editList(" + i + ")' class='d-flex list-group-item pointer list-group-item-" + colorCode
-            + "' data-finished='" + data[i].finished + "'  data-num='" + i + "' data-name='" + data[i].task + "' ><div class='p-2 flex-grow-1'>" + data[i].task + "</div> <div class='p-2'><span class='badge bg bg-" + data[i].details.substring(0, data[i].details.indexOf(":"))
+            + "' data-finished='" + data[i].finished + "'  data-num='" + i + "' data-name='" + data[i].task + "' ><div class='p-2 flex-grow-1'>" + data[i].task + "</div> <div class='p-2'><span class='badge bg bg-" + urgencyColor + "'>" + LenghtOfTime(data[i].details.substring(data[i].details.indexOf(":") + 1)) + " Days until time is up.</span><span class='badge bg bg-" + data[i].details.substring(0, data[i].details.indexOf(":"))
             + "'>" + data[i].details.substring(data[i].details.indexOf(":") + 1) + "</span></div> <div class='p-2'><i onClick='deleteTask(" + i + ")' class='pointer fas fa-trash'></i></div></li>"
     }
     document.getElementById("groceryListTarget").innerHTML = groceryListHTML;
@@ -183,11 +189,19 @@ function deleteTask(num) {
 }
 
 function updateCustom() {
-    if (document.querySelector("input[name='updateWord']").value === "") {
-        document.querySelector("input[name='updateWord']").classList.add("error");
-        globalAlert("alert-warning", "Write in a task.");
-        return false;
-    }
+    /* if (document.querySelector("input[name='updateWord']").value === "") {
+         document.querySelector("input[name='updateWord']").classList.add("error");
+         globalAlert("alert-warning", "Write in a task.");
+         return false;
+     }*/
+    Validate(["updateWord", "taskYear", "taskMonth", "taskDay"]);
+
+    let taskGoalYears = document.querySelector("[name='taskYear']").value;
+    let taskGoalMonths = document.querySelector("[name='taskMonth']").value;
+    let taskGoalDays = document.querySelector("[name='taskDay']").value;
+
+    let targetDate = taskGoalMonths + "/" + taskGoalDays + "/" + taskGoalYears
+
     document.querySelector("input[name='updateWord']").classList.remove("error");
     // document.querySelector("[name='updateDefinition']").classList.remove("error");
     let whichIndex = document.getElementById("localList").value;
@@ -205,7 +219,7 @@ function updateCustom() {
         if (document.querySelector("input[name='updateWord']").value && document.querySelector("[name='updateDefinition']").value) {
             let newWord = document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart();
             if (tempWordList.indexOf(newWord) === -1) {
-                customDictionary = [...customDictionary, { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + TodayFormatStamp(), finished: false }];
+                customDictionary = [...customDictionary, { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false }];
                 globalAlert("alert-success", newWord + " added.");
                 newWord = "";
                 document.querySelector("[name='updateDefinition']").value = "";
@@ -230,7 +244,7 @@ function updateCustom() {
 
             for (let i = 0; i < customDictionary.length; i++) {
                 if (i === Number(whichIndex)) {
-                    customDictionary[i] = { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + TodayFormatStamp(), finished: document.querySelector("[data-finished]").getAttribute("data-finished") };
+                    customDictionary[i] = { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: document.querySelector("[data-finished]").getAttribute("data-finished") };
                 }
             }
             globalAlert("alert-success", editWord + " edited.");
