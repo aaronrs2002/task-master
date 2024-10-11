@@ -28,7 +28,7 @@ const profile = [{
         { link: "https://aaronrs2002.github.io/word-game/?" + gaParam + "&", name: "WordFun" }],
     content: [{
         title: "TASK-MASTER",
-        text: "<div class='col-md-12'><p>GET IT DONE:</p></div>",
+        text: "This application runs off local storage in your browser. Remember to \"download\" your \"todo list\" data before you clear your browser cache.",
     },
     {
         title: "about",
@@ -74,6 +74,9 @@ const profile = [{
 [].forEach.call(document.querySelectorAll(".companyEmail"), (e) => {
     e.innerHTML = profile[0].companyEmail;
 });
+[].forEach.call(document.querySelectorAll(".companyStorageInfo"), (e) => {
+    e.innerHTML = profile[0].content[0].text;
+})
 
 /*
                 <div class='col-md-12'><ul class='list-unstyled' id='groceryListTarget'></ul></div>
