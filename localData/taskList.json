@@ -1,17 +1,22 @@
 [
   {
-    "task": "haircut",
-    "details": "info:10/10/2024",
+    "task": "fix faucet-edited",
+    "details": "danger:11/06/2024",
     "finished": false
   },
   {
-    "task": "update code",
-    "details": "warning:10/10/2024",
+    "task": "workout-edited",
+    "details": "info:12/25/2024",
     "finished": true
   },
   {
-    "task": "lunch",
-    "details": "info:10/10/2024",
-    "finished": false
+    "task": "abitO-honey",
+    "details": "info:09/02/2024",
+    "finished": true
+  },
+  {
+    "task": "business",
+    "details": "danger:02/06/2025",
+    "finished": true
   }
 ]
