@@ -316,24 +316,38 @@ function handleOnChange(event) {
         file = event.target.files[0];
         console.log("event.target.files[0]: " + event.target.files[0]);
         document.querySelector("#fileUpload").classList.remove("hide");
-        globalAlert("alert-warning", `File selected. Now, Click the RED <i class="fas fa-file-upload"></i> "Upload" button.`);
+        document.querySelector("#fileMerge").classList.remove("hide");
+
+        globalAlert("alert-warning", `File selected. Now, Select between \"updoading new data\", or merging with your current data.`);
     } else {
         document.querySelector("#fileUpload").classList.add("hide");
+        document.querySelector("#fileMerge").classList.add("hide");
     }
 };
-function handleOnSubmit(event, type) {
+function handleOnSubmit(event, type, merge) {
     event.preventDefault();
-    localStorage.setItem("customDictionary", "");
+    if (merge === "default") {
+        localStorage.setItem("customDictionary", "");
+    }
+
     if (file) {
         fileReader.onload = function (event) {
             const tempObj = event.target.result;
             if (type === "json") {
-                localStorage.setItem("customDictionary", tempObj);
+
                 //loadList(tempObj);
 
-                buildList(JSON.parse(tempObj));
+                if (merge === "default") {
+                    buildList(JSON.parse(tempObj));
+                    loadList(JSON.parse(tempObj));
+                    localStorage.setItem("customDictionary", tempObj);
+                } else {
+                    let tempTasks = [...JSON.parse(localStorage.getItem("customDictionary")), ...JSON.parse(tempObj)];
+                    buildList(tempTasks);
+                    loadList(tempTasks);
+                    localStorage.setItem("customDictionary", JSON.stringify(tempTasks));
+                }
 
-                loadList(JSON.parse(tempObj));
             }
             else {
                 console.log("That wasn't json.")
@@ -343,6 +357,7 @@ function handleOnSubmit(event, type) {
     }
     document.querySelector("input[type='file']").value = "";
     document.querySelector("#fileUpload").classList.add("hide");
+    document.querySelector("#fileMerge").classList.add("hide");
     toggleEdit();
     globalAlert("alert-success", "Your file was uploaded. The next word should be one you uploaded.");
 };
