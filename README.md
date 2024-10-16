@@ -1,5 +1,5 @@
 # grocery-getter
-to-do list with claendar, search filter, coloore coded priority levels with task countdown timer.
+to-do list with calendar, search filter, color coded priority levels and task countdown timer.
 
 #live:
 
