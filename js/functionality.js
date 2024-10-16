@@ -1,6 +1,6 @@
 
 
-let customDictionary = [];
+let taskList = [];
 let CRUD = "add";
 let editModule = false;
 
@@ -21,8 +21,19 @@ if (localStorage.getItem("toGetList")) {
 }
 
 
+
 const buildList = (data) => {
-    customDictionary = data;
+    taskList = data;
+    let tempData = [];
+    for (let i = 0; i < taskList.length; i++) {
+        let endStamp = taskList[i].details.substring(taskList[i].details.indexOf(":") + 7, taskList[i].details.indexOf(":") + 11) + "-" +
+            taskList[i].details.substring(taskList[i].details.indexOf(":") + 1, taskList[i].details.indexOf(":") + 3) + "-" +
+            taskList[i].details.substring(taskList[i].details.indexOf(":") + 4, taskList[i].details.indexOf(":") + 6);
+
+        tempData.push({ title: taskList[i].title, start: timeStamp(), end: endStamp });
+
+    }
+    renderCalendar(tempData);
 
     let groceryListHTML = "";
 
@@ -67,15 +78,15 @@ const filterList = () => {
 
 
 const editList = (num) => {
-    for (let i = 0; i < customDictionary.length; i++) {
+    for (let i = 0; i < taskList.length; i++) {
         if (i === parseInt(num)) {
-            if (customDictionary[i].finished === false) {
-                customDictionary[i].finished = true;
+            if (taskList[i].finished === false) {
+                taskList[i].finished = true;
                 document.querySelector("[data-num='" + i + "']").setAttribute("data-finished", true);
                 document.querySelector("[data-num='" + num + "']").classList.add("list-group-item-success");
                 document.querySelector("[data-num='" + num + "']").classList.remove("list-group-item-danger");
             } else {
-                customDictionary[i].finished = false;
+                taskList[i].finished = false;
                 document.querySelector("[data-num='" + i + "']").setAttribute("data-finished", false);
                 document.querySelector("[data-num='" + num + "']").classList.remove("list-group-item-success");
                 document.querySelector("[data-num='" + num + "']").classList.add("list-group-item-danger");
@@ -85,15 +96,15 @@ const editList = (num) => {
 
     }
 
-    localStorage.setItem("customDictionary", JSON.stringify(customDictionary));
-    buildList(customDictionary);
-    loadList(customDictionary);
+    localStorage.setItem("taskList", JSON.stringify(taskList));
+    buildList(taskList);
+    loadList(taskList);
 
 }
 
 
 
-///START CUSTOM DICTIONARY OPTIONS
+///START CUSTOM TASK LIST OPTIONS
 
 
 function toggleEdit(hideShow) {
@@ -122,11 +133,11 @@ function loadList(data) {
     let customListHTML = "<option>Select Word</option>";
     document.getElementById("localList").innerHTML = "";
     let listCk = [];
-    let tempCustomDictionary = data;
+    let temptaskList = data;
 
     /*
         try {
-            tempCustomDictionary = JSON.parse(tempCustomDictionary);
+            temptaskList = JSON.parse(temptaskList);
         } catch (error) {
             console.error(error);
             globalAlert("alert-danger", "That data looks strange. Are your sure that is one of ours? Clear your local storage or cache.");
@@ -135,10 +146,10 @@ function loadList(data) {
     */
 
 
-    for (let i = 0; i < tempCustomDictionary.length; i++) {
-        if (listCk.indexOf(tempCustomDictionary[i]) === -1) {
-            customListHTML = customListHTML + "<option value='" + i + "'>" + tempCustomDictionary[i].task + "</option>";
-            listCk.push(tempCustomDictionary[i]);
+    for (let i = 0; i < temptaskList.length; i++) {
+        if (listCk.indexOf(temptaskList[i]) === -1) {
+            customListHTML = customListHTML + "<option value='" + i + "'>" + temptaskList[i].task + "</option>";
+            listCk.push(temptaskList[i]);
         }
     }
 
@@ -172,17 +183,17 @@ function updateCRUD(update) {
 
 
 function deleteTask(num) {
-    let deletedTask = customDictionary[num].task;
+    let deletedTask = taskList[num].task;
     let tempList = [];
-    for (let i = 0; i < customDictionary.length; i++) {
+    for (let i = 0; i < taskList.length; i++) {
         if (i !== Number(num)) {
-            tempList.push(customDictionary[i]);
+            tempList.push(taskList[i]);
         }
     }
-    customDictionary = tempList;
-    localStorage.setItem("customDictionary", JSON.stringify(customDictionary));
-    buildList(customDictionary);
-    loadList(customDictionary);
+    taskList = tempList;
+    localStorage.setItem("taskList", JSON.stringify(taskList));
+    buildList(taskList);
+    loadList(taskList);
     document.querySelector("input[name='updateWord']").value = ""
     document.querySelector("[name='updateDefinition']").selectedIndex = 0;
     globalAlert("alert-success", deletedTask + " deleted.");
@@ -200,14 +211,15 @@ function updateCustom() {
     let taskGoalMonths = document.querySelector("[name='taskMonth']").value;
     let taskGoalDays = document.querySelector("[name='taskDay']").value;
 
-    let targetDate = taskGoalMonths + "/" + taskGoalDays + "/" + taskGoalYears
+    let targetDate = taskGoalMonths + "/" + taskGoalDays + "/" + taskGoalYears;
+    let calendarTargetDate = taskGoalYears + "-" + taskGoalMonths + "-" + taskGoalDays;
 
     document.querySelector("input[name='updateWord']").classList.remove("error");
     // document.querySelector("[name='updateDefinition']").classList.remove("error");
     let whichIndex = document.getElementById("localList").value;
     update = CRUD;
-    if (localStorage.getItem("customDictionary")) {
-        customDictionary = JSON.parse(localStorage.getItem("customDictionary"));
+    if (localStorage.getItem("taskList")) {
+        taskList = JSON.parse(localStorage.getItem("taskList"));
     }
 
     if (update === "add") {
@@ -219,7 +231,7 @@ function updateCustom() {
         if (document.querySelector("input[name='updateWord']").value && document.querySelector("[name='updateDefinition']").value) {
             let newWord = document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart();
             if (tempWordList.indexOf(newWord) === -1) {
-                customDictionary = [...customDictionary, { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false }];
+                taskList = [...taskList, { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false }];
                 globalAlert("alert-success", newWord + " added.");
                 newWord = "";
                 document.querySelector("[name='updateDefinition']").value = "";
@@ -242,9 +254,9 @@ function updateCustom() {
         if (document.querySelector("input[name='updateWord']").value && document.querySelector("[name='updateDefinition']").value) {
             let editWord = document.querySelector("input[name='updateWord']").value.toLowerCase();
 
-            for (let i = 0; i < customDictionary.length; i++) {
+            for (let i = 0; i < taskList.length; i++) {
                 if (i === Number(whichIndex)) {
-                    customDictionary[i] = { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: document.querySelector("[data-finished]").getAttribute("data-finished") };
+                    taskList[i] = { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: document.querySelector("[data-finished]").getAttribute("data-finished") };
                 }
             }
             globalAlert("alert-success", editWord + " edited.");
@@ -261,12 +273,21 @@ function updateCustom() {
         deleteTask(whichIndex);
         return false;
     }
-    localStorage.setItem("customDictionary", JSON.stringify(customDictionary));
-    buildList(customDictionary);
-    loadList(customDictionary);
-    document.querySelector("input[name='updateWord']").value = ""
+    localStorage.setItem("taskList", JSON.stringify(taskList));
+
+
+    buildList(taskList);
+    loadList(taskList);
+    document.querySelector("input[name='updateWord']").value = "";
     document.querySelector("[name='updateDefinition']").selectedIndex = 0;
     //tempWordList.push(document.querySelector("input[name='updateWord']").value);
+
+    for (let i = 0; i < taskList.length; i++) {
+
+        calendarData.push({ title: taskList[i].task, start: timeStamp(), end: calendarTargetDate });
+
+    }
+    renderCalendar(calendarData);
 
 }
 
@@ -278,15 +299,15 @@ function selectWord() {
     if (whichIndex === "default") {
         return false;
     }
-    document.querySelector("input[name='updateWord']").value = customDictionary[whichIndex].task;
+    document.querySelector("input[name='updateWord']").value = taskList[whichIndex].task;
     let priorityMenu;
-    if (customDictionary[whichIndex].details.indexOf("info") !== -1) {
+    if (taskList[whichIndex].details.indexOf("info") !== -1) {
         priorityMenu = 0;
     }
-    if (customDictionary[whichIndex].details.indexOf("warning") !== -1) {
+    if (taskList[whichIndex].details.indexOf("warning") !== -1) {
         priorityMenu = 1;
     }
-    if (customDictionary[whichIndex].details.indexOf("danger") !== -1) {
+    if (taskList[whichIndex].details.indexOf("danger") !== -1) {
         priorityMenu = 2;
     }
     document.querySelector("[name='updateDefinition']").selectedIndex = priorityMenu;
@@ -294,8 +315,8 @@ function selectWord() {
 
 function downloadData() {
     let tempData = [];
-    if (localStorage.getItem("customDictionary")) {
-        tempData = JSON.parse(localStorage.getItem("customDictionary"));
+    if (localStorage.getItem("taskList")) {
+        tempData = JSON.parse(localStorage.getItem("taskList"));
     }
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(tempData, null, 2)], {
@@ -327,7 +348,7 @@ function handleOnChange(event) {
 function handleOnSubmit(event, type, merge) {
     event.preventDefault();
     if (merge === "default") {
-        localStorage.setItem("customDictionary", "");
+        localStorage.setItem("taskList", "");
     }
 
     if (file) {
@@ -340,12 +361,12 @@ function handleOnSubmit(event, type, merge) {
                 if (merge === "default") {
                     buildList(JSON.parse(tempObj));
                     loadList(JSON.parse(tempObj));
-                    localStorage.setItem("customDictionary", tempObj);
+                    localStorage.setItem("taskList", tempObj);
                 } else {
-                    let tempTasks = [...JSON.parse(localStorage.getItem("customDictionary")), ...JSON.parse(tempObj)];
+                    let tempTasks = [...JSON.parse(localStorage.getItem("taskList")), ...JSON.parse(tempObj)];
                     buildList(tempTasks);
                     loadList(tempTasks);
-                    localStorage.setItem("customDictionary", JSON.stringify(tempTasks));
+                    localStorage.setItem("taskList", JSON.stringify(tempTasks));
                 }
 
             }
@@ -363,7 +384,18 @@ function handleOnSubmit(event, type, merge) {
 };
 
 
-if (localStorage.getItem("customDictionary")) {
-    buildList(JSON.parse(localStorage.getItem("customDictionary")));
-    loadList(JSON.parse(localStorage.getItem("customDictionary")));
+if (localStorage.getItem("taskList")) {
+    buildList(JSON.parse(localStorage.getItem("taskList")));
+    loadList(JSON.parse(localStorage.getItem("taskList")));
+    let tempData = [];
+    let tempTasKList = JSON.parse(localStorage.getItem("taskList"));
+    for (let i = 0; i < tempTasKList.length; i++) {
+        let endStamp = tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 7, tempTasKList[i].details.indexOf(":") + 11) + "-" +
+            tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 1, tempTasKList[i].details.indexOf(":") + 3) + "-" +
+            tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 4, tempTasKList[i].details.indexOf(":") + 6);
+
+        tempData.push({ title: tempTasKList[i].task, start: timeStamp(), end: endStamp });
+
+    }
+    renderCalendar(tempData);
 }
