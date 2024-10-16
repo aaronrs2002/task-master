@@ -3,7 +3,7 @@
 
 <head>
     <meta charSet="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
 
 
     <meta name="keywords" content="grocery  list, to do list" />
@@ -11,7 +11,7 @@
 
 
 
-    <title>GROCERY GETTER</title>
+    <title>TaskMaster</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon" sizes="16x16" />
     <link href="https://bootswatch.com/5/spacelab/bootstrap.css" rel="stylesheet" id="themedStyle">
 
@@ -20,10 +20,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/solid.css" rel="stylesheet" />
     <link href="https://raw.githubusercontent.com/aaronrs2002/2024-jwt-login-framework/main/client/css/style.css"
         rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css" />
     <link href="css/style.css" rel="stylesheet" />
     <link href="css/animate.min.css" rel="stylesheet" />
 
-
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/locale/es/cdn.min.js"></script>
+    <script>
+        dateFns.formatRelative(dateFns.subDays(new Date(), 3), new Date(), {
+            locale: dateFns.locale.es,
+        });
+        //=> "el viernes pasado a las 19:26"
+    </script>
 
 </head>
 
@@ -45,7 +54,16 @@
     </header>-->
     <main>
         <div class="container pt-1">
+            <!--START CALENDAR-->
+
+            <div class="row" id="calendarWrapper">
+                <div id="datePickerCalendarTarget"></div>
+                <!--<TheCalendar padDates={props.calendarData} />-->
+            </div>
+
+            <!--END CALENDAR-->
             <div class="row">
+
                 <div class="col-md-12">
                     <h3 id="contentTitle"></h3>
 
@@ -206,6 +224,8 @@
         </div>
     </footer>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<script src="https://unpkg.com/js-datepicker"></script>
 <script src="js/validate.js"></script>
 <script src="config/profile.js"></script>
 
@@ -213,4 +233,5 @@
 <script src="js/dateSelector.js"></script>
 <script src="js/lengthOfTime.js"></script>
 <script src="js/footer.js"></script>
+<script src="js/calendar.js"></script>
 <script src="js/functionality.js"></script>
