@@ -176,6 +176,79 @@ h5 {
     z-index: 1031;
 }
 
+
+#datePickerCalendarTarget {
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    padding: 20px 10px;
+    margin-top: 20px;
+}
+
+
+
+/*END CHART CSS*/
+
+
+/*START CALENDAR*/
+
+
+.qs-centered {
+    position: inherit;
+    top: 0%;
+    left: 0%;
+    -webkit-transform: translate(-0%, -0%);
+    -ms-transform: translate(-0%, -0%);
+    transform: translate(-0%, -0%);
+}
+
+.qs-datepicker-container {
+    min-height: 500px;
+    margin: .5rem;
+    font-family: "Raleway", sans-serif;
+    /*font-size: 1rem;
+    font-family: sans-serif;*/
+    color: #000;
+    position: inherit;
+    width: 100%;
+
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    z-index: 10;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid grey;
+    border-radius: .263921875em;
+    overflow: hidden;
+    background: #fff;
+    -webkit-box-shadow: 0 1.25em 1.25em -.9375em rgba(0, 0, 0, .3);
+    box-shadow: 0 1.25em 1.25em -.9375em rgba(0, 0, 0, .3);
+}
+
+.qs-square {
+    width: calc(100% / 7);
+    height: 4.5625em;
+}
+
+.qs-controls {
+    border-radius: 5px;
+    font-size: 2rem;
+    padding: 1rem;
+}
+
+.qs-datepicker-container button {
+    font-size: .75rem;
+}
+
+/*END CALENDAR*/
+
 /*START MOBILE CSS*/
 
 .desktopOnly {
