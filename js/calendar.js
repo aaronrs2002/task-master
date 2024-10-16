@@ -18,15 +18,19 @@ const renderCalendar = (data) => {
     }
     [].forEach.call(document.querySelectorAll("[data-direction='0']"), (e) => {
         let fistTxt = e.innerHTML;
+        console.log("fistTxt: " + fistTxt);
         if (fistTxt.length === 1) {
             fistTxt = "0" + fistTxt;
         }
         e.dataset.daynum = whichMonth + "-" + fistTxt;
     });
+
     for (let i = 0; i < data.length; i++) {
         let tempStart = data[i].start;
         let tempEnd = data[i].end;
+
         [].forEach.call(document.querySelectorAll("[data-daynum]"), (e) => {
+            let dayNames = [];
             let sqDay = e.dataset.daynum.replaceAll("-", "");
             sqDay = parseInt(sqDay);
             let tempStartDyNum = tempStart.replaceAll("-", "");
@@ -34,11 +38,12 @@ const renderCalendar = (data) => {
             let tempEndDyNum = tempEnd.replaceAll("-", "");
             tempEndDyNum = parseInt(tempEndDyNum);
             if (Number(sqDay) >= tempStartDyNum && Number(sqDay) <= tempEndDyNum) {
-                let customerName = data[i].title;
-                if (customerName) {
-                    e.innerHTML = e.innerHTML + "<span class='badge rounded-pill bg-dark' title='" + customerName + "'>  " + customerName + "</span>";
-                }
+                let customName = data[i].title;
 
+                if (customName && dayNames.indexOf(customName) === -1) {
+                    e.innerHTML = e.innerHTML + "<span class='badge rounded-pill bg-dark' title='" + customName + "'>  " + customName + "</span>";
+                }
+                dayNames.push(customName);
             }
         });
 

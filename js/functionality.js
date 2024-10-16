@@ -100,6 +100,18 @@ const editList = (num) => {
     buildList(taskList);
     loadList(taskList);
 
+    let tempData = [];
+    for (let i = 0; i < taskList.length; i++) {
+        let endStamp = taskList[i].details.substring(taskList[i].details.indexOf(":") + 7, taskList[i].details.indexOf(":") + 11) + "-" +
+            taskList[i].details.substring(taskList[i].details.indexOf(":") + 1, taskList[i].details.indexOf(":") + 3) + "-" +
+            taskList[i].details.substring(taskList[i].details.indexOf(":") + 4, taskList[i].details.indexOf(":") + 6);
+
+        tempData.push({ title: taskList[i].title, start: timeStamp(), end: endStamp });
+
+    }
+    renderCalendar(tempData);
+
+
 }
 
 
@@ -194,9 +206,24 @@ function deleteTask(num) {
     localStorage.setItem("taskList", JSON.stringify(taskList));
     buildList(taskList);
     loadList(taskList);
+
+    let tempData = [];
+    for (let i = 0; i < taskList.length; i++) {
+        let endStamp = taskList[i].details.substring(taskList[i].details.indexOf(":") + 7, taskList[i].details.indexOf(":") + 11) + "-" +
+            taskList[i].details.substring(taskList[i].details.indexOf(":") + 1, taskList[i].details.indexOf(":") + 3) + "-" +
+            taskList[i].details.substring(taskList[i].details.indexOf(":") + 4, taskList[i].details.indexOf(":") + 6);
+
+        tempData.push({ title: taskList[i].title, start: timeStamp(), end: endStamp });
+
+    }
+    renderCalendar(tempData);
+
+
     document.querySelector("input[name='updateWord']").value = ""
     document.querySelector("[name='updateDefinition']").selectedIndex = 0;
     globalAlert("alert-success", deletedTask + " deleted.");
+
+
 }
 
 function updateCustom() {
@@ -271,6 +298,8 @@ function updateCustom() {
     }
     if (update === "delete") {
         deleteTask(whichIndex);
+
+
         return false;
     }
     localStorage.setItem("taskList", JSON.stringify(taskList));
