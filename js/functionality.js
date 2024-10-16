@@ -258,7 +258,7 @@ function updateCustom() {
         if (document.querySelector("input[name='updateWord']").value && document.querySelector("[name='updateDefinition']").value) {
             let newWord = document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart();
             if (tempWordList.indexOf(newWord) === -1) {
-                taskList = [...taskList, { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false }];
+                taskList = [...taskList, { task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(), details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false }];
                 globalAlert("alert-success", newWord + " added.");
                 newWord = "";
                 document.querySelector("[name='updateDefinition']").value = "";
@@ -283,7 +283,7 @@ function updateCustom() {
 
             for (let i = 0; i < taskList.length; i++) {
                 if (i === Number(whichIndex)) {
-                    taskList[i] = { task: document.querySelector("input[name='updateWord']").value, details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: document.querySelector("[data-finished]").getAttribute("data-finished") };
+                    taskList[i] = { task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(), details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: document.querySelector("[data-finished]").getAttribute("data-finished") };
                 }
             }
             globalAlert("alert-success", editWord + " edited.");

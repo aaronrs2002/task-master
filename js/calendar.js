@@ -18,7 +18,7 @@ const renderCalendar = (data) => {
     }
     [].forEach.call(document.querySelectorAll("[data-direction='0']"), (e) => {
         let fistTxt = e.innerHTML;
-        console.log("fistTxt: " + fistTxt);
+
         if (fistTxt.length === 1) {
             fistTxt = "0" + fistTxt;
         }
