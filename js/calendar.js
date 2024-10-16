@@ -36,7 +36,7 @@ const renderCalendar = (data) => {
             if (Number(sqDay) >= tempStartDyNum && Number(sqDay) <= tempEndDyNum) {
                 let customerName = data[i].title;
                 if (customerName) {
-                    e.innerHTML = e.innerHTML + "<span class='badge rounded-pill bg-dark'>  " + customerName + "</span>";
+                    e.innerHTML = e.innerHTML + "<span class='badge rounded-pill bg-dark' title='" + customerName + "'>  " + customerName + "</span>";
                 }
 
             }
