@@ -259,11 +259,13 @@ function handleOnSubmit(event, type, merge) {
                     buildList(JSON.parse(tempObj));
                     loadList(JSON.parse(tempObj));
                     localStorage.setItem("taskList", tempObj);
+                    convertForCalendar("merge")
                 } else {
                     let tempTasks = [...JSON.parse(localStorage.getItem("taskList")), ...JSON.parse(tempObj)];
                     buildList(tempTasks);
                     loadList(tempTasks);
                     localStorage.setItem("taskList", JSON.stringify(tempTasks));
+                    convertForCalendar("upload")
                 }
             }
             else {
@@ -277,5 +279,7 @@ function handleOnSubmit(event, type, merge) {
     document.querySelector("#fileMerge").classList.add("hide");
     toggleEdit();
     globalAlert("alert-success", "Your file was uploaded. The next word should be one you uploaded.");
+
+
 };
 convertForCalendar("onLoad");
