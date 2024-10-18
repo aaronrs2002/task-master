@@ -1,25 +1,16 @@
-
-
 let CRUD = "add";
 let editModule = false;
-
-
-
 let toGetList = [];
 if (localStorage.getItem("toGetList")) {
-
     let tempArr = [];
     let storageList = localStorage.getItem("toGetList");
     for (let i = 0; i < storageList.length; i++) {
         if (storageList[i] !== ",") {
             tempArr = [...tempArr, parseInt(storageList[i])]
         }
-
     }
     toGetList = tempArr;
 }
-
-
 
 const buildList = (data) => {
     taskList = data;
@@ -28,15 +19,9 @@ const buildList = (data) => {
         let endStamp = taskList[i].details.substring(taskList[i].details.indexOf(":") + 7, taskList[i].details.indexOf(":") + 11) + "-" +
             taskList[i].details.substring(taskList[i].details.indexOf(":") + 1, taskList[i].details.indexOf(":") + 3) + "-" +
             taskList[i].details.substring(taskList[i].details.indexOf(":") + 4, taskList[i].details.indexOf(":") + 6);
-
         tempData.push({ title: taskList[i].title, start: timeStamp(), end: endStamp });
-
     }
-
-
-
     let groceryListHTML = "";
-
     for (let i = 0; i < data.length; i++) {
         let colorCode = "danger";
         if (data[i].finished) {
@@ -49,24 +34,16 @@ const buildList = (data) => {
         if (LenghtOfTime(data[i].details.substring(data[i].details.indexOf(":") + 1)) < 0) {
             urgencyColor = "danger";
         }
-
         groceryListHTML = groceryListHTML + "<li onClick='editList(" + i + ")' class='d-flex list-group-item pointer list-group-item-" + colorCode
             + "' data-finished='" + data[i].finished + "'  data-num='" + i + "' data-name='" + data[i].task + "' ><div class='p-2 flex-grow-1'>" + data[i].task + "</div> <div class='p-2'><span class='badge bg bg-" + urgencyColor + "'>" + LenghtOfTime(data[i].details.substring(data[i].details.indexOf(":") + 1)) + " Days until time is up.</span><span class='badge bg bg-" + data[i].details.substring(0, data[i].details.indexOf(":"))
             + "'>" + data[i].details.substring(data[i].details.indexOf(":") + 1) + "</span></div> <div class='p-2'><i onClick='deleteTask(" + i + ")' class='pointer fas fa-trash'></i></div></li>"
     }
     document.getElementById("groceryListTarget").innerHTML = groceryListHTML;
-
 }
-
-
-
 
 const filterList = () => {
     let searchFor = document.querySelector("[name='filter']").value.toLowerCase();
-
     [].forEach.call(document.querySelectorAll("[data-name]"), (e) => {
-
-        // console.log("e.dataset.name: " + e.dataset.name);
         if (e.dataset.name.toLowerCase().indexOf(searchFor) === -1) {
             e.classList.add("hide");
         } else {
@@ -76,11 +53,9 @@ const filterList = () => {
 
 }
 
-
 const editList = (num) => {
     for (let i = 0; i < taskList.length; i++) {
         if (i === parseInt(num)) {
-            //   renderCalendar(taskList[i], "editList");
             if (taskList[i].finished === false) {
                 taskList[i].finished = true;
                 document.querySelector("[data-num='" + i + "']").setAttribute("data-finished", true);
@@ -93,38 +68,17 @@ const editList = (num) => {
                 document.querySelector("[data-num='" + num + "']").classList.add("list-group-item-danger");
             }
         }
-
-
     }
-
     localStorage.setItem("taskList", JSON.stringify(taskList));
     buildList(taskList);
     loadList(taskList);
-
-    /* let tempData = [];
-     for (let i = 0; i < taskList.length; i++) {
-         let endStamp = taskList[i].details.substring(taskList[i].details.indexOf(":") + 7, taskList[i].details.indexOf(":") + 11) + "-" +
-             taskList[i].details.substring(taskList[i].details.indexOf(":") + 1, taskList[i].details.indexOf(":") + 3) + "-" +
-             taskList[i].details.substring(taskList[i].details.indexOf(":") + 4, taskList[i].details.indexOf(":") + 6);
- 
-         tempData.push({ title: taskList[i].title, start: timeStamp(), end: endStamp });
- 
-     }
-     renderCalendar(tempData);*/
-
-
 }
 
-
-
 ///START CUSTOM TASK LIST OPTIONS
-
-
 function toggleEdit(hideShow) {
     if (hideShow === "hide") {
         editModule = false;
         document.getElementById("buildingCustom").classList.add("hide");
-        // document.querySelector("i[data-sound]").dataset.sound = false;
         document.querySelector("button[data-editpanel='hide']").classList.add("hide");
         document.querySelector("button[data-editpanel='show']").classList.remove("hide");
     } else {
@@ -132,32 +86,14 @@ function toggleEdit(hideShow) {
         document.querySelector("button[data-editpanel='hide']").classList.remove("hide");
         document.querySelector("button[data-editpanel='show']").classList.add("hide");
         document.getElementById("buildingCustom").classList.remove("hide");
-        // document.querySelector("i[data-sound]").dataset.sound = true;
     }
-
 }
 
 function loadList(data) {
-    /*  if ((typeof data) === "string") {
-          data = data.split(",");
-      }*/
-
-
     let customListHTML = "<option>Select Word</option>";
     document.getElementById("localList").innerHTML = "";
     let listCk = [];
     let temptaskList = data;
-
-    /*
-        try {
-            temptaskList = JSON.parse(temptaskList);
-        } catch (error) {
-            console.error(error);
-            globalAlert("alert-danger", "That data looks strange. Are your sure that is one of ours? Clear your local storage or cache.");
-            return false;
-        }
-    */
-
 
     for (let i = 0; i < temptaskList.length; i++) {
         if (listCk.indexOf(temptaskList[i]) === -1) {
@@ -165,17 +101,12 @@ function loadList(data) {
             listCk.push(temptaskList[i]);
         }
     }
-
     document.getElementById("localList").innerHTML = customListHTML;
     if (listCk.length === 0) {
         globalAlert("alert-danger", "There are no words loaded. Are you sure your data is good?");
         return false;
     }
-
-
 }
-
-
 
 function updateCRUD(update) {
     document.getElementById("updateBt").innerHTML = "Submit: " + update + " item.";
@@ -207,52 +138,17 @@ function deleteTask(num) {
     localStorage.setItem("taskList", JSON.stringify(taskList));
     buildList(taskList);
     loadList(taskList);
-
-    let tempData = [];
-    for (let i = 0; i < taskList.length; i++) {
-        let endStamp = taskList[i].details.substring(taskList[i].details.indexOf(":") + 7, taskList[i].details.indexOf(":") + 11) + "-" +
-            taskList[i].details.substring(taskList[i].details.indexOf(":") + 1, taskList[i].details.indexOf(":") + 3) + "-" +
-            taskList[i].details.substring(taskList[i].details.indexOf(":") + 4, taskList[i].details.indexOf(":") + 6);
-
-        tempData.push({ title: taskList[i].task, start: timeStamp(), end: endStamp });
-
-    }
-    [].forEach.call(document.querySelectorAll("[data-daynum]"), (e) => {
-
-        let dayVal = e.getAttribute("data-daynum");
-        e.innerHTML = dayVal.substring(8, 10);
-    });
-
-    // renderCalendar(tempData, "delete");
-
-
-    document.querySelector("input[name='updateWord']").value = ""
-    document.querySelector("[name='updateDefinition']").selectedIndex = 0;
-    globalAlert("alert-success", deletedTask + " deleted.");
-    return false;
-
+    getItDone("delete");
 }
 
 function updateCustom() {
-    /* if (document.querySelector("input[name='updateWord']").value === "") {
-         document.querySelector("input[name='updateWord']").classList.add("error");
-         globalAlert("alert-warning", "Write in a task.");
-         return false;
-     }*/
     Validate(["updateWord", "taskYear", "taskMonth", "taskDay"]);
-
-
-
-
     let taskGoalYears = document.querySelector("[name='taskYear']").value;
     let taskGoalMonths = document.querySelector("[name='taskMonth']").value;
     let taskGoalDays = document.querySelector("[name='taskDay']").value;
-
     let targetDate = taskGoalMonths + "/" + taskGoalDays + "/" + taskGoalYears;
     let calendarTargetDate = taskGoalYears + "-" + taskGoalMonths + "-" + taskGoalDays;
-
     document.querySelector("input[name='updateWord']").classList.remove("error");
-    // document.querySelector("[name='updateDefinition']").classList.remove("error");
     let whichIndex = document.getElementById("localList").value;
     update = CRUD;
     if (localStorage.getItem("taskList")) {
@@ -262,16 +158,13 @@ function updateCustom() {
     if (update === "add") {
         let tempWordList = [];
         document.getElementById("localList").classList.add("hide");
-
-
-
         if (document.querySelector("input[name='updateWord']").value && document.querySelector("[name='updateDefinition']").value) {
             let newWord = document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart();
             if (tempWordList.indexOf(newWord) === -1) {
-                taskList = [...taskList, { task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(), details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false }];
-
-                // renderCalendar(...taskList, { task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(), details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false }, "add");
-
+                taskList = [...taskList, {
+                    task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(),
+                    details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false
+                }];
                 globalAlert("alert-success", newWord + " added.");
                 newWord = "";
                 document.querySelector("[name='updateDefinition']").value = "";
@@ -279,8 +172,6 @@ function updateCustom() {
                 globalAlert("alert-danger", "This list already contains " + newWord + ".");
                 return false;
             }
-
-
         } else {
             document.querySelector("input[name='updateWord']").classList.add("error");
             document.querySelector("[name='updateDefinition']").classList.add("error");
@@ -290,15 +181,14 @@ function updateCustom() {
     }
 
     if (update === "edit") {
-
         if (document.querySelector("input[name='updateWord']").value && document.querySelector("[name='updateDefinition']").value) {
             let editWord = document.querySelector("input[name='updateWord']").value.toLowerCase();
-
             for (let i = 0; i < taskList.length; i++) {
                 if (i === Number(whichIndex)) {
-                    taskList[i] = { task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(), details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: document.querySelector("[data-finished]").getAttribute("data-finished") };
-
-
+                    taskList[i] = {
+                        task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(),
+                        details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: document.querySelector("[data-finished]").getAttribute("data-finished")
+                    };
                 }
             }
             globalAlert("alert-success", editWord + " edited.");
@@ -308,56 +198,22 @@ function updateCustom() {
             globalAlert("alert-danger", "We are missing something.");
             return false;
         }
-
-
     }
     if (update === "delete") {
         deleteTask(whichIndex);
-
-
         return false;
     }
     localStorage.setItem("taskList", JSON.stringify(taskList));
-
-
     buildList(taskList);
     loadList(taskList);
     document.querySelector("input[name='updateWord']").value = "";
     document.querySelector("[name='updateDefinition']").selectedIndex = 0;
-    //tempWordList.push(document.querySelector("input[name='updateWord']").value);
-
     for (let i = 0; i < taskList.length; i++) {
-
         calendarData.push({ title: taskList[i].task, start: timeStamp(), end: calendarTargetDate });
-
     }
 
-    //  renderCalendar(calendarData);
-    getItDone();
+    getItDone("update");
     return false;
-
-}
-
-
-
-
-function selectWord() {
-    let whichIndex = document.getElementById("localList").value;
-    if (whichIndex === "default") {
-        return false;
-    }
-    document.querySelector("input[name='updateWord']").value = taskList[whichIndex].task;
-    let priorityMenu;
-    if (taskList[whichIndex].details.indexOf("info") !== -1) {
-        priorityMenu = 0;
-    }
-    if (taskList[whichIndex].details.indexOf("warning") !== -1) {
-        priorityMenu = 1;
-    }
-    if (taskList[whichIndex].details.indexOf("danger") !== -1) {
-        priorityMenu = 2;
-    }
-    document.querySelector("[name='updateDefinition']").selectedIndex = priorityMenu;
 }
 
 function downloadData() {
@@ -374,8 +230,6 @@ function downloadData() {
     a.click();
     document.body.removeChild(a);
 }
-
-
 //START FILE READER
 const fileReader = new FileReader();
 let file;
@@ -385,7 +239,6 @@ function handleOnChange(event) {
         console.log("event.target.files[0]: " + event.target.files[0]);
         document.querySelector("#fileUpload").classList.remove("hide");
         document.querySelector("#fileMerge").classList.remove("hide");
-
         globalAlert("alert-warning", `File selected. Now, Select between \"updoading new data\", or merging with your current data.`);
     } else {
         document.querySelector("#fileUpload").classList.add("hide");
@@ -397,14 +250,10 @@ function handleOnSubmit(event, type, merge) {
     if (merge === "default") {
         localStorage.setItem("taskList", "");
     }
-
     if (file) {
         fileReader.onload = function (event) {
             const tempObj = event.target.result;
             if (type === "json") {
-
-                //loadList(tempObj);
-
                 if (merge === "default") {
                     buildList(JSON.parse(tempObj));
                     loadList(JSON.parse(tempObj));
@@ -415,7 +264,6 @@ function handleOnSubmit(event, type, merge) {
                     loadList(tempTasks);
                     localStorage.setItem("taskList", JSON.stringify(tempTasks));
                 }
-
             }
             else {
                 console.log("That wasn't json.")
@@ -429,37 +277,4 @@ function handleOnSubmit(event, type, merge) {
     toggleEdit();
     globalAlert("alert-success", "Your file was uploaded. The next word should be one you uploaded.");
 };
-
-
-function getItDone() {
-
-
-    if (localStorage.getItem("taskList")) {
-
-
-        buildList(JSON.parse(localStorage.getItem("taskList")));
-        loadList(JSON.parse(localStorage.getItem("taskList")));
-        let tempData = [];
-        let tempTasKList = JSON.parse(localStorage.getItem("taskList"));
-        for (let i = 0; i < tempTasKList.length; i++) {
-            let endStamp = tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 7, tempTasKList[i].details.indexOf(":") + 11) + "-" +
-                tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 1, tempTasKList[i].details.indexOf(":") + 3) + "-" +
-                tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 4, tempTasKList[i].details.indexOf(":") + 6);
-
-            tempData.push({ title: tempTasKList[i].task, start: timeStamp(), end: endStamp });
-
-        }
-
-        [].forEach.call(document.querySelectorAll("[data-daynum]"), (e) => {
-            //e.innerHTML = "";
-
-            e.innerHTML = '';
-
-        });
-
-        renderCalendar(tempData, "onLoad");
-
-    }
-
-}
-getItDone();
+getItDone("onLoad");
