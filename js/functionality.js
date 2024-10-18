@@ -1,6 +1,5 @@
 
 
-let taskList = [];
 let CRUD = "add";
 let editModule = false;
 
@@ -33,7 +32,8 @@ const buildList = (data) => {
         tempData.push({ title: taskList[i].title, start: timeStamp(), end: endStamp });
 
     }
-    renderCalendar(tempData);
+
+
 
     let groceryListHTML = "";
 
@@ -80,6 +80,7 @@ const filterList = () => {
 const editList = (num) => {
     for (let i = 0; i < taskList.length; i++) {
         if (i === parseInt(num)) {
+            //   renderCalendar(taskList[i], "editList");
             if (taskList[i].finished === false) {
                 taskList[i].finished = true;
                 document.querySelector("[data-num='" + i + "']").setAttribute("data-finished", true);
@@ -100,16 +101,16 @@ const editList = (num) => {
     buildList(taskList);
     loadList(taskList);
 
-    let tempData = [];
-    for (let i = 0; i < taskList.length; i++) {
-        let endStamp = taskList[i].details.substring(taskList[i].details.indexOf(":") + 7, taskList[i].details.indexOf(":") + 11) + "-" +
-            taskList[i].details.substring(taskList[i].details.indexOf(":") + 1, taskList[i].details.indexOf(":") + 3) + "-" +
-            taskList[i].details.substring(taskList[i].details.indexOf(":") + 4, taskList[i].details.indexOf(":") + 6);
-
-        tempData.push({ title: taskList[i].title, start: timeStamp(), end: endStamp });
-
-    }
-    renderCalendar(tempData);
+    /* let tempData = [];
+     for (let i = 0; i < taskList.length; i++) {
+         let endStamp = taskList[i].details.substring(taskList[i].details.indexOf(":") + 7, taskList[i].details.indexOf(":") + 11) + "-" +
+             taskList[i].details.substring(taskList[i].details.indexOf(":") + 1, taskList[i].details.indexOf(":") + 3) + "-" +
+             taskList[i].details.substring(taskList[i].details.indexOf(":") + 4, taskList[i].details.indexOf(":") + 6);
+ 
+         tempData.push({ title: taskList[i].title, start: timeStamp(), end: endStamp });
+ 
+     }
+     renderCalendar(tempData);*/
 
 
 }
@@ -213,16 +214,22 @@ function deleteTask(num) {
             taskList[i].details.substring(taskList[i].details.indexOf(":") + 1, taskList[i].details.indexOf(":") + 3) + "-" +
             taskList[i].details.substring(taskList[i].details.indexOf(":") + 4, taskList[i].details.indexOf(":") + 6);
 
-        tempData.push({ title: taskList[i].title, start: timeStamp(), end: endStamp });
+        tempData.push({ title: taskList[i].task, start: timeStamp(), end: endStamp });
 
     }
-    renderCalendar(tempData);
+    [].forEach.call(document.querySelectorAll("[data-daynum]"), (e) => {
+
+        let dayVal = e.getAttribute("data-daynum");
+        e.innerHTML = dayVal.substring(8, 10);
+    });
+
+    // renderCalendar(tempData, "delete");
 
 
     document.querySelector("input[name='updateWord']").value = ""
     document.querySelector("[name='updateDefinition']").selectedIndex = 0;
     globalAlert("alert-success", deletedTask + " deleted.");
-
+    return false;
 
 }
 
@@ -233,6 +240,9 @@ function updateCustom() {
          return false;
      }*/
     Validate(["updateWord", "taskYear", "taskMonth", "taskDay"]);
+
+
+
 
     let taskGoalYears = document.querySelector("[name='taskYear']").value;
     let taskGoalMonths = document.querySelector("[name='taskMonth']").value;
@@ -259,6 +269,9 @@ function updateCustom() {
             let newWord = document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart();
             if (tempWordList.indexOf(newWord) === -1) {
                 taskList = [...taskList, { task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(), details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false }];
+
+                // renderCalendar(...taskList, { task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(), details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false }, "add");
+
                 globalAlert("alert-success", newWord + " added.");
                 newWord = "";
                 document.querySelector("[name='updateDefinition']").value = "";
@@ -284,6 +297,8 @@ function updateCustom() {
             for (let i = 0; i < taskList.length; i++) {
                 if (i === Number(whichIndex)) {
                     taskList[i] = { task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(), details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: document.querySelector("[data-finished]").getAttribute("data-finished") };
+
+
                 }
             }
             globalAlert("alert-success", editWord + " edited.");
@@ -316,7 +331,10 @@ function updateCustom() {
         calendarData.push({ title: taskList[i].task, start: timeStamp(), end: calendarTargetDate });
 
     }
-    renderCalendar(calendarData);
+
+    //  renderCalendar(calendarData);
+    getItDone();
+    return false;
 
 }
 
@@ -413,18 +431,35 @@ function handleOnSubmit(event, type, merge) {
 };
 
 
-if (localStorage.getItem("taskList")) {
-    buildList(JSON.parse(localStorage.getItem("taskList")));
-    loadList(JSON.parse(localStorage.getItem("taskList")));
-    let tempData = [];
-    let tempTasKList = JSON.parse(localStorage.getItem("taskList"));
-    for (let i = 0; i < tempTasKList.length; i++) {
-        let endStamp = tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 7, tempTasKList[i].details.indexOf(":") + 11) + "-" +
-            tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 1, tempTasKList[i].details.indexOf(":") + 3) + "-" +
-            tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 4, tempTasKList[i].details.indexOf(":") + 6);
+function getItDone() {
 
-        tempData.push({ title: tempTasKList[i].task, start: timeStamp(), end: endStamp });
+
+    if (localStorage.getItem("taskList")) {
+
+
+        buildList(JSON.parse(localStorage.getItem("taskList")));
+        loadList(JSON.parse(localStorage.getItem("taskList")));
+        let tempData = [];
+        let tempTasKList = JSON.parse(localStorage.getItem("taskList"));
+        for (let i = 0; i < tempTasKList.length; i++) {
+            let endStamp = tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 7, tempTasKList[i].details.indexOf(":") + 11) + "-" +
+                tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 1, tempTasKList[i].details.indexOf(":") + 3) + "-" +
+                tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 4, tempTasKList[i].details.indexOf(":") + 6);
+
+            tempData.push({ title: tempTasKList[i].task, start: timeStamp(), end: endStamp });
+
+        }
+
+        [].forEach.call(document.querySelectorAll("[data-daynum]"), (e) => {
+            //e.innerHTML = "";
+
+            e.innerHTML = '';
+
+        });
+
+        renderCalendar(tempData, "onLoad");
 
     }
-    renderCalendar(tempData);
+
 }
+getItDone();
