@@ -51,7 +51,7 @@ const renderCalendar = (data, from) => {
                 console.log("calendarCellHTML: " + calendarCellHTML);
                 if (Number(sqDay) >= tempStartDyNum && Number(sqDay) <= tempEndDyNum && calendarCellHTML.indexOf(" title='" + data[i].title + "' ") === -1) {
                     let customName = data[i].title;
-                    calendarCellHTML = calendarCellHTML + "<span class='badge rounded-pill bg-dark' data-daynum='" + dayVal + "' title='" + customName + "'>  " + customName.substring(0, 2) + "</span>";
+                    calendarCellHTML = calendarCellHTML + "<span class='badge rounded-pill bg-" + data[i].colorCode + "' data-daynum='" + dayVal + "' title='" + customName + "'>  " + customName.substring(0, 2) + "</span>";
                 }
             }
         }
@@ -62,7 +62,7 @@ const renderCalendar = (data, from) => {
     return false;
 }
 
-function getItDone(from) {
+function convertForCalendar(from) {
     if (localStorage.getItem("taskList")) {
         if (from !== "calendar") {
             buildList(JSON.parse(localStorage.getItem("taskList")));
@@ -71,10 +71,18 @@ function getItDone(from) {
         let tempData = [];
         let tempTasKList = JSON.parse(localStorage.getItem("taskList"));
         for (let i = 0; i < tempTasKList.length; i++) {
+            let whichCode = "danger";
+            if (tempTasKList[i].details.indexOf("warning") !== -1) {
+                whichCode = "warning";
+            }
+            if (tempTasKList[i].details.indexOf("info") !== -1) {
+                whichCode = "info";
+            }
+
             let endStamp = tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 7, tempTasKList[i].details.indexOf(":") + 11) + "-" +
                 tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 1, tempTasKList[i].details.indexOf(":") + 3) + "-" +
                 tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 4, tempTasKList[i].details.indexOf(":") + 6);
-            tempData.push({ title: tempTasKList[i].task, start: timeStamp(), end: endStamp });
+            tempData.push({ title: tempTasKList[i].task, start: timeStamp(), end: endStamp, colorCode: whichCode });
         }
         [].forEach.call(document.querySelectorAll("[data-daynum]"), (e) => {
             e.innerHTML = '';
@@ -114,7 +122,7 @@ let picker = datepicker('#datePickerCalendarTarget', {
         }
         whichMonth = instance.currentYear + "-" + tempMonth;
         writeDayNums("calendar");
-        getItDone("calendar")
+        convertForCalendar("calendar")
     },
     // Customizations.
     formatter: (input, date, instance) => {
@@ -150,5 +158,3 @@ let picker = datepicker('#datePickerCalendarTarget', {
     id: 1
 });
 writeDayNums();
-
-
