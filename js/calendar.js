@@ -158,3 +158,5 @@ let picker = datepicker('#datePickerCalendarTarget', {
     id: 1
 });
 writeDayNums();
+
+
