@@ -57,6 +57,10 @@
             <!--START CALENDAR-->
 
             <div class="row" id="calendarWrapper">
+                <div class="col-md-12">
+                    <h3 id="contentTitle"></h3>
+
+                </div>
                 <div id="datePickerCalendarTarget"></div>
                 <!--<TheCalendar padDates={props.calendarData} />-->
             </div>
@@ -64,10 +68,6 @@
             <!--END CALENDAR-->
             <div class="row">
 
-                <div class="col-md-12">
-                    <h3 id="contentTitle"></h3>
-
-                </div>
                 <div class="col-md-12">
                     <input class="form-control " type="text" placeholder="Filter list..." name="filter"
                         onKeyUp="filterList()" />
