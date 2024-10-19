@@ -57,6 +57,7 @@ function toggle(element) {
     [].forEach.call(document.querySelectorAll("[data-toggle='" + element + "']"), function (e) {
         e.classList.remove("hide");
     });
+    window.location = "#info";
 }
 
 /*END GLOBAL TOGGLE FUNCTION*/
