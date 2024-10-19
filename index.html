@@ -216,10 +216,42 @@
                 <div class="col-md-4 my-2" id="socialMediaList">
                 </div>
                 <div class="col-md-2 my-3"><a href="" class="companyWebsite companyName" target="_blank"></a></div>
-                <div class="col-md-12">
-                    <div class="alert alert-light" role="alert"><i class="companyStorageInfo"></i></div>
+                <div class="col-md-12 py-1">
 
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-info" onClick="javascript:toggle('info')" type="button"
+                            data-toggle="default">View
+                            Information</button>
+                        <button class="btn btn-info hide" onClick="javascript:toggle('default')" type="button"
+                            data-toggle="info">Hide
+                            Information</button>
+                    </div>
+
+                    <div class="card hide" data-toggle="info" id="info">
+                        <div class="card-body  text-left">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>Task Master Information</h3>
+                                </div>
+                                <div class="col-md-6">
+                                    <iframe width="400" height="225" src="https://www.youtube.com/embed/OhqNjctCg-s"
+                                        title="Javascript Tutorial &quot;Hijack&quot; the js-datepicker" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                </div>
+                                <div class="col-md-6">
+
+                                    <p class="companyStorageInfo "></p>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </footer>
