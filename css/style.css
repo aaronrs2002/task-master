@@ -136,6 +136,10 @@ h5 {
 
 }
 
+.companyStorageInfo {
+    text-align: left;
+}
+
 /*START GLOBAL ALERT CSS*/
 
 #globalAlert {
