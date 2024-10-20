@@ -11,8 +11,8 @@ const profile = [{
     companyPhone: "555-555-5555",
     companyLogo: "https://web-presence.biz/img/MA_Logo.png",
     relay: "../endpoint/EmailRelay.php",
-    client_id: "webpresencegrocerygetter-9d122d6b61b93bcfd30a29b76665a1f33443688439640601618",
-    client_sec: "reobU7igpz9GRQ_SJTTsDZogcy1Qyd5Jy6fLDaKX",
+    client_id: "webpresencegrocerygetter-",
+    client_sec: "reobU7igp",
     socialMedia: [
         { link: "https://www.linkedin.com/in/aaronrs2002", theClass: "fab fa-linkedin" },
         { link: "https://github.com/aaronrs2002", theClass: "fab fa-github" },
@@ -28,13 +28,9 @@ const profile = [{
         { link: "https://aaronrs2002.github.io/word-game/?" + gaParam + "&", name: "WordFun" }],
     content: [{
         title: "TASK-MASTER",
-        text: "This application runs off local storage in your browser. Remember to \"download\" your \"todo list\" data before you clear your browser cache.",
+        text: "This application runs off local storage in your browser. Remember to \"download\" your \"todo list\" data before you clear your browser cache. Task-Master is a versatile to-do list application built with vanilla JavaScript. It tracks upcoming events by counting down the days until they arrive. Integrated with the popular \"js- datepicker, \" events are color-coded to indicate priority levels, helping users easily manage urgent tasks. Data is stored locally, and the app allows users to share their task lists through simple download and upload features, making it convenient for collaborative task management.",
     },
-    {
-        title: "about",
-        text: "<p>Explore beyond mere login functionality with our comprehensive JWT framework for Node.js. In addition to seamless authentication, we provide a rich set of features to elevate your web application experience.</p><ul class='list-unstyled'><li><strong>1. Enhanced User Management:</strong> Empower your users with a settings page, granting them control over their accounts. They can effortlessly change passwords or even opt for account deletion, ensuring a personalized and secure experience.</li><li><strong>2. Seamless Communication:</strong> Our framework includes a contact form example, facilitating effortless communication between users and administrators. With easy integration, stay connected with your audience and address their queries promptly.</li><li><strong> 3. Personalized Profiles:</strong> Elevate user engagement with customizable profiles. Utilize a local JSON storage system to effortlessly manage and update user-specific information, including server locations, company details, logos, and social media links. Empower users to personalize their experience and foster a sense of belonging.</li><li><strong>4. Dynamic Theming:</strong> Elevate aesthetics with our theme selection feature, powered by Bootswatch. Users can personalize their interface, reflecting their style preferences. Theme choices and employment status seamlessly integrate with user profiles, providing a cohesive and immersive experience.</li><li><strong>5. Robust Data Management:</strong> Leveraging MySQL databases, our framework ensures robust data management, guaranteeing scalability and efficiency for your web application.</li></ul><p>Embark on a journey of innovation and user-centric design with our JWT framework. From streamlined authentication to personalized user experiences, unlock the full potential of your web application today.</p>",
-    }
-        ,
+
         /* {
              title: "settings",
              text: "default",
