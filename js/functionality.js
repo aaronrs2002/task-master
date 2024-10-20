@@ -12,6 +12,15 @@ if (localStorage.getItem("toGetList")) {
     toGetList = tempArr;
 }
 
+const selectWord = () => {
+    let wordSelected = document.querySelector("#localList").value;
+    if (wordSelected === "default") {
+        return false;
+    }
+
+    document.querySelector("[name='updateWord']").value = taskList[wordSelected].task;
+}
+
 const buildList = (data) => {
     taskList = data;
     let tempData = [];
