@@ -189,6 +189,7 @@ h5 {
 }
 
 
+
 /*END CHART CSS*/
 
 
@@ -213,9 +214,7 @@ h5 {
     font-family: sans-serif;*/
     color: #000;
     position: inherit;
-    width: 94%;
-
-
+    width: 98%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -299,6 +298,15 @@ h5 {
 
     .mediaFrame {
         min-height: 300px;
+    }
+
+
+    .qs-datepicker-container {
+
+        margin: auto;
+
+        width: 94%;
+
     }
 }
 
