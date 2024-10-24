@@ -189,7 +189,6 @@ h5 {
 }
 
 
-
 /*END CHART CSS*/
 
 
@@ -208,13 +207,13 @@ h5 {
 .qs-datepicker-container {
     z-index: 1;
     min-height: 500px;
-    margin: .5rem;
+    margin: auto;
     font-family: "Raleway", sans-serif;
     /*font-size: 1rem;
     font-family: sans-serif;*/
     color: #000;
     position: inherit;
-    width: 100%;
+    width: 94%;
 
 
     display: -webkit-box;
