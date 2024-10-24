@@ -68,7 +68,11 @@
             <!--END CALENDAR-->
             <div class="row">
 
+                <div class="col-md-12 mt-2">
+                    <input class="form-control " type="text" placeholder="Filter list..." name="filter"
+                        onKeyUp="filterList()" />
 
+                </div>
                 <div class='col-md-12'>
                     <ul class='list-group' id='groceryListTarget'></ul>
                 </div>
@@ -90,10 +94,6 @@
                     </button>
                 </div>
                 <div class="col-md-12  hide " id="buildingCustom">
-
-                    <input class="form-control " type="text" placeholder="Filter list..." name="filter"
-                        onKeyUp="filterList()" />
-
 
                     <div class="btn-group block" role="group">
                         <button type="button" class="btn btn-info active" data-edit="add"
