@@ -1,5 +1,5 @@
-let gaParam = "";
-let url = window.location;
+//let gaParam = "";
+//let url = window.location;
 
 const profile = [{
     serverUrl: "http://localhost:5000",

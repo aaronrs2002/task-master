@@ -23,7 +23,8 @@
 
     <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css" />
     <link href="css/style.css" rel="stylesheet" />
-    <link href="css/animate.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://aaronrs2002.github.io/black-jack/css/animate.min.css" />
+    <link href="https://aaronrs2002.github.io/black-jack/css/shared.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/locale/es/cdn.min.js"></script>
@@ -247,15 +248,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="btn-group block my-2" role="group" id="footerLinks"></div>
+                    <div class="btn-group block my-2" role="group" id="gameLinks"></div>
                 </div>
                 <div class="col-md-2 my-2"> <select class="form-control" onChange="changeTheme()" id="themes"></select>
                 </div>
-                <div class="col-md-4 my-2" id="socialMediaList">
+                <div class="col-md-4" id="socialList">
                 </div>
-                <div class="col-md-2 my-3"><a href="" class="companyWebsite companyName" target="_blank"></a></div>
-
-
+                <div class="col-md-2 my-3" id="year"></div>
             </div>
         </div>
     </footer>
@@ -263,11 +262,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
 <script src="https://unpkg.com/js-datepicker"></script>
 <script src="js/validate.js"></script>
+<script src="https://aaronrs2002.github.io/black-jack/js/footer.js"></script>
 <script src="config/profile.js"></script>
 
 <script src="js/sharedFunctionality.js"></script>
 <script src="js/dateSelector.js"></script>
 <script src="js/lengthOfTime.js"></script>
-<script src="js/footer.js"></script>
+
+<!--<script src="js/footer.js"></script>-->
 <script src="js/calendar.js"></script>
 <script src="js/functionality.js"></script>
