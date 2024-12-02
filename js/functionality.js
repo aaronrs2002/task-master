@@ -28,7 +28,7 @@ const buildList = (data) => {
         let endStamp = taskList[i].details.substring(taskList[i].details.indexOf(":") + 7, taskList[i].details.indexOf(":") + 11) + "-" +
             taskList[i].details.substring(taskList[i].details.indexOf(":") + 1, taskList[i].details.indexOf(":") + 3) + "-" +
             taskList[i].details.substring(taskList[i].details.indexOf(":") + 4, taskList[i].details.indexOf(":") + 6);
-        tempData.push({ title: taskList[i].title, start: timeStamp(), end: endStamp });
+        tempData.push({ title: taskList[i].title, start: taskList[i].startDate, end: endStamp });
     }
     let groceryListHTML = "";
     for (let i = 0; i < data.length; i++) {
@@ -173,7 +173,7 @@ function updateCustom() {
             if (tempWordList.indexOf(newWord) === -1) {
                 taskList = [...taskList, {
                     task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(),
-                    details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false
+                    details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false, startDate: timeStamp()
                 }];
                 globalAlert("alert-success", newWord + " added.");
                 newWord = "";
