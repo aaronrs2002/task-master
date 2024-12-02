@@ -82,11 +82,12 @@ function convertForCalendar(from) {
             let endStamp = tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 7, tempTasKList[i].details.indexOf(":") + 11) + "-" +
                 tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 1, tempTasKList[i].details.indexOf(":") + 3) + "-" +
                 tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 4, tempTasKList[i].details.indexOf(":") + 6);
+            let tempStartDate = timeStamp();
 
-            console.log("end date: " + endStamp);
-            console.log("tempTasKList[i].startDate: " + tempTasKList[i].startDate)
-
-            tempData.push({ title: tempTasKList[i].task, start: tempTasKList[i].startDate, end: endStamp, colorCode: whichCode });
+            if (tempTasKList[i].startDate) {
+                tempStartDate = tempTasKList[i].startDate;
+            }
+            tempData.push({ title: tempTasKList[i].task, start: tempStartDate, end: endStamp, colorCode: whichCode });
         }
         [].forEach.call(document.querySelectorAll("[data-daynum]"), (e) => {
             e.innerHTML = '';
