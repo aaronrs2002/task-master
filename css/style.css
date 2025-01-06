@@ -89,6 +89,20 @@ footer a {
     color: red;
 }
 
+#navLinkTarget {
+    margin-left: 3.5rem;
+}
+
+nav img {
+    width: 100px;
+    height: auto;
+    cursor: pointer;
+    margin-left: -18px;
+    margin-top: -25px;
+    position: absolute;
+    z-index: 9;
+}
+
 
 /*START FOOTER*/
 footer {
