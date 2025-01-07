@@ -325,3 +325,32 @@ h5 {
 }
 
 /*end 768*/
+
+.printOnly {
+    display: none;
+}
+
+@media print {
+
+    footer,
+    nav,
+    .noPrint {
+        display: none;
+    }
+
+    body,
+    li {
+        background-color: #fff !important;
+        color: #000 !important;
+    }
+
+    .printOnly {
+        display: block;
+    }
+
+
+}
+
+
+
+/*END PRINT MEDIA*/
