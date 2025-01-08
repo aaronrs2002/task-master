@@ -18,7 +18,8 @@ h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+[class^="qs-"] {
     font-family: "Passion One", cursive;
 }
 
@@ -27,7 +28,6 @@ h5 {
     width: 100%;
 
 }
-
 
 
 /*nav+.container {
@@ -147,13 +147,7 @@ ul.inline li {
 }
 
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-    font-family: "Passion One", cursive;
-}
+
 
 .hide {
     display: none !important;
@@ -237,8 +231,8 @@ h5 {
     z-index: 1;
     min-height: 500px;
     margin: auto;
-    font-family: "Raleway", sans-serif;
-    /*font-size: 1rem;
+    /* font-family: "Raleway", sans-serif;
+   font-size: 1rem;
     font-family: sans-serif;*/
     color: #000;
     position: inherit;
