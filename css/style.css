@@ -118,7 +118,7 @@ nav img {
 }
 
 
-/*START FOOTER*/
+/*START FOOTER*
 footer {
     box-shadow: 0 -4px 3px rgb(0 0 0 / 8%);
 
@@ -134,7 +134,7 @@ footer {
     font-size: 1.5rem;
     padding: 12px 10px;
 
-}
+}*/
 
 ul.inline li {
     display: inline-block;
@@ -349,7 +349,7 @@ h5 {
     footer,
     nav,
     .noPrint {
-        display: none;
+        display: none !important;
     }
 
     body,

@@ -72,7 +72,9 @@ const profile = [{
 });
 [].forEach.call(document.querySelectorAll(".companyStorageInfo"), (e) => {
     e.innerHTML = profile[0].content[0].text;
-})
+});
+
+document.getElementById("contentTitle").innerHTML = profile[0].content[0].title;
 
 /*
                 <div class='col-md-12'><ul class='list-unstyled' id='groceryListTarget'></ul></div>
