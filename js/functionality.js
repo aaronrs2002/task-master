@@ -240,7 +240,7 @@ function updateCustom() {
     loadList(taskList);
     document.querySelector("input[name='updateWord']").value = "";
     document.querySelector("[name='updateDefinition']").selectedIndex = 0;
-    document.querySelector("select[name='taskStatus']").value = ""
+    document.querySelector("select[name='taskStatus']").selectedIndex = 0;
     document.querySelector("[name='taskDetails']").value = "";
     for (let i = 0; i < taskList.length; i++) {
         calendarData.push({ title: taskList[i].task, start: timeStamp(), end: calendarTargetDate });
