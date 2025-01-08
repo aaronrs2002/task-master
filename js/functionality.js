@@ -17,11 +17,14 @@ const selectWord = () => {
     if (wordSelected === "default") {
         return false;
     }
+    console.log("JSON.stringify(taskList[wordSelected]): " + JSON.stringify(taskList[wordSelected]))
 
     document.querySelector("[name='updateWord']").value = taskList[wordSelected].task;
+    document.querySelector("select[name='taskStatus']").value = taskList[wordSelected].taskStatus;
+    document.querySelector("[name='taskDetails']").value = taskList[wordSelected].taskDetails;
 }
 
-const buildList = (data) => {
+const buildList = (data, num) => {
     taskList = data;
     let tempData = [];
     for (let i = 0; i < taskList.length; i++) {
@@ -44,11 +47,23 @@ const buildList = (data) => {
             urgencyColor = "danger";
         }
         groceryListHTML = groceryListHTML + "<li onClick='editList(" + i + ")' class='d-flex list-group-item pointer list-group-item-" + colorCode
-            + "' data-finished='" + data[i].finished + "'  data-num='" + i + "' data-name='" + data[i].task + "' ><div class='p-2 flex-grow-1'>" + data[i].task + "</div> <div class='p-2'><span class='badge bg bg-" + urgencyColor + "'>" +
+            + "' data-finished='" + data[i].finished + "'  data-num='" + i + "' data-name='" + data[i].task + "' ><div class='flex-row'><div class='d-flex flex-row mb-3'><div class='p-2'><label>" + data[i].task + "</label></div><div class='p-2'><span class='badge bg bg-" + urgencyColor + "'>" +
             LenghtOfTime(data[i].details.substring(data[i].details.indexOf(":") + 1)) + " Days until time is up.</span><span class='badge bg bg-" + data[i].details.substring(0, data[i].details.indexOf(":"))
-            + "'>" + data[i].details.substring(data[i].details.indexOf(":") + 1) + "</span></div> <div class='p-2'><i onClick='deleteTask(" + i + ")' class='pointer fas fa-trash'></i></div></li>"
+            + "'>" + data[i].details.substring(data[i].details.indexOf(":") + 1) + "</span></div> <div class='p-2'><i onClick='deleteTask(" + i + ")' class='pointer fas fa-trash'></i></div></div><div class='hide d-flex flex-row mb-3' data-details='" + i + "' ><div><h5>Task Status: " + data[i].taskStatus + "</h5><p>" + data[i].taskDetails + "</p></div></div></li>";
     }
     document.getElementById("groceryListTarget").innerHTML = groceryListHTML;
+    [].forEach.call(document.querySelectorAll("[data-details]"), (e) => {
+        e.classList.add("hide");
+
+    });
+
+    try {
+        document.querySelector("[data-details='" + num + "']").classList.remove("hide");
+    } catch (error) {
+        console.log("Nothing selected yet: " + error);
+    }
+
+
 }
 
 const filterList = () => {
@@ -64,6 +79,10 @@ const filterList = () => {
 }
 
 const editList = (num) => {
+
+    console.log("num: " + num)
+
+    console.log("nremoved")
     for (let i = 0; i < taskList.length; i++) {
         if (i === parseInt(num)) {
             if (taskList[i].finished === false) {
@@ -80,7 +99,7 @@ const editList = (num) => {
         }
     }
     localStorage.setItem("taskList", JSON.stringify(taskList));
-    buildList(taskList);
+    buildList(taskList, num);
     loadList(taskList);
 }
 
@@ -146,13 +165,13 @@ function deleteTask(num) {
     }
     taskList = tempList;
     localStorage.setItem("taskList", JSON.stringify(taskList));
-    buildList(taskList);
+    buildList(taskList, 0);
     loadList(taskList);
     convertForCalendar("delete");
 }
 
 function updateCustom() {
-    Validate(["updateWord", "taskYear", "taskMonth", "taskDay"]);
+    Validate(["updateWord", "taskYear", "taskMonth", "taskDay", "taskDetails"]);
     let taskGoalYears = document.querySelector("[name='taskYear']").value;
     let taskGoalMonths = document.querySelector("[name='taskMonth']").value;
     let taskGoalDays = document.querySelector("[name='taskDay']").value;
@@ -173,6 +192,8 @@ function updateCustom() {
             if (tempWordList.indexOf(newWord) === -1) {
                 taskList = [...taskList, {
                     task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(),
+                    taskStatus: document.querySelector("select[name='taskStatus']").value,
+                    taskDetails: document.querySelector("textarea[name='taskDetails']").value,
                     details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false, startDate: timeStamp()
                 }];
                 globalAlert("alert-success", newWord + " added.");
@@ -197,6 +218,8 @@ function updateCustom() {
                 if (i === Number(whichIndex)) {
                     taskList[i] = {
                         task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(),
+                        taskStatus: document.querySelector("select[name='taskStatus']").value,
+                        taskDetails: document.querySelector("textarea[name='taskDetails']").value,
                         details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: document.querySelector("[data-finished]").getAttribute("data-finished")
                     };
                 }
@@ -214,7 +237,7 @@ function updateCustom() {
         return false;
     }
     localStorage.setItem("taskList", JSON.stringify(taskList));
-    buildList(taskList);
+    buildList(taskList, 0);
     loadList(taskList);
     document.querySelector("input[name='updateWord']").value = "";
     document.querySelector("[name='updateDefinition']").selectedIndex = 0;
@@ -265,13 +288,13 @@ function handleOnSubmit(event, type, merge) {
             const tempObj = event.target.result;
             if (type === "json") {
                 if (merge === "default") {
-                    buildList(JSON.parse(tempObj));
+                    buildList(JSON.parse(tempObj), 0);
                     loadList(JSON.parse(tempObj));
                     localStorage.setItem("taskList", tempObj);
                     convertForCalendar("merge")
                 } else {
                     let tempTasks = [...JSON.parse(localStorage.getItem("taskList")), ...JSON.parse(tempObj)];
-                    buildList(tempTasks);
+                    buildList(tempTasks, 0);
                     loadList(tempTasks);
                     localStorage.setItem("taskList", JSON.stringify(tempTasks));
                     convertForCalendar("upload")

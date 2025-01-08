@@ -24,7 +24,8 @@ h5,
 }
 
 .btn-group.block,
-.btn-block {
+.btn-block,
+[data-details] {
     width: 100%;
 
 }
