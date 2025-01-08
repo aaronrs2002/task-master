@@ -1,6 +1,6 @@
 
 //START GLOBAL ALERT
-function globalAlert(alertLevel, message) {
+/*function globalAlert(alertLevel, message) {
 
     document.getElementById("globalAlert").classList.remove("hide");
     document.getElementById("globalAlert").classList.add(alertLevel);
@@ -12,7 +12,7 @@ function globalAlert(alertLevel, message) {
         document.getElementById("globalAlert").classList.remove(alertLevel);
     }, 5000);
 
-}
+}*/
 
 const TodayFormatStamp = () => {
 
