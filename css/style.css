@@ -108,11 +108,11 @@ footer a {
 }
 
 nav img {
-    width: 100px;
+    width: 85px;
     height: auto;
     cursor: pointer;
-    margin-left: -18px;
-    margin-top: -25px;
+    margin-left: -14px;
+    margin-top: -28px;
     position: absolute;
     z-index: 9;
 }
