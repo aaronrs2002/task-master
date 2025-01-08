@@ -50,7 +50,7 @@ ul.decimal {
     text-transform: capitalize;
 }
 
-main:after {
+body:after {
     content: "";
     background: linear-gradient(to top, rgb(47, 61, 47), #f8f8f8);
 
