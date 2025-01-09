@@ -26,6 +26,18 @@ const selectWord = () => {
 const buildList = (data, num) => {
     taskList = data;
     let tempData = [];
+    let tempDetails = "No Details";
+    let tempStatus = "open";
+    if (data[i].taskDetails === undefined) {
+        console.log("data[i].taskDetails: " + data[i].taskDetails);
+    } else {
+        tempDetails = data[i].taskDetails;
+    }
+    if (data[i].taskStatus === undefined) {
+        console.log("data[i].taskStatus: " + data[i].taskStatus);
+    } else {
+        tempStatus = data[i].taskStatus;
+    }
     for (let i = 0; i < taskList.length; i++) {
         let endStamp = taskList[i].details.substring(taskList[i].details.indexOf(":") + 7, taskList[i].details.indexOf(":") + 11) + "-" +
             taskList[i].details.substring(taskList[i].details.indexOf(":") + 1, taskList[i].details.indexOf(":") + 3) + "-" +
@@ -48,7 +60,7 @@ const buildList = (data, num) => {
         groceryListHTML = groceryListHTML + "<li onClick='editList(" + i + ")' class='d-flex list-group-item pointer list-group-item-" + colorCode
             + "' data-finished='" + data[i].finished + "'  data-num='" + i + "' data-name='" + data[i].task + "' ><div class='flex-row'><div class='d-flex flex-row mb-3'><div class='p-2'><label>" + data[i].task + "</label></div><div class='p-2'><span class='badge bg bg-" + urgencyColor + "'>" +
             LenghtOfTime(data[i].details.substring(data[i].details.indexOf(":") + 1)) + " Days until time is up.</span><span class='badge bg bg-" + data[i].details.substring(0, data[i].details.indexOf(":"))
-            + "'>" + data[i].details.substring(data[i].details.indexOf(":") + 1) + "</span></div> <div class='p-2'><i onClick='deleteTask(" + i + ")' class='pointer fas fa-trash'></i></div></div><div class='hide d-flex flex-row mb-3' data-details='" + i + "' ><div><h5>Task Status: " + data[i].taskStatus + "</h5><p>" + data[i].taskDetails + "</p></div></div></li>";
+            + "'>" + data[i].details.substring(data[i].details.indexOf(":") + 1) + "</span></div> <div class='p-2'><i onClick='deleteTask(" + i + ")' class='pointer fas fa-trash'></i></div></div><div class='hide d-flex flex-row mb-3' data-details='" + i + "' ><div><h5>Task Status: " + tempStatus + "</h5><p>" + tempDetails + "</p></div></div></li>";
     }
     document.getElementById("groceryListTarget").innerHTML = groceryListHTML;
     [].forEach.call(document.querySelectorAll("[data-details]"), (e) => {
