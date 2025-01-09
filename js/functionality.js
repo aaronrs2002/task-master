@@ -172,10 +172,10 @@ function deleteTask(num) {
 function updateCustom() {
     Validate(["updateWord", "taskYear", "taskMonth", "taskDay"]);
     let detailsStr = "No Details";
-    if (document.querySelector("textarea[name='taskDetails']").value !== "") {
+    if (document.querySelector("textarea[name='taskDetails']").value !== "" && document.querySelector("textarea[name='taskDetails']").value !== "undefined") {
 
         detailsStr = document.querySelector("textarea[name='taskDetails']").value;
-    } console.log("detailsStr: " + detailsStr);
+    }
     let taskGoalYears = document.querySelector("[name='taskYear']").value;
     let taskGoalMonths = document.querySelector("[name='taskMonth']").value;
     let taskGoalDays = document.querySelector("[name='taskDay']").value;
@@ -219,6 +219,12 @@ function updateCustom() {
         if (document.querySelector("input[name='updateWord']").value && document.querySelector("[name='updateDefinition']").value) {
             let editWord = document.querySelector("input[name='updateWord']").value.toLowerCase();
             for (let i = 0; i < taskList.length; i++) {
+                let tempStatus = "open";
+                if (taskList[i].taskStatus === "undefined") {
+                    taskList[i].taskStatus === tempStatus;
+                } else {
+                    taskList[i].taskStatus === document.querySelector("select[name='taskStatus']").value;
+                }
                 if (i === Number(whichIndex)) {
                     taskList[i] = {
                         task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(),
