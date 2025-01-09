@@ -50,7 +50,7 @@ const renderCalendar = (data, from) => {
             if (data[i].title) {
                 if (Number(sqDay) >= tempStartDyNum && Number(sqDay) <= tempEndDyNum && calendarCellHTML.indexOf(" title='" + data[i].title + "' ") === -1) {
                     let customName = data[i].title;
-                    calendarCellHTML = calendarCellHTML + "<span class='badge rounded-pill bg-" + data[i].colorCode + "' data-daynum='" + dayVal + "' title='" + customName + "'>  " + customName.substring(0, 2) + "</span>";
+                    calendarCellHTML = calendarCellHTML + `<span class="badge rounded-pill bg-${data[i].colorCode}" onClick="editList(\'${customName}\')" data-daynum="${dayVal}" title="${customName}">  ${customName.substring(0, 2)}</span>`;
                 }
             }
         }

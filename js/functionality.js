@@ -92,6 +92,19 @@ const filterList = () => {
 
 const editList = (num) => {
 
+    console.log("(typeof num): " + (typeof num));
+    if ((typeof num) === "string") {
+        for (let i = 0; i < taskList.length; i++) {
+            console.log("string converted to num: " + num);
+            if (num === taskList[i].task) {
+                num = i;
+            }
+        }
+    }
+
+    console.log("(typeof num): " + (typeof num));
+    console.log("num: " + num);
+
     for (let i = 0; i < taskList.length; i++) {
         if (i === parseInt(num)) {
             if (taskList[i].finished === false) {
