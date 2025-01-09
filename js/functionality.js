@@ -170,7 +170,12 @@ function deleteTask(num) {
 }
 
 function updateCustom() {
-    Validate(["updateWord", "taskYear", "taskMonth", "taskDay", "taskDetails"]);
+    Validate(["updateWord", "taskYear", "taskMonth", "taskDay"]);
+    let detailsStr = "No Details";
+    if (document.querySelector("textarea[name='taskDetails']").value !== "") {
+
+        detailsStr = document.querySelector("textarea[name='taskDetails']").value;
+    } console.log("detailsStr: " + detailsStr);
     let taskGoalYears = document.querySelector("[name='taskYear']").value;
     let taskGoalMonths = document.querySelector("[name='taskMonth']").value;
     let taskGoalDays = document.querySelector("[name='taskDay']").value;
@@ -192,7 +197,7 @@ function updateCustom() {
                 taskList = [...taskList, {
                     task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(),
                     taskStatus: document.querySelector("select[name='taskStatus']").value,
-                    taskDetails: document.querySelector("textarea[name='taskDetails']").value,
+                    taskDetails: detailsStr,
                     details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false, startDate: timeStamp()
                 }];
                 globalAlert("alert-success", newWord + " added.");
@@ -240,7 +245,7 @@ function updateCustom() {
     loadList(taskList);
     document.querySelector("input[name='updateWord']").value = "";
     document.querySelector("[name='updateDefinition']").selectedIndex = 0;
-    document.querySelector("select[name='taskStatus']").selectedIndex = 0;
+    document.querySelector("select[name='taskStatus']").value = ""
     document.querySelector("[name='taskDetails']").value = "";
     for (let i = 0; i < taskList.length; i++) {
         calendarData.push({ title: taskList[i].task, start: timeStamp(), end: calendarTargetDate });

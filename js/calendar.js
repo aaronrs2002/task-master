@@ -48,7 +48,6 @@ const renderCalendar = (data, from) => {
             let tempEndDyNum = tempEnd.replaceAll("-", "");
             tempEndDyNum = parseInt(tempEndDyNum);
             if (data[i].title) {
-                console.log("calendarCellHTML: " + calendarCellHTML);
                 if (Number(sqDay) >= tempStartDyNum && Number(sqDay) <= tempEndDyNum && calendarCellHTML.indexOf(" title='" + data[i].title + "' ") === -1) {
                     let customName = data[i].title;
                     calendarCellHTML = calendarCellHTML + "<span class='badge rounded-pill bg-" + data[i].colorCode + "' data-daynum='" + dayVal + "' title='" + customName + "'>  " + customName.substring(0, 2) + "</span>";
