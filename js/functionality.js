@@ -28,16 +28,6 @@ const buildList = (data, num) => {
     let tempData = [];
     let tempDetails = "No Details";
     let tempStatus = "open";
-    if (data[i].taskDetails === undefined) {
-        console.log("data[i].taskDetails: " + data[i].taskDetails);
-    } else {
-        tempDetails = data[i].taskDetails;
-    }
-    if (data[i].taskStatus === undefined) {
-        console.log("data[i].taskStatus: " + data[i].taskStatus);
-    } else {
-        tempStatus = data[i].taskStatus;
-    }
     for (let i = 0; i < taskList.length; i++) {
         let endStamp = taskList[i].details.substring(taskList[i].details.indexOf(":") + 7, taskList[i].details.indexOf(":") + 11) + "-" +
             taskList[i].details.substring(taskList[i].details.indexOf(":") + 1, taskList[i].details.indexOf(":") + 3) + "-" +
@@ -46,6 +36,17 @@ const buildList = (data, num) => {
     }
     let groceryListHTML = "";
     for (let i = 0; i < data.length; i++) {
+
+        if (data[i].taskDetails === undefined) {
+            console.log("data[i].taskDetails: " + data[i].taskDetails);
+        } else {
+            tempDetails = data[i].taskDetails;
+        }
+        if (data[i].taskStatus === undefined) {
+            console.log("data[i].taskStatus: " + data[i].taskStatus);
+        } else {
+            tempStatus = data[i].taskStatus;
+        }
         let colorCode = "danger";
         if (data[i].finished) {
             colorCode = "success";
