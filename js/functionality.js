@@ -1,16 +1,6 @@
 let CRUD = "add";
 let editModule = false;
-let toGetList = [];
-if (localStorage.getItem("toGetList")) {
-    let tempArr = [];
-    let storageList = localStorage.getItem("toGetList");
-    for (let i = 0; i < storageList.length; i++) {
-        if (storageList[i] !== ",") {
-            tempArr = [...tempArr, parseInt(storageList[i])]
-        }
-    }
-    toGetList = tempArr;
-}
+let savedHours = [];
 
 const selectWord = () => {
     let wordSelected = document.querySelector("#localList").value;
@@ -92,18 +82,15 @@ const filterList = () => {
 
 const editList = (num) => {
 
-    console.log("(typeof num): " + (typeof num));
+
     if ((typeof num) === "string") {
         for (let i = 0; i < taskList.length; i++) {
-            console.log("string converted to num: " + num);
             if (num === taskList[i].task) {
                 num = i;
             }
         }
     }
 
-    console.log("(typeof num): " + (typeof num));
-    console.log("num: " + num);
 
     for (let i = 0; i < taskList.length; i++) {
         if (i === parseInt(num)) {
@@ -193,6 +180,7 @@ function deleteTask(num) {
 }
 
 function updateCustom() {
+    let taskList = [];
     Validate(["updateWord", "taskYear", "taskMonth", "taskDay"]);
     let detailsStr = "No Details";
     if (document.querySelector("textarea[name='taskDetails']").value !== "" && document.querySelector("textarea[name='taskDetails']").value !== "undefined") {
@@ -208,7 +196,7 @@ function updateCustom() {
     let whichIndex = document.getElementById("localList").value;
     update = CRUD;
     if (localStorage.getItem("taskList")) {
-        taskList = JSON.parse(localStorage.getItem("taskList"));
+        taskList.push(JSON.parse(localStorage.getItem("taskList")));
     }
 
     if (update === "add") {
@@ -243,7 +231,7 @@ function updateCustom() {
             let editWord = document.querySelector("input[name='updateWord']").value.toLowerCase();
             for (let i = 0; i < taskList.length; i++) {
                 let tempStatus = "open";
-                if (taskList[i].taskStatus === "undefined") {
+                if (taskList[i].taskStatus === undefined) {
                     taskList[i].taskStatus === tempStatus;
                 } else {
                     taskList[i].taskStatus === document.querySelector("select[name='taskStatus']").value;
@@ -287,7 +275,7 @@ function updateCustom() {
 function downloadData() {
     let tempData = [];
     if (localStorage.getItem("taskList")) {
-        tempData = JSON.parse(localStorage.getItem("taskList"));
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), timeClock: savedHours };
     }
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(tempData, null, 2)], {
@@ -304,7 +292,7 @@ let file;
 function handleOnChange(event) {
     if (event.target.files[0]) {
         file = event.target.files[0];
-        console.log("event.target.files[0]: " + event.target.files[0]);
+
         document.querySelector("#fileUpload").classList.remove("hide");
         document.querySelector("#fileMerge").classList.remove("hide");
         globalAlert("alert-warning", `File selected. Now, Select between \"updoading new data\", or merging with your current data.`);
@@ -321,17 +309,28 @@ function handleOnSubmit(event, type, merge) {
     if (file) {
         fileReader.onload = function (event) {
             const tempObj = event.target.result;
+            let tempTasks = JSON.parse(tempObj);
+            try {
+                let timeClockKeysArr = Object.keys(tempTasks.timeClock[0]);
+                for (let i = 0; i < tempTasks.timeClock.length; i++) {
+                    let timeClockId = timeClockKeysArr[i];
+                    localStorage.setItem(timeClockKeysArr[i], JSON.stringify(tempTasks.timeClock[i][timeClockId]));
+                }
+            } catch (error) {
+            }
             if (type === "json") {
                 if (merge === "default") {
-                    buildList(JSON.parse(tempObj), 0);
-                    loadList(JSON.parse(tempObj));
-                    localStorage.setItem("taskList", tempObj);
+
+                    console.log("JSON.stringify(tempTasks.taskList): " + JSON.stringify(tempTasks.taskList));
+                    buildList(tempTasks.taskList, 0);
+                    loadList(tempTasks.taskList);
+                    localStorage.setItem("taskList", JSON.stringify(tempTasks.taskList));
                     convertForCalendar("merge")
                 } else {
-                    let tempTasks = [...JSON.parse(localStorage.getItem("taskList")), ...JSON.parse(tempObj)];
-                    buildList(tempTasks, 0);
-                    loadList(tempTasks);
-                    localStorage.setItem("taskList", JSON.stringify(tempTasks));
+                    let tempTasksObj = [...JSON.parse(localStorage.getItem("taskList")), ...tempTasks];
+                    buildList(tempTasksObj, 0);
+                    loadList(tempTasksObj);
+                    localStorage.setItem("taskList", JSON.stringify(tempTasksObj));
                     convertForCalendar("upload")
                 }
             }
@@ -350,3 +349,33 @@ function handleOnSubmit(event, type, merge) {
 
 };
 convertForCalendar("onLoad");
+
+let keyListArr = [];
+/*onload grab all timeclock matches*/
+try {
+    let tempTaskList = JSON.parse(localStorage.getItem("taskList"));
+
+    for (let i = 0; i < localStorage.length; i++) {
+        for (let j = 0; j < tempTaskList.length; j++) {
+            const key = localStorage.key(i);
+
+            console.log("key: " + key);
+            if (key.indexOf(":timeClock") !== -1) {
+                keyListArr.push(key);
+
+                savedHours.push({ [key]: JSON.parse(localStorage.getItem(key)) });
+
+            }
+
+        }
+
+    }
+
+    for (let i = 0; i < savedHours.length; i++) {
+        localStorage.setItem(keyListArr[i], JSON.stringify(savedHours[i].keyListArr[i].keyListArr[0]));
+    }
+
+
+} catch (error) {
+    console.log("no data yet: " + error);
+}
