@@ -11,6 +11,17 @@ const selectWord = () => {
     document.querySelector("[name='updateWord']").value = taskList[wordSelected].task;
     document.querySelector("select[name='taskStatus']").value = taskList[wordSelected].taskStatus;
     document.querySelector("[name='taskDetails']").value = taskList[wordSelected].taskDetails;
+    //"details":"info:01/09/2025",
+
+    let detailsDate = taskList[wordSelected].details.substring(taskList[wordSelected].details.length - 4, taskList[wordSelected].details.length);
+    let detailYrStr = taskList[wordSelected].details.substring(taskList[wordSelected].details.length - 4, taskList[wordSelected].details.length);
+    let detailsMoStr = taskList[wordSelected].details.substring(taskList[wordSelected].details.length - 10, taskList[wordSelected].details.length - 8);
+    let detailsDyStr = taskList[wordSelected].details.substring(taskList[wordSelected].details.length - 5, taskList[wordSelected].details.length - 7);
+
+    document.querySelector("[name='taskYear']").value = detailYrStr;
+    document.querySelector("[name='taskMonth']").value = detailsMoStr;
+    document.querySelector("[name='taskDay']").value = detailsDyStr;
+
 
     let taskDetails = taskList[wordSelected].details;
     if (taskDetails.indexOf("info") !== -1) {
