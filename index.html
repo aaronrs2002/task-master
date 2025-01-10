@@ -117,160 +117,164 @@
                         <i class="fas fa-pen pointer"></i>Toggle Editing Panel
                     </button>
                 </div>
-                <div class=" hide " id="buildingCustom">
-                    <div class="col-md-12  ">
-
-                        <div class="btn-group block" role="group">
-                            <button type="button" class="btn btn-info active" data-edit="add"
-                                onClick="javascript:updateCRUD('add')">Add</button>
-                            <button type="button" class="btn btn-info " data-edit="edit"
-                                onClick="javascript:updateCRUD('edit')">Edit</button>
-
-
-                        </div>
-
-                    </div>
-                    <div class="col-md-12 ">
-
-                        <select class="form-control hide" id="localList" onChange="javascript:selectWord()">
-                            <option vlaue="default">Select Word</option>;
-                        </select>
-                    </div>
-                    <div class="col-md-4"><label>Task/Item:</label><input type="text" placeholder="Task/Item"
-                            name="updateWord" class="form-control" /></div>
-                    <div class="col-md-4"> <label>Task Status:</label>
-                        <select name="taskStatus" class="form-control">
-                            <option value="open">Open</option>
-                            <option value="in-progress">In Progress</option>
-                            <option value="on-hold">On Hold</option>
-                            <option value="ready-for-review">Ready For Review</option>
-                            <option value="in-review">In Review</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="complete">Complete</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4"><label>Priority level</label>
-                        <select name="updateDefinition" class="form-control">
-                            <option value="info">Standard Priority</option>
-                            <option value="warning">Elevated Priority</option>
-                            <option value="danger">High Priority</option>
-                        </select>
-                    </div>
-                    <div class="col-md-12"> <label>Task details</label><textarea name="taskDetails"
-                            placeholder="Task details" class="form-control" rows="5"></textarea> </div>
-
-
-
-
-
-
-
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Target Year</label>
-                            <select name="taskYear" class="form-control futureYears" onChange="setDayMax('task')">
-                                <option value="default">Select task year</option>
-
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Target Month</label>
-                            <select name="taskMonth" class="form-control monthsNum" onChange="setDayMax('task')">
-                                <option value="default">Select task month</option>
-
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Target Day</label>
-                            <select name="taskDay" class="form-control daysNum"
-                                onChange="Validate(['taskYear', 'taskMonth', 'taskDay'])">
-                                <option value="default">Select task day</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <div class="d-grid gap-2"><button class="btn btn-primary capitalize" id="updateBt"
-                            onClick="javascript:updateCustom()">Submit: Add Item</button></div>
-
-                    <div class="row">
-
-                        <div class="col-md-6">
-                            <div class="d-grid gap-2  py-2">
-                                <button class="btn btn-light" onClick="javascript:downloadData();"><i
-                                        class="fas fa-file-download"></i>
-                                    Download</button>
-                            </div>
-                        </div>
-                        <div class="col-md-6 py-2">
-                            <div class="d-grid gap-2">
-
-
-
-                                <label class="custom-file-upload btn btn-light">
-                                    <input type="file" name="importFile" accept=".json"
-                                        onChange="javascript:handleOnChange(event)" />
-                                    <i class="fa fa-cloud-upload"></i> Select a "todo list" file to upload
-                                </label>
-
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="d-grid gap-2  py-2">
-                                <button id="fileUpload" class="btn btn-danger hide"
-                                    onClick="javascript:handleOnSubmit(event, 'json','default')"><i
-                                        class="fas fa-file-upload"></i>
-                                    Upload New Data</button>
-                            </div>
-                            <div class="d-grid gap-2  py-2">
-                                <button id="fileMerge" class="btn btn-warning hide"
-                                    onClick="javascript:handleOnSubmit(event, 'json','merge')"><i
-                                        class="fas fa-file-upload"></i>
-                                    Merge with current data</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <div class="col-md-12 py-1">
-
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-info" onClick="javascript:toggle('info')" type="button"
-                            data-toggle="default">View
-                            Information</button>
-                        <button class="btn btn-info hide" onClick="javascript:toggle('default')" type="button"
-                            data-toggle="info">Hide
-                            Information</button>
-                    </div>
-
-                    <div class="card hide" data-toggle="info" id="info">
-                        <div class="card-body  text-left">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h3>Task Master Information</h3>
-                                </div>
-                                <div class="col-md-6">
-                                    <iframe width="90%" height="225" src="https://www.youtube.com/embed/OhqNjctCg-s"
-                                        title="Javascript Tutorial &quot;Hijack&quot; the js-datepicker" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                </div>
-                                <div class="col-md-6">
-
-                                    <p class="companyStorageInfo "></p>
-
-                                </div>
-                            </div>
-
-
-
-                        </div>
-                    </div>
-                </div>
-
             </div>
+            <div class=" hide row" id="buildingCustom">
+                <div class="col-md-12  ">
+
+                    <div class="btn-group block" role="group">
+                        <button type="button" class="btn btn-info active" data-edit="add"
+                            onClick="javascript:updateCRUD('add')">Add</button>
+                        <button type="button" class="btn btn-info " data-edit="edit"
+                            onClick="javascript:updateCRUD('edit')">Edit</button>
+
+
+                    </div>
+
+                </div>
+                <div class="col-md-12 ">
+
+                    <select class="form-control hide" id="localList" onChange="javascript:selectWord()">
+                        <option vlaue="default">Select Word</option>;
+                    </select>
+                </div>
+                <div class="col-md-4"><label>Task/Item:</label><input type="text" placeholder="Task/Item"
+                        name="updateWord" class="form-control" />
+                </div>
+
+
+                <div class="col-md-4"> <label>Task Status:</label>
+                    <select name="taskStatus" class="form-control">
+                        <option value="open">Open</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="on-hold">On Hold</option>
+                        <option value="ready-for-review">Ready For Review</option>
+                        <option value="in-review">In Review</option>
+                        <option value="rejected">Rejected</option>
+                        <option value="complete">Complete</option>
+                    </select>
+                </div>
+                <div class="col-md-4"><label>Priority level</label>
+                    <select name="updateDefinition" class="form-control">
+                        <option value="info">Standard Priority</option>
+                        <option value="warning">Elevated Priority</option>
+                        <option value="danger">High Priority</option>
+                    </select>
+                </div>
+                <div class="col-md-12"> <label>Task details</label><textarea name="taskDetails"
+                        placeholder="Task details" class="form-control" rows="5"></textarea> </div>
+
+
+
+
+
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Target Year</label>
+                        <select name="taskYear" class="form-control futureYears" onChange="setDayMax('task')">
+                            <option value="default">Select task year</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Target Month</label>
+                        <select name="taskMonth" class="form-control monthsNum" onChange="setDayMax('task')">
+                            <option value="default">Select task month</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Target Day</label>
+                        <select name="taskDay" class="form-control daysNum"
+                            onChange="Validate(['taskYear', 'taskMonth', 'taskDay'])">
+                            <option value="default">Select task day</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="d-grid gap-2"><button class="btn btn-primary capitalize" id="updateBt"
+                        onClick="javascript:updateCustom()">Submit: Add Item</button></div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="d-grid gap-2  py-2">
+                            <button class="btn btn-light" onClick="javascript:downloadData();"><i
+                                    class="fas fa-file-download"></i>
+                                Download</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 py-2">
+                        <div class="d-grid gap-2">
+
+
+
+                            <label class="custom-file-upload btn btn-light">
+                                <input type="file" name="importFile" accept=".json"
+                                    onChange="javascript:handleOnChange(event)" />
+                                <i class="fa fa-cloud-upload"></i> Select a "todo list" file to upload
+                            </label>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="d-grid gap-2  py-2">
+                            <button id="fileUpload" class="btn btn-danger hide"
+                                onClick="javascript:handleOnSubmit(event, 'json','default')"><i
+                                    class="fas fa-file-upload"></i>
+                                Upload New Data</button>
+                        </div>
+                        <div class="d-grid gap-2  py-2">
+                            <button id="fileMerge" class="btn btn-warning hide"
+                                onClick="javascript:handleOnSubmit(event, 'json','merge')"><i
+                                    class="fas fa-file-upload"></i>
+                                Merge with current data</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-12 py-1">
+
+                <div class="d-grid gap-2">
+                    <button class="btn btn-info" onClick="javascript:toggle('info')" type="button"
+                        data-toggle="default">View
+                        Information</button>
+                    <button class="btn btn-info hide" onClick="javascript:toggle('default')" type="button"
+                        data-toggle="info">Hide
+                        Information</button>
+                </div>
+
+                <div class="card hide" data-toggle="info" id="info">
+                    <div class="card-body  text-left">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Task Master Information</h3>
+                            </div>
+                            <div class="col-md-6">
+                                <iframe width="90%" height="225" src="https://www.youtube.com/embed/OhqNjctCg-s"
+                                    title="Javascript Tutorial &quot;Hijack&quot; the js-datepicker" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <div class="col-md-6">
+
+                                <p class="companyStorageInfo "></p>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
     </main>
 
