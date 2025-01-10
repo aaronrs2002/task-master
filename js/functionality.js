@@ -11,6 +11,19 @@ const selectWord = () => {
     document.querySelector("[name='updateWord']").value = taskList[wordSelected].task;
     document.querySelector("select[name='taskStatus']").value = taskList[wordSelected].taskStatus;
     document.querySelector("[name='taskDetails']").value = taskList[wordSelected].taskDetails;
+
+    let taskDetails = taskList[wordSelected].details;
+    if (taskDetails.indexOf("info") !== -1) {
+        taskDetails = "info";
+    }
+    if (taskDetails.indexOf("warning") !== -1) {
+        taskDetails = "warning";
+    }
+    if (taskDetails.indexOf("danger") !== -1) {
+        taskDetails = "danger";
+    }
+    document.querySelector("[name='updateDefinition']").value = taskDetails;
+
 }
 
 const buildList = (data, num) => {
