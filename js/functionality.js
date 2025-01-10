@@ -183,7 +183,7 @@ function updateCustom() {
     let taskList = [];
     Validate(["updateWord", "taskYear", "taskMonth", "taskDay"]);
     let detailsStr = "No Details";
-    if (document.querySelector("textarea[name='taskDetails']").value !== "" && document.querySelector("textarea[name='taskDetails']").value !== "undefined") {
+    if (document.querySelector("textarea[name='taskDetails']").value !== "" && document.querySelector("textarea[name='taskDetails']").value !== undefined) {
 
         detailsStr = document.querySelector("textarea[name='taskDetails']").value;
     }
@@ -196,8 +196,10 @@ function updateCustom() {
     let whichIndex = document.getElementById("localList").value;
     update = CRUD;
     if (localStorage.getItem("taskList")) {
-        taskList.push(JSON.parse(localStorage.getItem("taskList")));
+        taskList = JSON.parse(localStorage.getItem("taskList"));
     }
+
+
 
     if (update === "add") {
         let tempWordList = [];
@@ -258,6 +260,7 @@ function updateCustom() {
         return false;
     }
     localStorage.setItem("taskList", JSON.stringify(taskList));
+    console.log("JSON.stringify(taskList): " + JSON.stringify(taskList))
     buildList(taskList, 0);
     loadList(taskList);
     document.querySelector("input[name='updateWord']").value = "";
