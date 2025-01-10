@@ -311,9 +311,17 @@ function handleOnSubmit(event, type, merge) {
             const tempObj = event.target.result;
             let tempTasks = JSON.parse(tempObj);
             try {
-                let timeClockKeysArr = Object.keys(tempTasks.timeClock[0]);
+
+                let timeClockKeysArr = [];
+                for (let i = 0; i < tempTasks.timeClock.length; i++) {
+                    timeClockKeysArr.push(Object.keys(tempTasks.timeClock[i]));
+                }
+                console.log("timeClockKeysArr.length: " + timeClockKeysArr.length);
+                console.log("timeClockKeysArr: " + timeClockKeysArr);
                 for (let i = 0; i < tempTasks.timeClock.length; i++) {
                     let timeClockId = timeClockKeysArr[i];
+
+                    console.log("Saving each key to local storage - timeClockKeysArr[i]: " + timeClockKeysArr[i])
                     localStorage.setItem(timeClockKeysArr[i], JSON.stringify(tempTasks.timeClock[i][timeClockId]));
                 }
             } catch (error) {
