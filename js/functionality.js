@@ -362,7 +362,7 @@ function handleOnSubmit(event, type, merge) {
                     localStorage.setItem("taskList", JSON.stringify(tempTasks.taskList));
                     convertForCalendar("merge")
                 } else {
-                    let tempTasksObj = [...JSON.parse(localStorage.getItem("taskList")), ...tempTasks];
+                    let tempTasksObj = [...JSON.parse(localStorage.getItem("taskList")), ...tempTasks.taskList];
                     buildList(tempTasksObj, 0);
                     loadList(tempTasksObj);
                     localStorage.setItem("taskList", JSON.stringify(tempTasksObj));
