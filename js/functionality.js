@@ -230,6 +230,7 @@ function updateCustom() {
         document.getElementById("localList").classList.add("hide");
         if (document.querySelector("input[name='updateWord']").value && document.querySelector("[name='updateDefinition']").value) {
             let newWord = document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart();
+
             if (tempWordList.indexOf(newWord) === -1) {
                 taskList = [...taskList, {
                     task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(),
@@ -255,6 +256,37 @@ function updateCustom() {
     if (update === "edit") {
         if (document.querySelector("input[name='updateWord']").value && document.querySelector("[name='updateDefinition']").value) {
             let editWord = document.querySelector("input[name='updateWord']").value.toLowerCase();
+
+
+            /*START UPDATE TIMECLOCK NAMES*/
+            let initialWord = document.getElementById("localList").value;
+            let keyListArr = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                keyListArr.push(key);
+
+            }
+
+            for (let i = 0; i < keyListArr.length; i++) {
+
+                if (keyListArr[i].indexOf(taskList[initialWord].task) !== -1) {
+
+                    localStorage.setItem(keyListArr[i].substring(0, keyListArr[i].indexOf(":") + 1) + editWord + ":timeClock", localStorage.getItem(keyListArr[i]));
+
+                    localStorage.removeItem(keyListArr[i]);
+
+                }
+
+            }
+
+            /* END TIMECLOCK NAMES*/
+
+
+
+
+
+
+
             for (let i = 0; i < taskList.length; i++) {
                 let tempStatus = "open";
                 if (taskList[i].taskStatus === undefined) {
