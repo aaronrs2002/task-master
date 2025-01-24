@@ -336,6 +336,14 @@ function downloadData() {
     if (localStorage.getItem("taskList")) {
         tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), timeClock: savedHours };
     }
+
+    if (localStorage.getItem("invoices")) {
+        //  tempData = [...tempData, { invoices: JSON.parse(localStorage.getItem("invoices")) }];
+        // tempData.push({ invoices: JSON.parse(localStorage.getItem("invoices")) });
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), timeClock: savedHours, invoices: JSON.parse(localStorage.getItem("invoices")) };
+
+    }
+    console.log("tempData: " + JSON.stringify(tempData));
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(tempData, null, 2)], {
         type: 'application/json'
@@ -369,6 +377,38 @@ function handleOnSubmit(event, type, merge) {
         fileReader.onload = function (event) {
             const tempObj = event.target.result;
             let tempTasks = JSON.parse(tempObj);
+            let currentlyStored = [];
+            let invoiceList = [];
+
+            try {
+                if (localStorage.getItem("invoices")) {
+                    currentlyStored = JSON.parse(localStorage.getItem("invoices"));
+                    for (let i = 0; i < currentlyStored.length; i++) {
+                        invoiceList.push(currentlyStored[i].timestampEmail);
+
+                    }
+                }
+
+
+            } catch (error) {
+                console.log("No invoice yet: " + error);
+
+            }
+            console.log("invoiceList: " + invoiceList);
+            try {
+
+                for (let i = 0; i < tempTasks.invoices.length; i++) {
+                    if (invoiceList.indexOf(tempTasks.invoices[i].timestampEmail) === -1) {
+                        currentlyStored.push(tempTasks.invoices[i]);
+                        console.log("we pushed: " + tempTasks.invoices[i].timestampEmail);
+                    }
+
+                }
+
+            } catch (error) {
+
+            }
+            localStorage.setItem("invoices", JSON.stringify(currentlyStored));
             try {
 
                 let timeClockKeysArr = [];
@@ -387,11 +427,30 @@ function handleOnSubmit(event, type, merge) {
             }
             if (type === "json") {
                 if (merge === "default") {
-
+                    let currentTasksList = [];
+                    let taskObj = []
                     console.log("JSON.stringify(tempTasks.taskList): " + JSON.stringify(tempTasks.taskList));
-                    buildList(tempTasks.taskList, 0);
-                    loadList(tempTasks.taskList);
-                    localStorage.setItem("taskList", JSON.stringify(tempTasks.taskList));
+
+                    try {
+
+                        for (let i = 0; i < JSON.parse(localStorage.getItem("taskList")).length; i++) {
+                            currentTasksList.push(JSON.parse(localStorage.getItem("taskList"))[i].task);
+                            taskObj.push(JSON.parse(localStorage.getItem("taskList"))[i]);
+                        }
+                    } catch (error) {
+                        console.log("no task yet: " + error);
+                    }
+
+                    for (let i = 0; i < tempTasks.taskList.length; i++) {
+                        if (currentTasksList.indexOf(tempTasks.taskList[i].task) === -1) {
+                            taskObj.push(tempTasks.taskList[i]);
+                        }
+                    }
+
+
+                    buildList(taskObj, 0);
+                    loadList(taskObj);
+                    localStorage.setItem("taskList", JSON.stringify(taskObj));
                     convertForCalendar("merge")
                 } else {
                     let tempTasksObj = [...JSON.parse(localStorage.getItem("taskList")), ...tempTasks.taskList];
