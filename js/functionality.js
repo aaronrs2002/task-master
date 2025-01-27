@@ -334,15 +334,20 @@ function updateCustom() {
 function downloadData() {
     let tempData = [];
     if (localStorage.getItem("taskList")) {
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), timeClock: savedHours };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: [], timeClock: [] };
     }
 
     if (localStorage.getItem("invoices")) {
         //  tempData = [...tempData, { invoices: JSON.parse(localStorage.getItem("invoices")) }];
         // tempData.push({ invoices: JSON.parse(localStorage.getItem("invoices")) });
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), timeClock: savedHours, invoices: JSON.parse(localStorage.getItem("invoices")) };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: [] };
 
     }
+    if (savedHours.length > 0) {
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours };
+    }
+
+
     console.log("tempData: " + JSON.stringify(tempData));
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(tempData, null, 2)], {
@@ -487,9 +492,12 @@ try {
 
             console.log("key: " + key);
             if (key.indexOf(":timeClock") !== -1) {
-                keyListArr.push(key);
 
-                savedHours.push({ [key]: JSON.parse(localStorage.getItem(key)) });
+                if (keyListArr.indexOf(key) === -1) {
+                    savedHours.push({ [key]: JSON.parse(localStorage.getItem(key)) });
+                    keyListArr.push(key);
+                }
+
 
             }
 
