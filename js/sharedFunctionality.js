@@ -88,3 +88,40 @@ for (let i = 0; i < navData.length; i++) {
     navLinkHTML = navLinkHTML + "<li class='nav-item'> <a class='nav-link " + active + "' href=" + navData[i].address + ">" + navData[i].name + "</a></li>";
 }
 document.getElementById("navLinkTarget").innerHTML = navLinkHTML;
+
+/*UPDATED 1-27-2025 GRAB ALL TIMELOCK RTASK, NOT JUST THE ACTIVE ONES FROM THE TASKMASTER*/
+function buildTaskMenu() {
+    let taskListHTML = document.getElementById("taskTarget").innerHTML;
+    let tempTasks = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.indexOf(":timeClock") !== -1) {
+            let taskName = key.substring(key.indexOf(":") + 1, key.length - 10);
+            if (tempTasks.indexOf(taskName) === -1 && taskName !== ":") {
+                taskListHTML = taskListHTML + "<option value-='" + taskName + "'>" + taskName + "</option>";
+                tempTasks.push(taskName);
+            }
+
+
+
+        }
+    }
+    document.getElementById("taskTarget").innerHTML = taskListHTML;
+
+
+    if (localStorage.getItem("taskList")) {
+        let taskListHTML = document.getElementById("taskTarget").innerHTML;
+        let tempList = JSON.parse(localStorage.getItem("taskList"));
+        for (let i = 0; i < tempList.length; i++) {
+            if (tempTasks.indexOf(tempList[i].task) === -1) {
+                taskListHTML = taskListHTML + "<option value-='" + tempList[i].task + "'>" + tempList[i].task + "</option>";
+                tempTasks.push(tempList[i].task);
+            }
+
+        }
+
+        document.getElementById("taskTarget").innerHTML = taskListHTML;
+
+    }
+
+}
