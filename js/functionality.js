@@ -389,6 +389,9 @@ function handleOnChange(event) {
         document.querySelector("#fileMerge").classList.add("hide");
     }
 };
+
+
+
 function handleOnSubmit(event, type, merge) {
     event.preventDefault();
     if (merge === "default") {
@@ -398,7 +401,7 @@ function handleOnSubmit(event, type, merge) {
         fileReader.onload = function (event) {
             const tempObj = event.target.result;
             let tempTasks = JSON.parse(tempObj);
-            console.log("JSON.stringify(tempTasks): " + JSON.stringify(tempTasks));
+
             let currentlyStored = [];
             let invoiceList = [];
 
@@ -487,7 +490,10 @@ function handleOnSubmit(event, type, merge) {
                             let tempTaskId = tempEmail + ":BUDGET:" + tempTitle;
 
                             if (budgetKeysList.indexOf(tempTaskId) === -1) {
-                                budgetKeysList.push({ [tempTaskId]: [] })
+                                budgetKeysList.push(tempTaskId);
+                                tempBugetObjArr.push(tempTasks.budget[i])
+                            } else {
+                                tempBugetObjArr[budgetKeysList.indexOf(tempTaskId)].push(tempTasks.budget[i]);
                             }
 
 
@@ -511,25 +517,11 @@ function handleOnSubmit(event, type, merge) {
 
                             console.log("tempTaskId: " + tempTaskId);
                         }
+                        for (let i = 0; i < tempBugetObjArr.length; i++) {
+                            localStorage.setItem(budgetKeysList[i], tempBugetObjArr[i])
+                        }
                         console.log("JSON.stringify(tempBugetObjArr): " + JSON.stringify(tempBugetObjArr));
 
-                        for (let i = 0; i < tempTasks.budget.length; i++) {
-
-                            let tempTitle = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.lastIndexOf(":") + 1, tempTasks.budget[i].itemId.length);
-                            let tempEmail = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.indexOf(":") + 1, tempTasks.budget[i].itemId.lastIndexOf(":"));
-                            let tempTaskId = tempEmail + ":BUDGET:" + tempTitle;
-
-                            for (let j = 0; j < tempBugetObjArr.length; j++) {
-                                if (tempTaskId === tempBugetObjArr.key(j)) {
-                                    tempBugetObjArr[j].push(tempTasks.budget[i])
-                                }
-                            }
-
-                        }
-
-                        for (let i = 0; i < tempBugetObjArr.length; i++) {
-                            localStorage.setItem(tempBugetObjArr.key(i), tempBugetObjArr[i])
-                        }
 
                     } catch (error) {
                         console.log("no budget data: " + error);
