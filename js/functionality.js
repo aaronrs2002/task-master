@@ -487,11 +487,6 @@ function handleOnSubmit(event, type, merge) {
                             let tempTaskId = tempEmail + ":BUDGET:" + tempTitle;
 
 
-                            if (listOrder.indexOf(tempTaskId) === -1) {
-                                tempBugetObjArr.push({ [tempTaskId]: [] });
-
-
-                            }
                             /*  if (localStorage.getItem(tempTaskId)) {
                                   let tempObj = JSON.parse(localStorage.getItem(tempTaskId));
                                   let iterableObj = [];
@@ -513,7 +508,7 @@ function handleOnSubmit(event, type, merge) {
                             console.log("tempTaskId: " + tempTaskId);
                         }
                         console.log("JSON.stringify(tempBugetObjArr): " + JSON.stringify(tempBugetObjArr));
-                        console.log("listOrder: " + listOrder)
+
                         for (let i = 0; i < tempTasks.budget.length; i++) {
 
                             let tempTitle = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.lastIndexOf(":") + 1, tempTasks.budget[i].itemId.length);
