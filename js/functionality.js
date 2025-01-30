@@ -539,6 +539,11 @@ function handleOnSubmit(event, type, merge) {
                         if (localStorage.getItem(tempTitle) !== null) {
                             console.log("We have it: " + tempTitle)
                             let merge = JSON.parse(localStorage.getItem(tempTitle));
+                            let iterableObj = [];
+                            if (merge.length === undefined) {
+                                iterableObj.push(merge);
+                                merge = iterableObj;
+                            }
                             merge.push(tempTasks.budget[i]);
                             merge = JSON.stringify(merge);
                             localStorage.setItem(tempTitle, merge);
