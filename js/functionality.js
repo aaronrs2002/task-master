@@ -517,7 +517,7 @@ function handleOnSubmit(event, type, merge) {
                             console.log("tempTaskId: " + tempTaskId);
                         }
 
-                        for (leti = 0; i < tempBugetObjArr.length; i++) {
+                        for (let i = 0; i < tempBugetObjArr.length; i++) {
                             localStorage.setItem(tempBugetObjArr[i].itemId, JSON.stringify(tempBugetObjArr[i]));
                         }
 
