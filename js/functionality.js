@@ -484,7 +484,16 @@ function handleOnSubmit(event, type, merge) {
                             let tempEmail = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.indexOf(":") + 1, tempTasks.budget[i].itemId.lastIndexOf(":"));
                             let tempTaskId = tempEmail + ":BUDGET:" + tempTitle;
 
-                            localStorage.setItem(tempTaskId, JSON.stringify(tempTasks.budget[i]));
+                            if (localStorage.getItem(tempTaskId)) {
+                                let tempObj = JSON.parse(localStorage.getItem(tempTaskId));
+                                tempObj = [...tempObj, tempTasks.budget[i]];
+                                localStorage.setItem(tempTaskId, JSON.stringify(tempObj));
+
+                            } else {
+                                localStorage.setItem(tempTaskId, JSON.stringify(tempTasks.budget[i]));
+                            }
+
+
 
                             console.log("tempTaskId: " + tempTaskId);
                         }
