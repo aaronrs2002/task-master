@@ -486,7 +486,12 @@ function handleOnSubmit(event, type, merge) {
 
                             if (localStorage.getItem(tempTaskId)) {
                                 let tempObj = JSON.parse(localStorage.getItem(tempTaskId));
-                                tempObj = [...tempObj, tempTasks.budget[i]];
+                                let iterableObj = [];
+                                // tempObj = [...tempObj, tempTasks.budget[i]];
+                                if (tempObj.length === undefined) {
+                                    iterableObj.push(tempObj);
+                                    tempObj = iterableObj;
+                                }
                                 localStorage.setItem(tempTaskId, JSON.stringify(tempObj));
 
                             } else {
