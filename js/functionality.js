@@ -478,7 +478,7 @@ function handleOnSubmit(event, type, merge) {
                     console.log("JSON.stringify(tempTasks.budget): " + JSON.stringify(tempTasks.budget));
                     try {
                         let tempBugetObjArr = [];
-                        let listOrder = [];
+
                         for (let i = 0; i < tempTasks.budget.length; i++) {
                             //"2025-01-291738182507452:aaron@web-presence.biz:default",
 
@@ -488,15 +488,10 @@ function handleOnSubmit(event, type, merge) {
 
 
                             if (listOrder.indexOf(tempTaskId) === -1) {
-                                listOrder.push(tempTaskId);
-                                tempBugetObjArr.push(tempTasks.budget[i]);
+                                tempBugetObjArr.push({ [tempTaskId]: [] });
 
-                            } else {
-                                console.log("listOrder.indexOf(tempTaskId): " + listOrder.indexOf(tempTaskId))
-                                tempBugetObjArr[listOrder.indexOf(tempTaskId)].push(tempTasks.budget[i]);
+
                             }
-
-
                             /*  if (localStorage.getItem(tempTaskId)) {
                                   let tempObj = JSON.parse(localStorage.getItem(tempTaskId));
                                   let iterableObj = [];
@@ -519,8 +514,22 @@ function handleOnSubmit(event, type, merge) {
                         }
                         console.log("JSON.stringify(tempBugetObjArr): " + JSON.stringify(tempBugetObjArr));
                         console.log("listOrder: " + listOrder)
+                        for (let i = 0; i < tempTasks.budget.length; i++) {
+
+                            let tempTitle = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.lastIndexOf(":") + 1, tempTasks.budget[i].itemId.length);
+                            let tempEmail = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.indexOf(":") + 1, tempTasks.budget[i].itemId.lastIndexOf(":"));
+                            let tempTaskId = tempEmail + ":BUDGET:" + tempTitle;
+
+                            for (let j = 0; j < tempBugetObjArr.length; j++) {
+                                if (tempTaskId === tempBugetObjArr.key(j)) {
+                                    tempBugetObjArr.push(tempTasks.budget[i])
+                                }
+                            }
+
+                        }
+
                         for (let i = 0; i < tempBugetObjArr.length; i++) {
-                            localStorage.setItem(listOrder[i], JSON.stringify(tempBugetObjArr[i]));
+                            localStorage.setItem(tempBugetObjArr.key(i), tempBugetObjArr[i])
                         }
 
                     } catch (error) {
