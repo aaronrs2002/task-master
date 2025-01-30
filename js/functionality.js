@@ -489,37 +489,25 @@ function handleOnSubmit(event, type, merge) {
                             let tempEmail = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.indexOf(":") + 1, tempTasks.budget[i].itemId.lastIndexOf(":"));
                             let tempTaskId = tempEmail + ":BUDGET:" + tempTitle;
 
-                            if (budgetKeysList.indexOf(tempTaskId) === -1) {
-                                budgetKeysList.push(tempTaskId);
-                                tempBugetObjArr.push(tempTasks.budget[i])
+
+
+                            if (localStorage.getItem(tempTaskId)) {
+                                let tempObj = JSON.parse(localStorage.getItem(tempTaskId));
+                                let iterableObj = [];
+                                // tempObj = [...tempObj, tempTasks.budget[i]];
+                                if (tempObj.length === undefined) {
+                                    iterableObj.push(tempObj);
+                                    tempObj = iterableObj;
+                                } else {
+                                    tempObj = [...taskObj, tempTasks.budget[i]];
+                                }
+                                localStorage.setItem(tempTaskId, JSON.stringify(tempObj));
+
                             } else {
-                                tempBugetObjArr[budgetKeysList.indexOf(tempTaskId)].push(tempTasks.budget[i]);
+                                localStorage.setItem(tempTaskId, JSON.stringify(tempTasks.budget[i]));
                             }
-
-
-                            /*  if (localStorage.getItem(tempTaskId)) {
-                                  let tempObj = JSON.parse(localStorage.getItem(tempTaskId));
-                                  let iterableObj = [];
-                                  // tempObj = [...tempObj, tempTasks.budget[i]];
-                                  if (tempObj.length === undefined) {
-                                      iterableObj.push(tempObj);
-                                      tempObj = iterableObj;
-                                  } else {
-                                      tempObj = [...taskObj, tempTasks.budget[i]];
-                                  }
-                                  localStorage.setItem(tempTaskId, JSON.stringify(tempObj));
-  
-                              } else {
-                                  localStorage.setItem(tempTaskId, JSON.stringify(tempTasks.budget[i]));
-                              }*/
-
-
-
-                            console.log("tempTaskId: " + tempTaskId);
                         }
-                        for (let i = 0; i < tempBugetObjArr.length; i++) {
-                            localStorage.setItem(budgetKeysList[i], tempBugetObjArr[i])
-                        }
+
                         console.log("JSON.stringify(tempBugetObjArr): " + JSON.stringify(tempBugetObjArr));
 
 
