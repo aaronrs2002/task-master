@@ -477,16 +477,17 @@ function handleOnSubmit(event, type, merge) {
              } catch (error) {
                  console.log("no budget yet: " + error)
              }*/
-
+            console.log("type: " + type + " - merge: " + merge);
 
             if (type === "json") {
+                console.log("WE GO PAST type: " + type);
                 if (merge === "default") {
                     let currentTasksList = [];
                     let taskObj = []
-                    console.log("JSON.stringify(tempTasks.budget): " + JSON.stringify(tempTasks.budget));
+
                     try {
-                        let tempBugetObjArr = [];
-                        let budgetKeysList = []
+
+
                         for (let i = 0; i < tempTasks.budget.length; i++) {
                             //"2025-01-291738182507452:aaron@web-presence.biz:default",
 
@@ -515,7 +516,6 @@ function handleOnSubmit(event, type, merge) {
                             }
                         }
 
-                        console.log("JSON.stringify(tempBugetObjArr): " + JSON.stringify(tempBugetObjArr));
 
 
                     } catch (error) {
@@ -544,28 +544,99 @@ function handleOnSubmit(event, type, merge) {
                     localStorage.setItem("taskList", JSON.stringify(taskObj));
                     convertForCalendar("merge")
                 } else {
-                    let tempTasksObj = [...JSON.parse(localStorage.getItem("taskList")), ...tempTasks.taskList];
+                    console.log("WE GO PAST merge: " + merge);
+
+
+
+                    /*START MERGE OPTION*/
+                    let tempTasksObj = []
+                    if (!localStorage.getItem("taskList")) {
+
+                        tempTasksObj = tempTasks.taskList;
+                        localStorage.setItem("taskList", JSON.stringify(tempTasks.taskList));
+                    } else {
+
+
+
+                        try {
+                            if (JSON.parse(localStorage.getItem("taskList")).length > 0) {
+                                tempTasksObj = [...JSON.parse(localStorage.getItem("taskList")), ...tempTasks.taskList];
+
+                            }
+                        } catch (error) {
+                            tempTasksObj.push(JSON.parse(localStorage.getItem("taskList")));
+                            if (tempTasksObj.length > 0) {
+                                tempTasksObj = [...tempTasksObj, ...tempTasks.taskList];
+
+                            } else {
+                                tempTasksObj = tempTasks.taskList;
+
+                            }
+
+                        }
+                        localStorage.setItem("taskList", JSON.stringify(tempTasksObj));
+                    }
+
                     buildList(tempTasksObj, 0);
                     loadList(tempTasksObj);
-                    localStorage.setItem("taskList", JSON.stringify(tempTasksObj));
+
                     // let tempBudget=JSON.parse(localStorage.getItem());
-                    for (let i = 0; i < tempTasks.budget.length; i++) {
-                        let tempTitle = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.lastIndexOf(":") + 1, tempTasks.budget[i].itemId.length);
-                        if (localStorage.getItem(tempTitle) !== null) {
-                            console.log("We have it: " + tempTitle)
-                            let merge = JSON.parse(localStorage.getItem(tempTitle));
-                            let iterableObj = [];
-                            if (merge.length === undefined) {
-                                iterableObj.push(merge);
-                                merge = iterableObj;
+                    /*  for (let i = 0; i < tempTasks.budget.length; i++) {
+                          let tempTitle = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.lastIndexOf(":") + 1, tempTasks.budget[i].itemId.length);
+                          if (localStorage.getItem(tempTitle) !== null) {
+                              console.log("We have it: " + tempTitle)
+                              let merge = JSON.parse(localStorage.getItem(tempTitle));
+                              let iterableObj = [];
+                              if (merge.length === undefined) {
+                                  iterableObj.push(merge);
+                                  merge = iterableObj;
+                              }
+                              merge.push(tempTasks.budget[i]);
+                              merge = JSON.stringify(merge);
+                              localStorage.setItem(tempTitle, merge);
+                          } else {
+                              localStorage.setItem(tempTitle, tempTasks.budget[i]);
+                          }
+  
+                      }*/
+                    try {
+                        let tempBugetObjArr = [];
+                        console.log(" JSON.stringify(tempTasks.budget): " + JSON.stringify(tempTasks.budget))
+                        for (let i = 0; i < tempTasks.budget.length; i++) {
+                            //"2025-01-291738182507452:aaron@web-presence.biz:default",
+
+                            let tempTitle = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.lastIndexOf(":") + 1, tempTasks.budget[i].itemId.length);
+                            let tempEmail = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.indexOf(":") + 1, tempTasks.budget[i].itemId.lastIndexOf(":"));
+                            let tempTaskId = tempEmail + ":BUDGET:" + tempTitle;
+
+
+
+                            if (localStorage.getItem(tempTaskId)) {
+                                console.log("SAVE TO EXISTING tempTaskId: " + tempTaskId)
+                                let tempObj = JSON.parse(localStorage.getItem(tempTaskId));
+                                let iterableObj = [];
+                                // tempObj = [...tempObj, tempTasks.budget[i]];
+                                if (tempObj.length === undefined) {
+                                    iterableObj.push(tempObj);
+                                    tempObj = iterableObj;
+                                    console.log("we are trying to BUILD NEW " + tempTaskId);
+                                } else {
+                                    tempObj = [...tempObj, tempTasks.budget[i]];
+                                    console.log("we are trying to add to exising " + tempTaskId);
+                                }
+                                localStorage.setItem(tempTaskId, JSON.stringify(tempObj));
+
+                            } else {
+                                console.log("THERE WAS NO tempTaskId: " + tempTaskId + " - WE ARE SAVING IT NEW")
+                                localStorage.setItem(tempTaskId, JSON.stringify(tempTasks.budget[i]));
                             }
-                            merge.push(tempTasks.budget[i]);
-                            merge = JSON.stringify(merge);
-                            localStorage.setItem(tempTitle, merge);
-                        } else {
-                            localStorage.setItem(tempTitle, tempTasks.budget[i]);
                         }
 
+
+
+
+                    } catch (error) {
+                        console.log("no budget data: " + error);
                     }
                     convertForCalendar("upload")
                 }
