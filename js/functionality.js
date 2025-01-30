@@ -498,8 +498,10 @@ function handleOnSubmit(event, type, merge) {
                                 if (tempObj.length === undefined) {
                                     iterableObj.push(tempObj);
                                     tempObj = iterableObj;
+                                    console.log("we are trying to BUILD NEW " + tempTaskId);
                                 } else {
-                                    tempObj = [...taskObj, tempTasks.budget[i]];
+                                    tempObj = [...tempObj, tempTasks.budget[i]];
+                                    console.log("we are trying to add to exising " + tempTaskId);
                                 }
                                 localStorage.setItem(tempTaskId, JSON.stringify(tempObj));
 
