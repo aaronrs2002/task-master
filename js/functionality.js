@@ -477,6 +477,8 @@ function handleOnSubmit(event, type, merge) {
                     let taskObj = []
                     console.log("JSON.stringify(tempTasks.budget): " + JSON.stringify(tempTasks.budget));
                     try {
+                        let tempBugetObjArr = [];
+                        let listOrder = [];
                         for (let i = 0; i < tempTasks.budget.length; i++) {
                             //"2025-01-291738182507452:aaron@web-presence.biz:default",
 
@@ -484,25 +486,39 @@ function handleOnSubmit(event, type, merge) {
                             let tempEmail = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.indexOf(":") + 1, tempTasks.budget[i].itemId.lastIndexOf(":"));
                             let tempTaskId = tempEmail + ":BUDGET:" + tempTitle;
 
-                            if (localStorage.getItem(tempTaskId)) {
-                                let tempObj = JSON.parse(localStorage.getItem(tempTaskId));
-                                let iterableObj = [];
-                                // tempObj = [...tempObj, tempTasks.budget[i]];
-                                if (tempObj.length === undefined) {
-                                    iterableObj.push(tempObj);
-                                    tempObj = iterableObj;
-                                } else {
-                                    tempObj = [...taskObj, tempTasks.budget[i]];
-                                }
-                                localStorage.setItem(tempTaskId, JSON.stringify(tempObj));
+
+                            if (listOrder.indexOf(tempTasks.budget[i].itemId) == -1) {
+                                listOrder.push(tempTasks.budget[i].itemId);
+                                tempBugetObjArr.push(tempTasks.budget[i]);
 
                             } else {
-                                localStorage.setItem(tempTaskId, JSON.stringify(tempTasks.budget[i]));
+                                tempBugetObjArr[listOrder.indexOf(tempTasks.budget[i].itemId)].push(tempTasks.budget[i]);
                             }
+
+
+                            /*  if (localStorage.getItem(tempTaskId)) {
+                                  let tempObj = JSON.parse(localStorage.getItem(tempTaskId));
+                                  let iterableObj = [];
+                                  // tempObj = [...tempObj, tempTasks.budget[i]];
+                                  if (tempObj.length === undefined) {
+                                      iterableObj.push(tempObj);
+                                      tempObj = iterableObj;
+                                  } else {
+                                      tempObj = [...taskObj, tempTasks.budget[i]];
+                                  }
+                                  localStorage.setItem(tempTaskId, JSON.stringify(tempObj));
+  
+                              } else {
+                                  localStorage.setItem(tempTaskId, JSON.stringify(tempTasks.budget[i]));
+                              }*/
 
 
 
                             console.log("tempTaskId: " + tempTaskId);
+                        }
+
+                        for (leti = 0; i < tempBugetObjArr.length; i++) {
+                            localStorage.setItem(tempBugetObjArr[i].itemId, JSON.stringify(tempBugetObjArr[i]));
                         }
 
                     } catch (error) {
