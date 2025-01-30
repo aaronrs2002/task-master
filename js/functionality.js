@@ -487,12 +487,12 @@ function handleOnSubmit(event, type, merge) {
                             let tempTaskId = tempEmail + ":BUDGET:" + tempTitle;
 
 
-                            if (listOrder.indexOf(tempTasks.budget[i].itemId) === -1) {
-                                listOrder.push(tempTasks.budget[i].itemId);
+                            if (listOrder.indexOf(tempTaskId) === -1) {
+                                listOrder.push(tempTaskId);
                                 tempBugetObjArr.push(tempTasks.budget[i]);
 
                             } else {
-                                tempBugetObjArr[listOrder.indexOf(tempTasks.budget[i].itemId)].push(tempTasks.budget[i]);
+                                tempBugetObjArr[listOrder.indexOf(tempTaskId)].push(tempTasks.budget[i]);
                             }
 
 
@@ -519,7 +519,7 @@ function handleOnSubmit(event, type, merge) {
                         console.log("JSON.stringify(tempBugetObjArr): " + JSON.stringify(tempBugetObjArr));
                         console.log("listOrder: " + listOrder)
                         for (let i = 0; i < tempBugetObjArr.length; i++) {
-                            localStorage.setItem(tempBugetObjArr[i].itemId, JSON.stringify(tempBugetObjArr[i]));
+                            localStorage.setItem(listOrder[i], JSON.stringify(tempBugetObjArr[i]));
                         }
 
                     } catch (error) {
