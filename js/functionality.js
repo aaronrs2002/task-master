@@ -354,7 +354,12 @@ function downloadData() {
 
         console.log("key: " + key);
         if (key.indexOf(":BUDGET:") !== -1) {
-            tempBudget = [...tempBudget, ...JSON.parse(localStorage.getItem(key))]
+            try {
+                tempBudget = [...tempBudget, ...JSON.parse(localStorage.getItem(key))]
+            } catch (error) {
+                tempBudget = JSON.parse(localStorage.getItem(key));
+            }
+
 
         }
 
