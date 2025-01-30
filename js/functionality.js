@@ -492,7 +492,7 @@ function handleOnSubmit(event, type, merge) {
                                     iterableObj.push(tempObj);
                                     tempObj = iterableObj;
                                 } else {
-                                    tempObj.push(tempTasks.budget[i]);
+                                    tempObj = [...taskObj, tempTasks.budget[i]];
                                 }
                                 localStorage.setItem(tempTaskId, JSON.stringify(tempObj));
 
