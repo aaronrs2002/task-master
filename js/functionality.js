@@ -52,12 +52,12 @@ const buildList = (data, num) => {
     for (let i = 0; i < data.length; i++) {
 
         if (data[i].taskDetails === undefined) {
-            console.log("data[i].taskDetails: " + data[i].taskDetails);
+
         } else {
             tempDetails = data[i].taskDetails;
         }
         if (data[i].taskStatus === undefined) {
-            console.log("data[i].taskStatus: " + data[i].taskStatus);
+
         } else {
             tempStatus = data[i].taskStatus;
         }
@@ -334,21 +334,37 @@ function updateCustom() {
 function downloadData() {
     let tempData = [];
     if (localStorage.getItem("taskList")) {
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: [], timeClock: [] };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: [], timeClock: [], budget: [] };
     }
 
     if (localStorage.getItem("invoices")) {
         //  tempData = [...tempData, { invoices: JSON.parse(localStorage.getItem("invoices")) }];
         // tempData.push({ invoices: JSON.parse(localStorage.getItem("invoices")) });
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: [] };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: [], budget: [] };
 
     }
     if (savedHours.length > 0) {
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: [] };
+    }
+    let tempBudget = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+
+        const key = localStorage.key(i);
+
+        console.log("key: " + key);
+        if (key.indexOf(":BUDGET:") !== -1) {
+            tempBudget = [...tempBudget, ...JSON.parse(localStorage.getItem(key))]
+
+        }
+
+    }
+    console.log("tempData: " + JSON.stringify(tempData));
+    if (tempBudget.length > 0) {
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: tempBudget };
     }
 
 
-    console.log("tempData: " + JSON.stringify(tempData));
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(tempData, null, 2)], {
         type: 'application/json'
@@ -382,6 +398,7 @@ function handleOnSubmit(event, type, merge) {
         fileReader.onload = function (event) {
             const tempObj = event.target.result;
             let tempTasks = JSON.parse(tempObj);
+            console.log("JSON.stringify(tempTasks): " + JSON.stringify(tempTasks));
             let currentlyStored = [];
             let invoiceList = [];
 
@@ -430,11 +447,51 @@ function handleOnSubmit(event, type, merge) {
                 }
             } catch (error) {
             }
+
+
+            /*try {
+ 
+                 console.log("JSON.stringify(tempTasks.budget): " + JSON.stringify(tempTasks.budget))
+ 
+                  for (let i = 0; i < tempTasks.budget.length; i++) {
+                      if (key.indexOf(":BUDGET:") !== -1) {
+ 
+                          if (keyListArr.indexOf(key) === -1) {
+                                 localStorage.setItem(key,) [key]: JSON.parse(localStorage.getItem(key)) });
+                         
+                          }
+ 
+ 
+                      }
+  
+                  }
+ 
+             } catch (error) {
+                 console.log("no budget yet: " + error)
+             }*/
+
+
             if (type === "json") {
                 if (merge === "default") {
                     let currentTasksList = [];
                     let taskObj = []
-                    console.log("JSON.stringify(tempTasks.taskList): " + JSON.stringify(tempTasks.taskList));
+                    console.log("JSON.stringify(tempTasks.budget): " + JSON.stringify(tempTasks.budget));
+                    try {
+                        for (let i = 0; i < tempTasks.budget.length; i++) {
+                            //"2025-01-291738182507452:aaron@web-presence.biz:default",
+
+                            let tempTitle = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.lastIndexOf(":") + 1, tempTasks.budget[i].itemId.length);
+                            let tempEmail = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.indexOf(":") + 1, tempTasks.budget[i].itemId.lastIndexOf(":"));
+                            let tempTaskId = tempEmail + ":BUDGET:" + tempTitle;
+
+                            localStorage.setItem(tempTaskId, JSON.stringify(tempTasks.budget[i]));
+
+                            console.log("tempTaskId: " + tempTaskId);
+                        }
+
+                    } catch (error) {
+                        console.log("no budget data: " + error);
+                    }
 
                     try {
 
@@ -462,6 +519,20 @@ function handleOnSubmit(event, type, merge) {
                     buildList(tempTasksObj, 0);
                     loadList(tempTasksObj);
                     localStorage.setItem("taskList", JSON.stringify(tempTasksObj));
+                    // let tempBudget=JSON.parse(localStorage.getItem());
+                    for (let i = 0; i < tempTasks.budget.length; i++) {
+                        let tempTitle = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.lastIndexOf(":") + 1, tempTasks.budget[i].itemId.length);
+                        if (localStorage.getItem(tempTitle) !== null) {
+                            console.log("We have it: " + tempTitle)
+                            let merge = JSON.parse(localStorage.getItem(tempTitle));
+                            merge.push(tempTasks.budget[i]);
+                            merge = JSON.stringify(merge);
+                            localStorage.setItem(tempTitle, merge);
+                        } else {
+                            localStorage.setItem(tempTitle, tempTasks.budget[i]);
+                        }
+
+                    }
                     convertForCalendar("upload")
                 }
             }
