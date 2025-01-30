@@ -492,6 +492,7 @@ function handleOnSubmit(event, type, merge) {
                                 tempBugetObjArr.push(tempTasks.budget[i]);
 
                             } else {
+                                console.log("listOrder.indexOf(tempTaskId): " + listOrder.indexOf(tempTaskId))
                                 tempBugetObjArr[listOrder.indexOf(tempTaskId)].push(tempTasks.budget[i]);
                             }
 
