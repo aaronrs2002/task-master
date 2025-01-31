@@ -78,7 +78,7 @@ const toggleMobileNav = (whichElem) => {
                     </li>
 */
 
-let navData = [{ name: "Task Master", address: "https://aaronrs2002.github.io/task-master/" }, { name: "Time-Clock", address: "https://aaronrs2002.github.io/time-clock/" }, { name: "Budget", address: "https://aaronrs2002.github.io/budget-app/" }, { name: "Analyze bank records", address: "https://aaronrs2002.github.io/analyze-bank-files/" }, { name: "Invoice Builder", address: "https://aaronrs2002.github.io/invoice-builder/" }];
+let navData = [{ name: "Task Master", address: "https://aaronrs2002.github.io/task-master/?" + gaParam + "&" }, { name: "Time-Clock", address: "https://aaronrs2002.github.io/time-clock/?" + gaParam + "&" }, { name: "Budget", address: "https://aaronrs2002.github.io/budget-app/?" + gaParam + "&" }, { name: "Analyze bank records", address: "https://aaronrs2002.github.io/analyze-bank-files/?" + gaParam + "&" }, { name: "Invoice Builder", address: "https://aaronrs2002.github.io/invoice-builder/?" + gaParam + "&" }];
 let navLinkHTML = "";
 for (let i = 0; i < navData.length; i++) {
     let active = "";
