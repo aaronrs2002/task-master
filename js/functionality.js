@@ -666,7 +666,7 @@ try {
         for (let j = 0; j < tempTaskList.length; j++) {
             const key = localStorage.key(i);
 
-            console.log("key: " + key);
+
             if (key.indexOf(":timeClock") !== -1) {
 
                 if (keyListArr.indexOf(key) === -1) {
