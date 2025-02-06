@@ -91,7 +91,7 @@ document.getElementById("navLinkTarget").innerHTML = navLinkHTML;
 
 /*UPDATED 1-27-2025 GRAB ALL TIMELOCK RTASK, NOT JUST THE ACTIVE ONES FROM THE TASKMASTER*/
 function buildTaskMenu() {
-    let taskListHTML = document.getElementById("taskTarget").innerHTML;
+    let taskListHTML = document.getElementById("taskTarget").innerHTML = "";
     let tempTasks = [];
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
