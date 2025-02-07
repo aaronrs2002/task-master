@@ -9,6 +9,7 @@ var options = {
         height: 350,
         type: 'rangeBar'
     },
+
     plotOptions: {
         bar: {
             horizontal: true

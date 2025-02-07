@@ -700,8 +700,10 @@ function goTo(where) {
     if (where === "calendar") {
         document.querySelector("[data-button='calendar']").classList.add("active");
         document.querySelector("[data-button='timeline']").classList.remove("active");
-    } else {
+    }
+    if (where === "timeline") {
         document.querySelector("[data-button='calendar']").classList.remove("active");
         document.querySelector("[data-button='timeline']").classList.add("active");
     }
+
 }

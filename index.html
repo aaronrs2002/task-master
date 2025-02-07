@@ -107,10 +107,6 @@
 
             <div class="row">
 
-                <div class="col-md-12" id="timeline">
-                    <h3>Task Timeline</h3>
-                    <div id="chart"></div>
-                </div>
 
                 <div class="col-md-12  mt-2">
 
@@ -254,19 +250,34 @@
             <div class='col-md-12'>
                 <ul class='list-group' id='groceryListTarget'></ul>
             </div>
-
-
+            <hr />
+            <div class="col-md-12" id="timeline">
+                <h3>Task Timeline</h3>
+                <i><small>This timeline centers around todays date. You are either a number of days away from task date
+                        completion. In this ionstance, todays date will be on the left. Or you are past your date and
+                        the timeline displays in the opposite direction starting from todays date from right to left.
+                        Scroll mouse to zoom. Select "home" icon to reset timeline.</small></i>
+                <div id="chart"></div>
+            </div>
+            <hr />
 
             <!--START CALENDAR-->
 
             <div class="row" id="calendarWrapper">
                 <h3>Task Calendar</h3>
-
+                <i><small>Task are represent in the future for our calendar. If the date past it will not be visible on
+                        the calendar.</small></i>
                 <div id="datePickerCalendarTarget"></div>
                 <!--<TheCalendar padDates={props.calendarData} />-->
             </div>
 
             <!--END CALENDAR-->
+            <div class="col-md-12">
+                <div class="d-grid gap-2">
+                    <button data-button="top" onClick="goTo('navLinkTarget')" class="btn btn-secondary">Back to
+                        Top</button>
+                </div>
+            </div>
 
             <div class="col-md-12 py-1">
 
