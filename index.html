@@ -39,6 +39,7 @@
     <link rel="stylesheet" href="https://aaronrs2002.github.io/black-jack/css/animate.min.css" />
     <link href="https://aaronrs2002.github.io/black-jack/css/shared.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/locale/es/cdn.min.js"></script>
     <script>
@@ -92,11 +93,21 @@
                     <h1 id="contentTitle"></h1>
 
                 </div>
-            </div>
 
+                <div class="col-md-12">
+                    <div class="btn-group form-control" role="group">
+                        <button data-button="calendar" onClick="goTo('calendarWrapper')"
+                            class="btn btn-secondary active">View Calendar</button>
+
+                        <button data-button="timeline" onClick="goTo('timeline')" class="btn btn-secondary">View
+                            Timeline</button>
+                    </div>
+                </div>
+            </div>
             <!--START CALENDAR-->
 
             <div class="row" id="calendarWrapper">
+                <h3>Task Calendar</h3>
 
                 <div id="datePickerCalendarTarget"></div>
                 <!--<TheCalendar padDates={props.calendarData} />-->
@@ -250,6 +261,10 @@
                 <ul class='list-group' id='groceryListTarget'></ul>
             </div>
 
+            <div class="col-md-12" id="timeline">
+                <h3>Task Timeline</h3>
+                <div id="chart"></div>
+            </div>
 
             <div class="col-md-12 py-1">
 
@@ -319,4 +334,5 @@
 
 <!--<script src="js/footer.js"></script>-->
 <script src="js/calendar.js"></script>
+<script src="js/timeline.js"></script>
 <script src="js/functionality.js"></script>

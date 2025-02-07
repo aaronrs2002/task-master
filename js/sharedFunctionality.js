@@ -89,7 +89,7 @@ for (let i = 0; i < navData.length; i++) {
 }
 document.getElementById("navLinkTarget").innerHTML = navLinkHTML;
 
-/*UPDATED 1-27-2025 GRAB ALL TIMELOCK RTASK, NOT JUST THE ACTIVE ONES FROM THE TASKMASTER*/
+/*UPDATED 1-27-2025 GRAB ALL TIMELOCK TASK, NOT JUST THE ACTIVE ONES FROM THE TASKMASTER*/
 function buildTaskMenu() {
     let taskListHTML = document.getElementById("taskTarget").innerHTML = " <option value='default'>Select task/ticket if available</option>";
     let tempTasks = [];

@@ -134,6 +134,7 @@ const editList = (num) => {
     localStorage.setItem("taskList", JSON.stringify(taskList));
     buildList(taskList, num);
     loadList(taskList);
+
 }
 
 ///START CUSTOM TASK LIST OPTIONS
@@ -201,6 +202,7 @@ function deleteTask(num) {
     buildList(taskList, 0);
     loadList(taskList);
     convertForCalendar("delete");
+    runTimeline();
 }
 
 function updateCustom() {
@@ -319,6 +321,7 @@ function updateCustom() {
     console.log("JSON.stringify(taskList): " + JSON.stringify(taskList))
     buildList(taskList, 0);
     loadList(taskList);
+    runTimeline();
     document.querySelector("input[name='updateWord']").value = "";
     document.querySelector("[name='updateDefinition']").selectedIndex = 0;
     document.querySelector("select[name='taskStatus']").value = "open";
@@ -542,7 +545,8 @@ function handleOnSubmit(event, type, merge) {
                     buildList(taskObj, 0);
                     loadList(taskObj);
                     localStorage.setItem("taskList", JSON.stringify(taskObj));
-                    convertForCalendar("merge")
+                    convertForCalendar("merge");
+                    runTimeline();
                 } else {
                     console.log("WE GO PAST merge: " + merge);
 
@@ -579,7 +583,7 @@ function handleOnSubmit(event, type, merge) {
 
                     buildList(tempTasksObj, 0);
                     loadList(tempTasksObj);
-
+                    runTimeline();
                     // let tempBudget=JSON.parse(localStorage.getItem());
                     /*  for (let i = 0; i < tempTasks.budget.length; i++) {
                           let tempTitle = tempTasks.budget[i].itemId.substring(tempTasks.budget[i].itemId.lastIndexOf(":") + 1, tempTasks.budget[i].itemId.length);
@@ -688,4 +692,16 @@ try {
 
 } catch (error) {
     console.log("no data yet: " + error);
+}
+
+
+function goTo(where) {
+    window.location.href = "#" + where;
+    if (where === "calendar") {
+        document.querySelector("[data-button='calendar']").classList.add("active");
+        document.querySelector("[data-button='timeline']").classList.remove("active");
+    } else {
+        document.querySelector("[data-button='calendar']").classList.remove("active");
+        document.querySelector("[data-button='timeline']").classList.add("active");
+    }
 }
