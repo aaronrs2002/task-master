@@ -104,19 +104,13 @@
                     </div>
                 </div>
             </div>
-            <!--START CALENDAR-->
 
-            <div class="row" id="calendarWrapper">
-                <h3>Task Calendar</h3>
-
-                <div id="datePickerCalendarTarget"></div>
-                <!--<TheCalendar padDates={props.calendarData} />-->
-            </div>
-
-            <!--END CALENDAR-->
             <div class="row">
 
-
+                <div class="col-md-12" id="timeline">
+                    <h3>Task Timeline</h3>
+                    <div id="chart"></div>
+                </div>
 
                 <div class="col-md-12  mt-2">
 
@@ -261,10 +255,18 @@
                 <ul class='list-group' id='groceryListTarget'></ul>
             </div>
 
-            <div class="col-md-12" id="timeline">
-                <h3>Task Timeline</h3>
-                <div id="chart"></div>
+
+
+            <!--START CALENDAR-->
+
+            <div class="row" id="calendarWrapper">
+                <h3>Task Calendar</h3>
+
+                <div id="datePickerCalendarTarget"></div>
+                <!--<TheCalendar padDates={props.calendarData} />-->
             </div>
+
+            <!--END CALENDAR-->
 
             <div class="col-md-12 py-1">
 
