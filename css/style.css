@@ -30,6 +30,9 @@ h5,
 
 }
 
+button {
+    cursor: pointer;
+}
 
 /*nav+.container {
     margin-top: 80px;

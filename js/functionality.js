@@ -708,3 +708,8 @@ function goTo(where) {
     }
 
 }
+try {
+    document.querySelector("[data-details='0']").classList.remove("hide");
+} catch (error) {
+    console.log("No items yet: " + error);
+}

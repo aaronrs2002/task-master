@@ -7,7 +7,7 @@ let updateCalendar = true;
 let activePad = "default";
 let whichMonth = "";
 let tempTaskList = [{
-    "task": "example task", "taskStatus": "open", "taskDetails": "This task is generated because there are no tasks built yet. This is an example to help new users guide their way to success with the Task-Master.",
+    "task": "example task", "taskStatus": "open", "taskDetails": "This task is generated because there are no tasks built yet. This is an example to help new users guide their way to success with the Task-Master. Select \"Build your own task list\" and add a new task to automatically delete this example.",
     "details": "info:" + TodayFormatStamp().substring(0, 2) + "/28/" + TodayFormatStamp().substring(6, 10), "finished": false, "startDate": timeStamp()
 }];
 
