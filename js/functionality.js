@@ -226,7 +226,6 @@ function updateCustom() {
     }
 
 
-
     if (update === "add") {
         let tempWordList = [];
         document.getElementById("localList").classList.add("hide");
@@ -663,9 +662,15 @@ convertForCalendar("onLoad");
 
 let keyListArr = [];
 /*onload grab all timeclock matches*/
-try {
-    let tempTaskList = JSON.parse(localStorage.getItem("taskList"));
 
+if (localStorage.getItem("taskList")) {
+    tempTaskList = JSON.parse(localStorage.getItem("taskList"));
+}
+
+console.log("JSON.stringify(tempTaskList): " + JSON.stringify(tempTaskList) + " - localStorage.length: " + localStorage.length)
+
+
+if (localStorage.getItem("taskList")) {
     for (let i = 0; i < localStorage.length; i++) {
         for (let j = 0; j < tempTaskList.length; j++) {
             const key = localStorage.key(i);
@@ -684,15 +689,11 @@ try {
         }
 
     }
-
-    for (let i = 0; i < savedHours.length; i++) {
-        localStorage.setItem(keyListArr[i], JSON.stringify(savedHours[i].keyListArr[i].keyListArr[0]));
-    }
-
-
-} catch (error) {
-    console.log("no data yet: " + error);
 }
+for (let i = 0; i < savedHours.length; i++) {
+    localStorage.setItem(keyListArr[i], JSON.stringify(savedHours[i].keyListArr[i].keyListArr[0]));
+}
+
 
 
 function goTo(where) {

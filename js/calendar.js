@@ -6,6 +6,10 @@ let dateTxt = null;
 let updateCalendar = true;
 let activePad = "default";
 let whichMonth = "";
+let tempTaskList = [{
+    "task": "example task", "taskStatus": "open", "taskDetails": "This task is generated because there are no tasks built yet. This is an example to help new users guide their way to success with the Task-Master.",
+    "details": "info:" + TodayFormatStamp().substring(0, 2) + "/28/" + TodayFormatStamp().substring(6, 10), "finished": false, "startDate": timeStamp()
+}];
 
 const writeDayNums = () => {
     [].forEach.call(document.querySelectorAll("[data-direction='0']"), (e) => {
@@ -62,37 +66,41 @@ const renderCalendar = (data, from) => {
 }
 
 function convertForCalendar(from) {
+
+
     if (localStorage.getItem("taskList")) {
-        if (from !== "calendar") {
-            buildList(JSON.parse(localStorage.getItem("taskList")));
-            loadList(JSON.parse(localStorage.getItem("taskList")));
-        }
-        let tempData = [];
-        let tempTasKList = JSON.parse(localStorage.getItem("taskList"));
-        for (let i = 0; i < tempTasKList.length; i++) {
-            let whichCode = "danger";
-            if (tempTasKList[i].details.indexOf("warning") !== -1) {
-                whichCode = "warning";
-            }
-            if (tempTasKList[i].details.indexOf("info") !== -1) {
-                whichCode = "info";
-            }
-
-            let endStamp = tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 7, tempTasKList[i].details.indexOf(":") + 11) + "-" +
-                tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 1, tempTasKList[i].details.indexOf(":") + 3) + "-" +
-                tempTasKList[i].details.substring(tempTasKList[i].details.indexOf(":") + 4, tempTasKList[i].details.indexOf(":") + 6);
-            let tempStartDate = timeStamp();
-
-            if (tempTasKList[i].startDate) {
-                tempStartDate = tempTasKList[i].startDate;
-            }
-            tempData.push({ title: tempTasKList[i].task, start: tempStartDate, end: endStamp, colorCode: whichCode });
-        }
-        [].forEach.call(document.querySelectorAll("[data-daynum]"), (e) => {
-            e.innerHTML = '';
-        });
-        renderCalendar(tempData, from);
+        tempTaskList = JSON.parse(localStorage.getItem("taskList"));
     }
+    if (from !== "calendar") {
+        buildList(tempTaskList);
+        loadList(tempTaskList);
+    }
+    let tempData = [];
+
+    for (let i = 0; i < tempTaskList.length; i++) {
+        let whichCode = "danger";
+        if (tempTaskList[i].details.indexOf("warning") !== -1) {
+            whichCode = "warning";
+        }
+        if (tempTaskList[i].details.indexOf("info") !== -1) {
+            whichCode = "info";
+        }
+
+        let endStamp = tempTaskList[i].details.substring(tempTaskList[i].details.indexOf(":") + 7, tempTaskList[i].details.indexOf(":") + 11) + "-" +
+            tempTaskList[i].details.substring(tempTaskList[i].details.indexOf(":") + 1, tempTaskList[i].details.indexOf(":") + 3) + "-" +
+            tempTaskList[i].details.substring(tempTaskList[i].details.indexOf(":") + 4, tempTaskList[i].details.indexOf(":") + 6);
+        let tempStartDate = timeStamp();
+
+        if (tempTaskList[i].startDate) {
+            tempStartDate = tempTaskList[i].startDate;
+        }
+        tempData.push({ title: tempTaskList[i].task, start: tempStartDate, end: endStamp, colorCode: whichCode });
+    }
+    [].forEach.call(document.querySelectorAll("[data-daynum]"), (e) => {
+        e.innerHTML = '';
+    });
+    renderCalendar(tempData, from);
+
 }
 
 let picker = datepicker('#datePickerCalendarTarget', {
