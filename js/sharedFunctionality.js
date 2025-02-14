@@ -52,13 +52,13 @@ const timeStamp = () => {
 
 const toggleMobileNav = (whichElem) => {
 
-    if (whichElem === "mobileNav") {
-        if (document.querySelector(".collapse[data-toggle='mobileNav']")) {
-            document.querySelector("[data-toggle='mobileNav']").classList.remove("collapse");
-            document.querySelector("[data-toggle='mobileNav']").classList.add("show");
+    if (whichElem === "mobileNav") {//navbar-collapse collapse
+        if (document.querySelector(".collapse.navbar-collapse")) {
+            document.querySelector(".navbar-collapse").classList.remove("collapse");
+            document.querySelector(".navbar-collapse").classList.add("show");
         } else {
-            document.querySelector("[data-toggle='mobileNav']").classList.remove("show");
-            document.querySelector("[data-toggle='mobileNav']").classList.add("collapse");
+            document.querySelector(".navbar-collapse").classList.remove("show");
+            document.querySelector(".navbar-collapse").classList.add("collapse");
         }
 
     }
