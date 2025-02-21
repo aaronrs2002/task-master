@@ -44,7 +44,7 @@ const runTimeline = () => {
         }
         tempTaskList = removeExample;
         console.log("tempTaskList[0].task " + tempTaskList[0].task + " - was weeded out");*/
-        console.log("tempTaskList: " + tempTaskList);
+        console.log("tempTaskList: " + JSON.stringify(tempTaskList));
     }
 
 
