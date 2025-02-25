@@ -114,7 +114,7 @@ function buildTaskMenu() {
         let tempList = JSON.parse(localStorage.getItem("taskList"));
         for (let i = 0; i < tempList.length; i++) {
             if (tempTasks.indexOf(tempList[i].task) === -1) {
-                taskListHTML = taskListHTML + "<option value-='" + tempList[i].task + "'>" + tempList[i].task + "</option>";
+                taskListHTML = taskListHTML + "<option  value='" + tempList[i].task + "'>" + tempList[i].task + "</option>";
                 tempTasks.push(tempList[i].task);
             }
 
