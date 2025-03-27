@@ -324,7 +324,8 @@ function updateCustom() {
                         task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(),
                         taskStatus: document.querySelector("select[name='taskStatus']").value,
                         taskDetails: document.querySelector("textarea[name='taskDetails']").value,
-                        details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: document.querySelector("[data-finished]").getAttribute("data-finished")
+                        details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: document.querySelector("[data-finished]").getAttribute("data-finished"),
+                        startDate: startDateStr
                     };
                 }
             }
