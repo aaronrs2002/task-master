@@ -76,7 +76,15 @@ const setDayMax = (menuName) => {
     Validate([menuName + "Month", menuName + "Year", menuName + "Day"])
 }
 
-
-document.querySelector(".futureYears").value = TodayFormatStamp().substring(6, 10);
-document.querySelector(".monthsNum").value = TodayFormatStamp().substring(0, 2);
-document.querySelector(".daysNum").value = TodayFormatStamp().substring(3, 5);
+[].forEach.call(document.querySelectorAll(".futureYears"), (e) => {
+    e.value = TodayFormatStamp().substring(6, 10);
+});
+//document.querySelector(".futureYears").value = TodayFormatStamp().substring(6, 10);
+[].forEach.call(document.querySelectorAll(".monthsNum"), (e) => {
+    e.value = TodayFormatStamp().substring(0, 2);
+});
+//document.querySelector(".monthsNum").value = TodayFormatStamp().substring(0, 2);
+[].forEach.call(document.querySelectorAll(".daysNum"), (e) => {
+    e.value = TodayFormatStamp().substring(3, 5);
+});
+//document.querySelector(".daysNum").value = TodayFormatStamp().substring(3, 5);

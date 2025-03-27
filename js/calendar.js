@@ -42,8 +42,21 @@ const renderCalendar = (data, from) => {
         e.innerHTML = "";
         let dayVal = e.getAttribute("data-daynum");
         let calendarCellHTML = dayVal.substring(8, 10);
+
         for (let i = 0; i < data.length; i++) {
-            let tempStart = data[i].start;
+
+            let tempStart = timeStamp();
+            try {
+
+                if (data[i].start !== undefined) {
+
+                    tempStart = data[i].start;
+                }
+
+            } catch (error) {
+                console.log("No start date: " + error);
+            }
+
             let tempEnd = data[i].end;
             let sqDay = e.dataset.daynum.replaceAll("-", "");
             sqDay = parseInt(sqDay);
@@ -90,15 +103,22 @@ function convertForCalendar(from) {
             tempTaskList[i].details.substring(tempTaskList[i].details.indexOf(":") + 1, tempTaskList[i].details.indexOf(":") + 3) + "-" +
             tempTaskList[i].details.substring(tempTaskList[i].details.indexOf(":") + 4, tempTaskList[i].details.indexOf(":") + 6);
         let tempStartDate = timeStamp();
-
-        if (tempTaskList[i].startDate) {
-            tempStartDate = tempTaskList[i].startDate;
+        try {
+            if (tempTaskList[i].startDate) {
+                tempStartDate = tempTaskList[i].startDate;
+            }
+        } catch (error) {
+            console.log("There was no start date: " + error);
         }
+
+
         tempData.push({ title: tempTaskList[i].task, start: tempStartDate, end: endStamp, colorCode: whichCode });
     }
     [].forEach.call(document.querySelectorAll("[data-daynum]"), (e) => {
         e.innerHTML = '';
     });
+
+    console.log("JSON.stringify(tempData): " + JSON.stringify(tempData));
     renderCalendar(tempData, from);
 
 }

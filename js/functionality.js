@@ -43,6 +43,8 @@ const selectWord = () => {
     document.querySelector("[name='taskDay']").value = detailsDyStr;
 
 
+
+
     let taskDetails = taskList[wordSelected].details;
     if (taskDetails.indexOf("info") !== -1) {
         taskDetails = "info";
@@ -227,7 +229,7 @@ function deleteTask(num) {
 
 function updateCustom() {
     let taskList = [];
-    Validate(["updateWord", "taskYear", "taskMonth", "taskDay"]);
+    Validate(["updateWord", "taskYear", "taskMonth", "taskDay", "startYear", "startMonth", "startDay"]);
     let detailsStr = "No Details";
     if (document.querySelector("textarea[name='taskDetails']").value !== "" && document.querySelector("textarea[name='taskDetails']").value !== undefined) {
 
@@ -241,6 +243,7 @@ function updateCustom() {
     document.querySelector("input[name='updateWord']").classList.remove("error");
     let whichIndex = document.getElementById("localList").value;
     update = CRUD;
+    let startDateStr = document.querySelector("[name=startYear]").value + "-" + document.querySelector("[name=startMonth]").value + "-" + document.querySelector("[name=startDay]").value;
     if (localStorage.getItem("taskList")) {
         taskList = JSON.parse(localStorage.getItem("taskList"));
     }
@@ -252,12 +255,13 @@ function updateCustom() {
         if (document.querySelector("input[name='updateWord']").value && document.querySelector("[name='updateDefinition']").value) {
             let newWord = document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart();
 
+
             if (tempWordList.indexOf(newWord) === -1) {
                 taskList = [...taskList, {
                     task: document.querySelector("input[name='updateWord']").value.toLowerCase().trimEnd().trimStart(),
                     taskStatus: document.querySelector("select[name='taskStatus']").value,
                     taskDetails: detailsStr,
-                    details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false, startDate: timeStamp()
+                    details: document.querySelector("[name='updateDefinition']").value + ":" + targetDate, finished: false, startDate: startDateStr
                 }];
                 globalAlert("alert-success", newWord + " added.");
                 newWord = "";
@@ -346,7 +350,7 @@ function updateCustom() {
     document.querySelector("select[name='taskStatus']").value = "open";
     document.querySelector("[name='taskDetails']").value = "";
     for (let i = 0; i < taskList.length; i++) {
-        calendarData.push({ title: taskList[i].task, start: timeStamp(), end: calendarTargetDate });
+        calendarData.push({ title: taskList[i].task, start: startDateStr, end: calendarTargetDate });
     }
 
     convertForCalendar("update");
