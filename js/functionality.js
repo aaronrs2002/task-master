@@ -56,7 +56,7 @@ const selectWord = () => {
 
     document.querySelector("[name='startYear']").value = startYrStr;
     document.querySelector("[name='startMonth']").value = startMoStr;
-    document.querySelector("[name='startDay']").value = detailsDyStr;
+    document.querySelector("[name='startDay']").value = startDyStr;
 
 
     /*START DATE END*/
