@@ -33,6 +33,7 @@ const selectWord = () => {
     document.querySelector("[name='taskDetails']").value = taskList[wordSelected].taskDetails;
     //"details":"info:01/09/2025",
 
+
     let detailsDate = taskList[wordSelected].details.substring(taskList[wordSelected].details.length - 4, taskList[wordSelected].details.length);
     let detailYrStr = taskList[wordSelected].details.substring(taskList[wordSelected].details.length - 4, taskList[wordSelected].details.length);
     let detailsMoStr = taskList[wordSelected].details.substring(taskList[wordSelected].details.length - 10, taskList[wordSelected].details.length - 8);
@@ -42,7 +43,23 @@ const selectWord = () => {
     document.querySelector("[name='taskMonth']").value = detailsMoStr;
     document.querySelector("[name='taskDay']").value = detailsDyStr;
 
+    /*START DATE BEGIN*/
+    let startDate = timeStamp();
+    if (taskList[wordSelected].startDate !== undefined) {
+        startDate = taskList[wordSelected].startDate;
+    }
 
+    // let startDate = taskList[wordSelected].details.substring(taskList[wordSelected].details.length - 4, taskList[wordSelected].details.length);
+    let startYrStr = startDate.substring(0, 4);
+    let startMoStr = startDate.substring(5, 7);
+    let startDyStr = startDate.substring(8, 10);
+
+    document.querySelector("[name='startYear']").value = startYrStr;
+    document.querySelector("[name='startMonth']").value = startMoStr;
+    document.querySelector("[name='startDay']").value = detailsDyStr;
+
+
+    /*START DATE END*/
 
 
     let taskDetails = taskList[wordSelected].details;
