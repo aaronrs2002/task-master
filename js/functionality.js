@@ -221,6 +221,15 @@ function updateCRUD(update) {
         document.getElementById("localList").classList.add("hide");
         document.querySelector("input[name='updateWord']").value = ""
         document.querySelector("[name='updateDefinition']").selectedIndex = 0;
+
+        document.querySelector("[name='startYear']").value = timeStamp().substring(0, 4);
+        document.querySelector("[name='startMonth']").value = timeStamp().substring(5, 7);
+        document.querySelector("[name='startDay']").value = timeStamp().substring(8, 10);
+
+        document.querySelector("[name='taskYear']").value = timeStamp().substring(0, 4);
+        document.querySelector("[name='taskMonth']").value = timeStamp().substring(5, 7);
+        document.querySelector("[name='taskDay']").value = timeStamp().substring(8, 10);
+
     } else {
         document.getElementById("localList").classList.remove("hide");
     }
