@@ -42,7 +42,7 @@ const renderCalendar = (data, from) => {
         e.innerHTML = "";
         let dayVal = e.getAttribute("data-daynum");
         let calendarCellHTML = dayVal.substring(8, 10);
-
+        console.log("JSON.stringify(data): " + JSON.stringify(data));
         for (let i = 0; i < data.length; i++) {
 
             let tempStart = timeStamp();
