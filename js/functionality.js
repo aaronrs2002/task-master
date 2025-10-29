@@ -114,7 +114,7 @@ const buildList = (data, num) => {
         groceryListHTML = groceryListHTML + "<li onClick='editList(" + i + ")' class='d-flex list-group-item pointer list-group-item-" + colorCode
             + "' data-finished='" + data[i].finished + "'  data-num='" + i + "' data-name='" + data[i].task + "' ><div class='flex-row'><div class='d-flex flex-row mb-3'> <div class='p-2'><button class='btn btn-danger btn-sm' onClick='deleteTask(" + i + ")'><i  class='far fa-trash-alt'></i></button></div><div class='p-2'><label>" + data[i].task + "</label></div><div class='p-2'><span class='badge bg bg-" + urgencyColor + "'>" +
             LenghtOfTime(data[i].details.substring(data[i].details.indexOf(":") + 1)) + " Days until time is up.</span><span class='badge bg bg-" + data[i].details.substring(0, data[i].details.indexOf(":"))
-            + "'>" + data[i].details.substring(data[i].details.indexOf(":") + 1) + " STATUS: " + tempStatus.toUpperCase(); + "</span></div></div><div class='hide d-flex flex-row mb-3' data-details='" + i + "' ><div><h5>Task Status: " + tempStatus + "</h5><p>" + tempDetails + "</p></div></div></li>";
+            + "'>" + data[i].details.substring(data[i].details.indexOf(":") + 1) + " STATUS: " + tempStatus.toUpperCase() + "</span></div></div><div class='hide d-flex flex-row mb-3' data-details='" + i + "' ><div><h5>Task Status: " + tempStatus + "</h5><p>" + tempDetails + "</p></div></div></li>";
     }
     document.getElementById("groceryListTarget").innerHTML = groceryListHTML;
     [].forEach.call(document.querySelectorAll("[data-details]"), (e) => {
