@@ -23,6 +23,10 @@ h5,
     font-family: "Passion One", cursive;
 }
 
+[class^="qs-"] span.badge {
+    font-family: "Raleway", sans-serif;
+}
+
 .btn-group.block,
 .btn-block,
 [data-details] {
