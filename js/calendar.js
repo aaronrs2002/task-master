@@ -43,23 +43,15 @@ const renderCalendar = (data, from) => {
         let dayVal = e.getAttribute("data-daynum");
         let calendarCellHTML = dayVal.substring(8, 10);
 
-        let calendarItems = 0;
-        let writeItems = "";
+
+        let calendarItems = 1;
+        let writeItems = calendarCellHTML;
         for (let i = 0; i < data.length; i++) {
 
-            let tempStart = timeStamp();
-            try {
-
-                if (data[i].start !== undefined) {
-
-                    tempStart = data[i].start;
-                }
-
-            } catch (error) {
-                console.log("No start date: " + error);
-            }
-
+            let tempStart = data[i].start;
             let tempEnd = data[i].end;
+
+
             let sqDay = e.dataset.daynum.replaceAll("-", "");
             sqDay = parseInt(sqDay);
             let tempStartDyNum = tempStart.replaceAll("-", "");
@@ -73,11 +65,11 @@ const renderCalendar = (data, from) => {
                     let customName = data[i].title;
                     writeItems = calendarCellHTML + `<span class="badge rounded-pill bg-${data[i].colorCode}" onClick="editList(\'${customName}\');window.location.href='#groceryListTarget';" data-daynum="${dayVal}" title="${customName}">  Calendar Items: ${calendarItems++} </span>`
 
-                } else {
-                    e.classList.remove("alert");
-                    e.classList.remove("alert-success");
-                    writeItems = dayVal.substring(8, 10);
                 }
+            } else {
+                e.classList.remove("alert");
+                e.classList.remove("alert-success");
+
             }
         }
 
