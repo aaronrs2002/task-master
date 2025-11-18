@@ -41,6 +41,8 @@ const renderCalendar = (data, from) => {
     [].forEach.call(document.querySelectorAll("[data-daynum]"), (e) => {
         e.innerHTML = "";
         let dayVal = e.getAttribute("data-daynum");
+        e.classList.remove("alert");
+        e.classList.remove("alert-success");
         let calendarCellHTML = dayVal.substring(8, 10);
 
 
@@ -66,10 +68,6 @@ const renderCalendar = (data, from) => {
                     writeItems = calendarCellHTML + `<span class="badge rounded-pill bg-${data[i].colorCode}" onClick="editList(\'${customName}\');window.location.href='#groceryListTarget';" data-daynum="${dayVal}" title="${customName}">  Calendar Items: ${calendarItems++} </span>`
 
                 }
-            } else {
-                e.classList.remove("alert");
-                e.classList.remove("alert-success");
-
             }
         }
 
