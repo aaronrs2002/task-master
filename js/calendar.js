@@ -43,6 +43,8 @@ const renderCalendar = (data, from) => {
         let dayVal = e.getAttribute("data-daynum");
         let calendarCellHTML = dayVal.substring(8, 10);
 
+        let calendarItems = 0;
+        let writeItems = "";
         for (let i = 0; i < data.length; i++) {
 
             let tempStart = timeStamp();
@@ -66,12 +68,18 @@ const renderCalendar = (data, from) => {
             tempEndDyNum = parseInt(tempEndDyNum);
             if (data[i].title) {
                 if (Number(sqDay) >= tempStartDyNum && Number(sqDay) <= tempEndDyNum && calendarCellHTML.indexOf(" title='" + data[i].title + "' ") === -1) {
+                    e.classList.add("alert");
+                    e.classList.add("alert-success");
                     let customName = data[i].title;
-                    calendarCellHTML = calendarCellHTML + `<span class="badge rounded-pill bg-${data[i].colorCode}" onClick="editList(\'${customName}\');window.location.href='#groceryListTarget';" data-daynum="${dayVal}" title="${customName}">  ${customName.substring(0, 2)}</span>`;
+                    writeItems = calendarCellHTML + `<span class="badge rounded-pill bg-${data[i].colorCode}" onClick="editList(\'${customName}\');window.location.href='#groceryListTarget';" data-daynum="${dayVal}" title="${customName}">  Calendar Items: ${calendarItems++} </span>`
+
+                } else {
+                    writeItems = dayVal.substring(8, 10);
                 }
             }
         }
-        e.innerHTML = calendarCellHTML;
+
+        e.innerHTML = writeItems;
     });
 
     updateCalendar = false;
