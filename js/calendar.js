@@ -65,7 +65,12 @@ const renderCalendar = (data, from) => {
                     e.classList.add("alert");
                     e.classList.add("alert-success");
                     let customName = data[i].title;
-                    writeItems = calendarCellHTML + `<span class="badge rounded-pill bg-${data[i].colorCode}" onClick="editList(\'${customName}\');window.location.href='#groceryListTarget';" data-daynum="${dayVal}" title="${customName}">  Calendar Items: ${calendarItems++} </span>`
+                    let itemCount = "item";
+                    if (calendarItems > 1) {
+                        itemCount = "items";
+                    }
+                    writeItems = calendarCellHTML + `<span class="badge rounded-pill bg-${data[i].colorCode}" onClick="editList(\'${customName}\');window.location.href='#groceryListTarget';" data-daynum="${dayVal}" title="${customName}"> 
+                     ${(brrowserWindowWidth > 1200) ? "Calendar Items:" : ""} ${calendarItems++}   ${(brrowserWindowWidth <= 1200) ? itemCount : ""}</span>`
 
                 }
             }

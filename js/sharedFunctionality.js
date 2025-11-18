@@ -13,6 +13,7 @@
     }, 5000);
 
 }*/
+let brrowserWindowWidth = window.innerWidth;
 
 const TodayFormatStamp = () => {
 
