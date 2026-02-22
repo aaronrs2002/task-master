@@ -216,7 +216,7 @@ function updateCRUD(update) {
         e.classList.remove("active");
     });
     document.querySelector("[data-edit='" + update + "']").classList.add("active");
-
+    document.querySelector("textarea[name='taskDetails']").value = "";
     if (update === "add") {
         document.getElementById("localList").classList.add("hide");
         document.querySelector("input[name='updateWord']").value = ""
@@ -233,6 +233,7 @@ function updateCRUD(update) {
     } else {
         document.getElementById("localList").classList.remove("hide");
     }
+
     CRUD = update;
 }
 
