@@ -70,7 +70,7 @@ const renderCalendar = (data, from) => {
                         itemCount = "items";
                     }
                     writeItems = calendarCellHTML + `<span class="badge rounded-pill bg-${data[i].colorCode}" onClick="editList(\'${customName}\');window.location.href='#groceryListTarget';" data-daynum="${dayVal}" title="${customName}"> 
-                     ${(brrowserWindowWidth > 1200) ? "Calendar Items:" : ""} ${calendarItems++}   ${(brrowserWindowWidth <= 1200) ? itemCount : ""}</span>`
+                     ${(brrowserWindowWidth > 1200) ? "Items:" : ""} ${calendarItems++}   ${(brrowserWindowWidth <= 1200) ? itemCount : ""}</span>`
 
                 }
             }
