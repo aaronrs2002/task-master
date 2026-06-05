@@ -88,275 +88,283 @@
 
     <main>
         <div class="container pt-1">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1 id="contentTitle"></h1>
 
-                </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 id="contentTitle"></h1>
 
-                <div class="col-md-12">
-                    <div class="btn-group form-control" role="group">
-                        <button data-button="calendar" onClick="goTo('calendarWrapper')"
-                            class="btn btn-secondary active">View Calendar</button>
+                        </div>
 
-                        <button data-button="timeline" onClick="goTo('timeline')" class="btn btn-secondary">View
-                            Timeline</button>
-                    </div>
-                </div>
-            </div>
+                        <div class="col-md-12">
+                            <div class="btn-group form-control" role="group">
+                                <button data-button="calendar" onClick="goTo('calendarWrapper')"
+                                    class="btn btn-secondary active">View Calendar</button>
 
-            <div class="row">
-
-
-                <div class="col-md-12  mt-2">
-
-                    <button class="btn btn-success w-100" data-editpanel="show" onclick="javascript:toggleEdit('show')">
-                        <i class="fas fa-pen pointer"></i> <span></span>Build your own
-                        task list.
-                    </button>
-                </div>
-                <div class="col-md-12">
-
-                    <button class="btn btn-success w-100  hide" data-editpanel="hide"
-                        onClick="javascript:toggleEdit('hide')">
-                        <i class="fas fa-pen pointer"></i>Toggle Editing Panel
-                    </button>
-                </div>
-            </div>
-            <div class=" hide row" id="buildingCustom">
-                <div class="col-md-12  ">
-
-                    <div class="btn-group block" role="group">
-                        <button type="button" class="btn btn-info active" data-edit="add"
-                            onClick="javascript:updateCRUD('add')">View Add Form</button>
-                        <button type="button" class="btn btn-info " data-edit="edit"
-                            onClick="javascript:updateCRUD('edit')">View Edit Form</button>
-
-
-                    </div>
-
-                </div>
-                <div class="col-md-12 ">
-
-                    <select class="form-control hide" id="localList" onChange="javascript:selectWord()">
-                        <option vlaue="default">Select Word</option>;
-                    </select>
-                </div>
-                <div class="col-md-4"><label>Task/Item:</label><input type="text" placeholder="Task/Item"
-                        name="updateWord" class="form-control" />
-                </div>
-
-
-                <div class="col-md-4"> <label>Task Status:</label>
-                    <select name="taskStatus" class="form-control">
-                        <option value="open">Open</option>
-                        <option value="in-progress">In Progress</option>
-                        <option value="on-hold">On Hold</option>
-                        <option value="ready-for-review">Ready For Review</option>
-                        <option value="in-review">In Review</option>
-                        <option value="rejected">Rejected</option>
-                        <option value="complete">Complete</option>
-                    </select>
-                </div>
-                <div class="col-md-4"><label>Priority level</label>
-                    <select name="updateDefinition" class="form-control">
-                        <option value="info">Standard Priority</option>
-                        <option value="warning">Elevated Priority</option>
-                        <option value="danger">High Priority</option>
-                    </select>
-                </div>
-
-                <!--START BEGINING DATE DROP DOWN-->
-
-
-                <div class="col-md-4">
-                    <label>Start Year</label>
-                    <select name="startYear" class="form-control futureYears" onchange="setDayMax('task')">
-
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label>Start Month</label>
-                    <select name="startMonth" class="form-control monthsNum" onchange="setDayMax('task')">
-                        <option value="default">Select task month</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label>Start Day</label>
-                    <select name="startDay" class="form-control daysNum"
-                        onchange="Validate(['taskYear', 'taskMonth', 'taskDay'])">
-                        <option value="default">Select task day</option>
-                    </select>
-                </div>
-
-
-
-                <!--END BEGINING DATE DROP DOWN-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <div class="col-md-12"> <label>Task details</label><textarea name="taskDetails"
-                        placeholder="Task details" class="form-control" rows="5"></textarea> </div>
-
-
-
-
-
-
-
-
-                <div class="col-md-4">
-                    <label>Target Year</label>
-                    <select name="taskYear" class="form-control futureYears" onChange="setDayMax('task')">
-                        <option value="default">Select task year</option>
-
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label>Target Month</label>
-                    <select name="taskMonth" class="form-control monthsNum" onChange="setDayMax('task')">
-                        <option value="default">Select task month</option>
-
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label>Target Day</label>
-                    <select name="taskDay" class="form-control daysNum"
-                        onChange="Validate(['taskYear', 'taskMonth', 'taskDay'])">
-                        <option value="default">Select task day</option>
-                    </select>
-                </div>
-
-
-
-                <div class="d-grid gap-2"><button class="btn btn-success capitalize" id="updateBt"
-                        onClick="javascript:updateCustom()">Submit: Add Item</button></div>
-
-
-
-                <div class="col-md-6">
-                    <div class="d-grid gap-2  py-2">
-                        <button class="btn btn-light" onClick="javascript:downloadData();"><i
-                                class="fas fa-file-download"></i>
-                            Download</button>
-                    </div>
-                </div>
-                <div class="col-md-6 py-2">
-                    <div class="d-grid gap-2">
-
-
-
-                        <label class="custom-file-upload btn btn-light">
-                            <input type="file" name="importFile" accept=".json"
-                                onChange="javascript:handleOnChange(event)" />
-                            <i class="fa fa-cloud-upload"></i> Select a "taskList.json" file to upload
-                        </label>
-
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="d-grid gap-2  py-2">
-                        <button id="fileUpload" class="btn btn-primary hide"
-                            onClick="javascript:handleOnSubmit(event, 'json','default')"><i
-                                class="fas fa-file-upload"></i>
-                            Upload New Data</button>
-                    </div>
-                    <div class="d-grid gap-2  py-2">
-                        <button id="fileMerge" class="btn btn-warning hide"
-                            onClick="javascript:handleOnSubmit(event, 'json','merge')"><i
-                                class="fas fa-file-upload"></i>
-                            Merge with current data</button>
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="col-md-12">
-                <input class="form-control " type="text" placeholder="Filter list..." name="filter"
-                    onKeyUp="filterList()" />
-
-            </div>
-            <div class='col-md-12'>
-                <ul class='list-group' id='groceryListTarget'></ul>
-            </div>
-            <hr />
-            <div class="col-md-12" id="timeline">
-                <h3>Task Timeline</h3>
-                <i><small>Update start and end dates for your tasks within the "Build your own task list" panel above.
-                        Scroll mouse to zoom. Select "home" icon to reset timeline.</small></i>
-                <div>
-                    <div id="chart"></div>
-                </div>
-            </div>
-            <hr />
-
-            <!--START CALENDAR-->
-
-            <div class="row" id="calendarWrapper">
-                <h3>Task Calendar</h3>
-                <i><small>Tasks are represented in our calendar by the number of tasks per day.</small></i>
-                <div id="datePickerCalendarTarget"></div>
-                <!--<TheCalendar padDates={props.calendarData} />-->
-            </div>
-
-            <!--END CALENDAR-->
-            <div class="col-md-12">
-                <div class="d-grid gap-2">
-                    <button data-button="top" onClick="goTo('top')" class="btn btn-secondary">Back to
-                        Top</button>
-                </div>
-            </div>
-
-            <div class="col-md-12 py-1">
-
-                <div class="d-grid gap-2">
-                    <button class="btn btn-info" onClick="javascript:toggle('info')" type="button"
-                        data-toggle="default">View
-                        Information</button>
-                    <button class="btn btn-info hide" onClick="javascript:toggle('default')" type="button"
-                        data-toggle="info">Hide
-                        Information</button>
-                </div>
-
-                <div class="card hide" data-toggle="info" id="info">
-                    <div class="card-body  text-left">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>Task Master Information</h3>
+                                <button data-button="timeline" onClick="goTo('timeline')" class="btn btn-secondary">View
+                                    Timeline</button>
                             </div>
-                            <div class="col-md-6">
-                                <iframe width="90%" height="225" src="https://www.youtube.com/embed/MDiRSROv_Dw"
-                                    title="Javascript Tutorial &quot;Hijack&quot; the js-datepicker" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                            </div>
-                            <div class="col-md-6">
+                        </div>
+                    </div>
 
-                                <p class="companyStorageInfo "></p>
+                    <div class="row">
+
+
+                        <div class="col-md-12  mt-2">
+
+                            <button class="btn btn-success w-100" data-editpanel="show"
+                                onclick="javascript:toggleEdit('show')">
+                                <i class="fas fa-pen pointer"></i> <span></span>Build your own
+                                task list.
+                            </button>
+                        </div>
+                        <div class="col-md-12">
+
+                            <button class="btn btn-success w-100  hide" data-editpanel="hide"
+                                onClick="javascript:toggleEdit('hide')">
+                                <i class="fas fa-pen pointer"></i>Toggle Editing Panel
+                            </button>
+                        </div>
+                    </div>
+                    <div class=" hide row" id="buildingCustom">
+                        <div class="col-md-12  ">
+
+                            <div class="btn-group block" role="group">
+                                <button type="button" class="btn btn-info active" data-edit="add"
+                                    onClick="javascript:updateCRUD('add')">View Add Form</button>
+                                <button type="button" class="btn btn-info " data-edit="edit"
+                                    onClick="javascript:updateCRUD('edit')">View Edit Form</button>
+
 
                             </div>
+
+                        </div>
+                        <div class="col-md-12 ">
+
+                            <select class="form-control hide" id="localList" onChange="javascript:selectWord()">
+                                <option vlaue="default">Select Word</option>;
+                            </select>
+                        </div>
+                        <div class="col-md-4"><label>Task/Item:</label><input type="text" placeholder="Task/Item"
+                                name="updateWord" class="form-control" />
+                        </div>
+
+
+                        <div class="col-md-4"> <label>Task Status:</label>
+                            <select name="taskStatus" class="form-control">
+                                <option value="open">Open</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="on-hold">On Hold</option>
+                                <option value="ready-for-review">Ready For Review</option>
+                                <option value="in-review">In Review</option>
+                                <option value="rejected">Rejected</option>
+                                <option value="complete">Complete</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4"><label>Priority level</label>
+                            <select name="updateDefinition" class="form-control">
+                                <option value="info">Standard Priority</option>
+                                <option value="warning">Elevated Priority</option>
+                                <option value="danger">High Priority</option>
+                            </select>
+                        </div>
+
+                        <!--START BEGINING DATE DROP DOWN-->
+
+
+                        <div class="col-md-4">
+                            <label>Start Year</label>
+                            <select name="startYear" class="form-control futureYears" onchange="setDayMax('task')">
+
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Start Month</label>
+                            <select name="startMonth" class="form-control monthsNum" onchange="setDayMax('task')">
+                                <option value="default">Select task month</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Start Day</label>
+                            <select name="startDay" class="form-control daysNum"
+                                onchange="Validate(['taskYear', 'taskMonth', 'taskDay'])">
+                                <option value="default">Select task day</option>
+                            </select>
                         </div>
 
 
 
+                        <!--END BEGINING DATE DROP DOWN-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="col-md-12"> <label>Task details</label><textarea name="taskDetails"
+                                placeholder="Task details" class="form-control" rows="5"></textarea> </div>
+
+
+
+
+
+
+
+
+                        <div class="col-md-4">
+                            <label>Target Year</label>
+                            <select name="taskYear" class="form-control futureYears" onChange="setDayMax('task')">
+                                <option value="default">Select task year</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Target Month</label>
+                            <select name="taskMonth" class="form-control monthsNum" onChange="setDayMax('task')">
+                                <option value="default">Select task month</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Target Day</label>
+                            <select name="taskDay" class="form-control daysNum"
+                                onChange="Validate(['taskYear', 'taskMonth', 'taskDay'])">
+                                <option value="default">Select task day</option>
+                            </select>
+                        </div>
+
+
+
+                        <div class="d-grid gap-2"><button class="btn btn-success capitalize" id="updateBt"
+                                onClick="javascript:updateCustom()">Submit: Add Item</button></div>
+
+
+
+                        <div class="col-md-6">
+                            <div class="d-grid gap-2  py-2">
+                                <button class="btn btn-light" onClick="javascript:downloadData();"><i
+                                        class="fas fa-file-download"></i>
+                                    Download</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 py-2">
+                            <div class="d-grid gap-2">
+
+
+
+                                <label class="custom-file-upload btn btn-light">
+                                    <input type="file" name="importFile" accept=".json"
+                                        onChange="javascript:handleOnChange(event)" />
+                                    <i class="fa fa-cloud-upload"></i> Select a "taskList.json" file to upload
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="d-grid gap-2  py-2">
+                                <button id="fileUpload" class="btn btn-primary hide"
+                                    onClick="javascript:handleOnSubmit(event, 'json','default')"><i
+                                        class="fas fa-file-upload"></i>
+                                    Upload New Data</button>
+                            </div>
+                            <div class="d-grid gap-2  py-2">
+                                <button id="fileMerge" class="btn btn-warning hide"
+                                    onClick="javascript:handleOnSubmit(event, 'json','merge')"><i
+                                        class="fas fa-file-upload"></i>
+                                    Merge with current data</button>
+                            </div>
+                        </div>
+
+
                     </div>
+                    <div class="col-md-12">
+                        <input class="form-control " type="text" placeholder="Filter list..." name="filter"
+                            onKeyUp="filterList()" />
+
+                    </div>
+                    <div class='col-md-12'>
+                        <ul class='list-group' id='groceryListTarget'></ul>
+                    </div>
+                    <hr />
+                    <div class="col-md-12" id="timeline">
+                        <h3>Task Timeline</h3>
+                        <i><small>Update start and end dates for your tasks within the "Build your own task list" panel
+                                above.
+                                Scroll mouse to zoom. Select "home" icon to reset timeline.</small></i>
+                        <div>
+                            <div id="chart"></div>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <!--START CALENDAR-->
+
+                    <div class="row" id="calendarWrapper">
+                        <h3>Task Calendar</h3>
+                        <i><small>Tasks are represented in our calendar by the number of tasks per day.</small></i>
+                        <div id="datePickerCalendarTarget"></div>
+                        <!--<TheCalendar padDates={props.calendarData} />-->
+                    </div>
+
+                    <!--END CALENDAR-->
+                    <div class="col-md-12">
+                        <div class="d-grid gap-2">
+                            <button data-button="top" onClick="goTo('top')" class="btn btn-secondary">Back to
+                                Top</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 py-1">
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-info" onClick="javascript:toggle('info')" type="button"
+                                data-toggle="default">View
+                                Information</button>
+                            <button class="btn btn-info hide" onClick="javascript:toggle('default')" type="button"
+                                data-toggle="info">Hide
+                                Information</button>
+                        </div>
+
+                        <div class="card hide" data-toggle="info" id="info">
+                            <div class="card-body  text-left">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3>Task Master Information</h3>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <iframe width="90%" height="225" src="https://www.youtube.com/embed/MDiRSROv_Dw"
+                                            title="Javascript Tutorial &quot;Hijack&quot; the js-datepicker"
+                                            frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <p class="companyStorageInfo "></p>
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-
         </div>
 
     </main>
