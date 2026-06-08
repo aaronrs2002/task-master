@@ -159,6 +159,11 @@ if (localStorage.getItem("guestData") && document.querySelector("select[name='em
      <select class="form-control" name="userOptions" onChange="addUser()">
     */
 
+} else {
+    if (document.querySelector("select[name='emailOptions']")) {
+        document.querySelector("select[name='emailOptions']").classList.add("hide");
+    }
+
 }
 
 function addUser() {
