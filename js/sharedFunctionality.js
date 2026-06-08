@@ -129,7 +129,7 @@ function buildTaskMenu() {
 
 
 if (localStorage.getItem("guestData")) {
-    let guestData = JSON.parse("guestData");
+    let guestData = JSON.parse(localStorage.getItem("guestData"));
     let emailOptionsHTML = "<option value='default'  >Select Email If available</option>";
     for (let i = 0; i < guestData.length; i++) {
         emailOptionsHTML = emailOptionsHTML + `<option value="${guestData[i].email}">${guestData[i].email}</option>`;
