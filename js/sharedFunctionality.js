@@ -164,6 +164,7 @@ if (localStorage.getItem("guestData") && document.querySelector("select[name='em
 function addUser() {
     let whichEmail = document.querySelector("select[name='emailOptions']").value;
     if (whichEmail === "default") {
+        document.querySelector("input[name='email']").value = "";
         return false;
     } else {
         document.querySelector("input[name='email']").value = whichEmail;
