@@ -127,3 +127,47 @@ function buildTaskMenu() {
 
 }
 
+if (localStorage.getItem("guestData") && document.querySelector("select[name='emailOptions']") && document.querySelector("input[name='email']")) {
+    let guestData = JSON.parse(localStorage.getItem("guestData"));
+    let emailOptionsHTML = "<option value='default'  >Select Email if available</option>";
+    for (let i = 0; i < guestData.length; i++) {
+        emailOptionsHTML = emailOptionsHTML + `<option value="${guestData[i].email}">${guestData[i].email}</option>`;
+    }
+    document.querySelector("select[name='emailOptions']").innerHTML = emailOptionsHTML;
+}
+
+function addUser() {
+    let whichEmail = document.querySelector("select[name='emailOptions']").value;
+    if (whichEmail === "default") {
+        return false;
+    } else {
+        document.querySelector("input[name='email']").value = whichEmail;
+    }
+}
+
+
+if (localStorage.getItem("guestData") && document.querySelector("select[name='emailOptions']") && document.querySelector("input[name='email']")) {
+    let guestData = JSON.parse(localStorage.getItem("guestData"));
+    let emailOptionsHTML = "<option value='default'  >Select Email if available</option>";
+    for (let i = 0; i < guestData.length; i++) {
+        emailOptionsHTML = emailOptionsHTML + `<option value="${guestData[i].email}">${guestData[i].email}</option>`;
+    }
+
+    document.querySelector("select[name='emailOptions']").innerHTML = emailOptionsHTML
+
+    /*
+     <select class="form-control" name="userOptions" onChange="addUser()">
+    */
+
+}
+
+function addUser() {
+    let whichEmail = document.querySelector("select[name='emailOptions']").value;
+    if (whichEmail === "default") {
+        return false;
+    } else {
+        document.querySelector("input[name='email']").value = whichEmail;
+    }
+
+
+}
