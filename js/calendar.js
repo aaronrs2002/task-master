@@ -123,7 +123,7 @@ function convertForCalendar(from) {
         e.innerHTML = '';
     });
 
-    console.log("JSON.stringify(tempData): " + JSON.stringify(tempData));
+    /*console.log("JSON.stringify(tempData): " + JSON.stringify(tempData));*/
     renderCalendar(tempData, from);
 
 }

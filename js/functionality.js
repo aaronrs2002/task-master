@@ -388,18 +388,18 @@ function updateCustom() {
 function downloadData() {
     let tempData = [];
     if (localStorage.getItem("taskList")) {
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: [], timeClock: [], budget: [] };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: [], timeClock: [], budget: [], profiles: [] };
     }
 
     if (localStorage.getItem("invoices")) {
         //  tempData = [...tempData, { invoices: JSON.parse(localStorage.getItem("invoices")) }];
         // tempData.push({ invoices: JSON.parse(localStorage.getItem("invoices")) });
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: [], budget: [] };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: [], budget: [], profiles: [] };
 
     }
     // console.log("JSON.stringify(savedHours): " + JSON.stringify(savedHours));
     if (savedHours.length > 0) {
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: [] };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: [], profiles: [] };
     }
     let tempBudget = [];
 
@@ -421,7 +421,11 @@ function downloadData() {
     }
     // console.log("tempData: " + JSON.stringify(tempData));
     if (tempBudget.length > 0) {
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: tempBudget };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: tempBudget, profiles: [] };
+    }
+
+    if (localStorage.getItem("guestData")) {
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: tempBudget, profiles: JSON.parse(localStorage.getItem("guestData")) };
     }
 
 
@@ -461,6 +465,7 @@ function handleOnSubmit(event, type, merge) {
         fileReader.onload = function (event) {
             const tempObj = event.target.result;
             let tempTasks = JSON.parse(tempObj);
+
 
             let currentlyStored = [];
             let invoiceList = [];
@@ -541,8 +546,11 @@ function handleOnSubmit(event, type, merge) {
 
 
 
+                    if (tempTasks.profiles) {
+                        localStorage.setItem("guestData", JSON.stringify(tempTasks.profiles));
 
 
+                    }
 
 
                     let currentTasksList = [];
@@ -613,6 +621,32 @@ function handleOnSubmit(event, type, merge) {
                     let tempTasksObj = [];
 
 
+
+                    try {
+
+                        if (localStorage.getItem("guestData")) {
+                            let emailList = []
+                            let localGuestData = JSON.parse(localStorage.getItem("guestData"));
+                            for (let i = 0; i < localGuestData.length; i++) {
+                                emailList.push(localGuestData[i].email);
+                            }
+                            console.log("emailList: " + emailList);
+                            for (let i = 0; i < tempTasks.profiles.length; i++) {
+                                if (emailList.indexOf(tempTasks.profiles[i].email) === -1) {
+                                    localGuestData.push(tempTasks.profiles[i]);
+                                    console.log("Merging JSON.stringify(tempTasks.profiles[i]): " + JSON.stringify(tempTasks.profiles[i]));
+                                }
+                            }
+
+                            localStorage.setItem("guestData", JSON.stringify(localGuestData));
+
+                        }
+
+                    } catch (error) {
+                        console.log("guestDatat did not merge Error: " + error);
+                        localStorage.setItem("guestData", JSON.stringify(tempTasks.profiles))
+
+                    }
 
 
 
