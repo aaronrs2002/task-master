@@ -388,18 +388,20 @@ function updateCustom() {
 function downloadData() {
     let tempData = [];
     if (localStorage.getItem("taskList")) {
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: [], timeClock: [], budget: [], profiles: [] };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: [], timeClock: [], budget: [], profiles: [], amountList: [] };
     }
+
+
 
     if (localStorage.getItem("invoices")) {
         //  tempData = [...tempData, { invoices: JSON.parse(localStorage.getItem("invoices")) }];
         // tempData.push({ invoices: JSON.parse(localStorage.getItem("invoices")) });
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: [], budget: [], profiles: [] };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: [], budget: [], profiles: [], amountList: [] };
 
     }
     // console.log("JSON.stringify(savedHours): " + JSON.stringify(savedHours));
     if (savedHours.length > 0) {
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: [], profiles: [] };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: [], profiles: [], amountList: [] };
     }
     let tempBudget = [];
 
@@ -421,11 +423,15 @@ function downloadData() {
     }
     // console.log("tempData: " + JSON.stringify(tempData));
     if (tempBudget.length > 0) {
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: tempBudget, profiles: [] };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: tempBudget, profiles: [], amountList: [] };
     }
 
     if (localStorage.getItem("guestData")) {
-        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: tempBudget, profiles: JSON.parse(localStorage.getItem("guestData")) };
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: tempBudget, profiles: JSON.parse(localStorage.getItem("guestData")), amountList: [] };
+    }
+
+    if (localStorage.getItem("amountList")) {
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: tempBudget, profiles: JSON.parse(localStorage.getItem("guestData")), amountList: JSON.parse(localStorage.getItem("amountList")) };
     }
 
 
@@ -550,6 +556,12 @@ function handleOnSubmit(event, type, merge) {
                         localStorage.setItem("guestData", JSON.stringify(tempTasks.profiles));
 
 
+                    }
+
+                    console.log("JSON.stringify(tempTasks.amountList): " + JSON.stringify(tempTasks.amountList));
+
+                    if (tempTasks.amountList) {
+                        localStorage.setItem("amountList", JSON.stringify(tempTasks.amountList));
                     }
 
 
