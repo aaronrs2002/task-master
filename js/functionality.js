@@ -558,7 +558,7 @@ function handleOnSubmit(event, type, merge) {
 
                     }
 
-                    console.log("JSON.stringify(tempTasks.amountList): " + JSON.stringify(tempTasks.amountList));
+
 
                     if (tempTasks.amountList) {
                         localStorage.setItem("amountList", JSON.stringify(tempTasks.amountList));
@@ -776,6 +776,17 @@ function handleOnSubmit(event, type, merge) {
 
                     /*END HOURS MERGED*/
 
+                    let tempAmountList = [];
+
+                    if (localStorage.getItem("amountList")) {
+
+                        tempAmountList = JSON.parse(localStorage.getItem("amountList"));
+                        tempAmountList = [...tempAmountList, ...tempTasks.amountList];
+                        localStorage.setItem("amountList", JSON.stringify(tempAmountList));
+
+                    } else {
+                        localStorage.setItem("amountList", JSON.stringify(tempTasks.amountList));
+                    }
 
 
 
