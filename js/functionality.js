@@ -371,7 +371,7 @@ function updateCustom() {
                     for (j = 0; j < tempEventObj.length; j++) {
                         if (taskList[i].task === tempEventObj[j].task) {
                             tempEventObj[j].startDate = taskList[i].startDate;
-                            tempEventObj[j].taskDetails = priority + " - Start: " + taskList[i].startDate + " - End: " + taskList[i].details + " - Notes: " + taskList[i].taskDetails;
+                            tempEventObj[j].taskDetails = priority + " - Start: " + taskList[i].startDate + " - End: " + taskList[i].details.substring((taskList[i].details.indexOf(":") + 1), taskList[i].details.length).replaceAll("/", "-") + " - Status: " + taskList[i].taskStatus + " - Notes: " + taskList[i].taskDetails;
                         }
                     }
 
