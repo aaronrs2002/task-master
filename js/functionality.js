@@ -355,6 +355,29 @@ function updateCustom() {
                         startDate: startDateStr
                     };
                 }
+
+                if (localStorage.getItem("eventObj")) {
+                    let tempEventObj = JSON.parse(localStorage.getItem("eventObj"));
+                    let priority = "Standard Priority";
+
+                    if (taskList[i].details.indexOf("warning") !== -1) {
+                        priority = "Elevated Priority";
+                    }
+
+
+                    if (taskList[i].details.indexOf("danger") !== -1) {
+                        priority = "High Priority";
+                    }
+                    for (j = 0; j < tempEventObj.length; j++) {
+                        if (taskList[i].task === tempEventObj[j].task) {
+                            tempEventObj[j].startDate = taskList[i].startDate;
+                            tempEventObj[j].taskDetails = priority + " - Start: " + taskList[i].startDate + " - End: " + taskList[i].details + " - Notes: " + taskList[i].taskDetails;
+                        }
+                    }
+
+                    localStorage.setItem("eventObj", JSON.stringify(tempEventObj));
+
+                }
             }
             globalAlert("alert-success", editWord + " edited.");
         } else {
