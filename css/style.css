@@ -90,6 +90,10 @@ body:after {
 
 }*/
 
+:disabled {
+    cursor: not-allowed;
+}
+
 [data-editpanel] {
     position: relative;
     z-index: 5;

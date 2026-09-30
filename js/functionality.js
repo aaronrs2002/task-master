@@ -229,9 +229,13 @@ function updateCRUD(update) {
         document.querySelector("[name='taskYear']").value = timeStamp().substring(0, 4);
         document.querySelector("[name='taskMonth']").value = timeStamp().substring(5, 7);
         document.querySelector("[name='taskDay']").value = timeStamp().substring(8, 10);
+        document.querySelector("input[name='updateWord']").setAttribute("placeholder", "Task/Item");
+        document.querySelector("input[name='updateWord']").disabled = false;
 
     } else {
         document.getElementById("localList").classList.remove("hide");
+        document.querySelector("input[name='updateWord']").setAttribute("placeholder", document.querySelector("#localList").value);
+        document.querySelector("input[name='updateWord']").disabled = true;
     }
 
     CRUD = update;
