@@ -256,6 +256,21 @@ function deleteTask(num) {
     loadList(taskList);
     convertForCalendar("delete");
     runTimeline();
+
+    if (localStorage.getItem("eventObj")) {
+        let tempOriginal = JSON.parse(localStorage.getItem("eventObj"));
+        let tempEventObj = [];
+
+        for (let i = 0; i < tempOriginal.length; i++) {
+
+            if (deletedTask !== tempOriginal[i].task) {
+                tempEventObj.push(tempOriginal[i]);
+            }
+
+        }
+
+        localStorage.setItem("eventObj", JSON.stringify(tempEventObj));
+    }
 }
 
 function updateCustom() {
