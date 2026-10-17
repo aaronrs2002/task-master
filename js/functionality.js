@@ -271,6 +271,31 @@ function deleteTask(num) {
 
         localStorage.setItem("eventObj", JSON.stringify(tempEventObj));
     }
+
+    /*UPDATE GUEST DATA AS WELL*/
+
+    if (localStorage.getItem("guestData")) {
+        let guestData = JSON.parse(localStorage.getItem("guestData"));
+
+
+        for (let i = 0; i < guestData.length; i++) {
+            let tempGuestEvents = [];
+            for (let j = 0; j < guestData[i].events.length; j++) {
+
+                if (guestData[i].events[j].task !== deletedTask) {
+                    tempGuestEvents.push(guestData[i].events[j]);
+                }
+
+            }
+            guestData[i].events = tempGuestEvents;
+
+        }
+
+        localStorage.setItem("guestData", JSON.stringify(guestData));
+    }
+
+
+
 }
 
 function updateCustom() {
