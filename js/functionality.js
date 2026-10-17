@@ -955,11 +955,7 @@ function handleOnSubmit(event, type, merge) {
                                     tempObj = iterableObj;
                                     console.log("we are trying to BUILD NEW " + tempTaskId);
                                 } else {
-                                    /*    {
-  "itemId": "2025-02-05:aaron@web-presence.biz:another dangtitle",
-  "itemName": "found money",
-  "itemAmount": 15
-}*/
+
                                     let idNames = [];
                                     for (let i = 0; i < tempObj.length; i++) {
                                         idNames.push(tempObj[i].itemId + tempObj[i].itemName);
@@ -990,9 +986,44 @@ function handleOnSubmit(event, type, merge) {
                     } catch (error) {
                         console.log("no budget data: " + error);
                     }
-                    convertForCalendar("upload")
+                    convertForCalendar("upload");
+
+                    /*save eventObj************************************/
+
+                    try {
+
+                        if (tempTasks.eventObj && localStorage.getItem("eventObj")) {
+
+                            let filteredEvents = [];
+                            let currentList = JSON.parse(localStorage.getItem("eventObj"));
+
+
+
+                            for (let j = 0; j < currentList.length; j++) {
+
+                                filteredEvents.push(currentList[j].task);
+
+                            }
+
+                            for (let i = 0; i < tempTasks.eventObj.length; i++) {
+                                if (filteredEvents.indexOf(tempTasks.eventObj[i].task) === -1) {
+                                    currentList.push(tempTasks.eventObj[i]);
+                                }
+
+                            }
+
+                            localStorage.setItem("eventObj", JSON.stringify(currentList));
+                        }
+
+                    } catch (error) {
+
+                        console.log("No events were in the data: " + error);
+
+                    }
                 }
             }
+
+
             else {
                 console.log("That wasn't json.")
             }
@@ -1005,22 +1036,7 @@ function handleOnSubmit(event, type, merge) {
     toggleEdit();
 
 
-    /*save eventObj************************************/
 
-    try {
-
-        if (tempTasks.eventObj && localStorage.getItem("eventObj")) {
-
-            let tempEventObj = JSON.parse(localStorage.getItem("eventObj"));
-            tempEventObj = [...tempEventObj,]
-            localStorage.setItem("eventObj", ...JSON.stringify(tempTasks.eventObj));
-        }
-
-    } catch (error) {
-
-        console.log("No events were in the data: " + error);
-
-    }
     globalAlert("alert-success", "Your file was uploaded. The next word should be one you uploaded.");
 
 
