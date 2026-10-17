@@ -504,6 +504,14 @@ function downloadData() {
     }
 
 
+
+    if (localStorage.getItem("eventObj")) {
+        tempData = { taskList: JSON.parse(localStorage.getItem("taskList")), invoices: JSON.parse(localStorage.getItem("invoices")), timeClock: savedHours, budget: tempBudget, profiles: JSON.parse(localStorage.getItem("guestData")), amountList: JSON.parse(localStorage.getItem("amountList")), eventObj: JSON.parse(localStorage.getItem("eventObj")) };
+    }
+
+
+
+
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([JSON.stringify(tempData, null, 2)], {
         type: 'application/json'
@@ -591,6 +599,8 @@ function handleOnSubmit(event, type, merge) {
             } catch (error) {
                 console.log("NO TIME ERROR: " + error);
             }
+
+
 
 
             /*try {
@@ -696,6 +706,21 @@ function handleOnSubmit(event, type, merge) {
                     localStorage.setItem("taskList", JSON.stringify(taskObj));
                     convertForCalendar("merge");
                     runTimeline();
+
+
+                    /*save eventObj************************************/
+
+                    try {
+
+                        if (tempTasks.eventObj) {
+                            localStorage.setItem("eventObj", JSON.stringify(tempTasks.eventObj));
+                        }
+
+                    } catch (error) {
+
+                        console.log("No events were in the data: " + error);
+
+                    }
                 } else {   /*START MERGE OPTION*/
                     console.log("MERGING: " + merge);
 
@@ -978,6 +1003,24 @@ function handleOnSubmit(event, type, merge) {
     document.querySelector("#fileUpload").classList.add("hide");
     document.querySelector("#fileMerge").classList.add("hide");
     toggleEdit();
+
+
+    /*save eventObj************************************/
+
+    try {
+
+        if (tempTasks.eventObj && localStorage.getItem("eventObj")) {
+
+            let tempEventObj = JSON.parse(localStorage.getItem("eventObj"));
+            tempEventObj = [...tempEventObj,]
+            localStorage.setItem("eventObj", ...JSON.stringify(tempTasks.eventObj));
+        }
+
+    } catch (error) {
+
+        console.log("No events were in the data: " + error);
+
+    }
     globalAlert("alert-success", "Your file was uploaded. The next word should be one you uploaded.");
 
 
