@@ -891,19 +891,27 @@ function handleOnSubmit(event, type, merge) {
                     let invoiceDomains = [];
                     if (localStorage.getItem("invoices")) {
                         currentInvoices = JSON.parse(localStorage.getItem("invoices"));
-                        for (let i = 0; i < currentInvoices.length; i++) {
-                            if (invoiceDomains.indexOf(currentInvoices[i].domain) === -1) {
-                                invoiceDomains.push(currentInvoices[i].domain);
-                            }
-                        }
 
-                        for (let i = 0; i < tempTasks.invoices.length; i++) {
-                            if (invoiceDomains.indexOf(tempTasks.invoices[i].domain) === -1) {
-                                currentInvoices.push(tempTasks.invoices[i])
-                            }
-                        }
 
-                        localStorage.setItem("invoices", JSON.stringify(currentInvoices));
+                        try {
+                            for (let i = 0; i < currentInvoices.length; i++) {
+                                if (invoiceDomains.indexOf(currentInvoices[i].domain) === -1) {
+                                    invoiceDomains.push(currentInvoices[i].domain);
+                                }
+                            }
+
+                            for (let i = 0; i < tempTasks.invoices.length; i++) {
+                                if (invoiceDomains.indexOf(tempTasks.invoices[i].domain) === -1) {
+                                    currentInvoices.push(tempTasks.invoices[i])
+                                }
+                            }
+
+                            localStorage.setItem("invoices", JSON.stringify(currentInvoices));
+                        } catch (error) {
+                            console.log("no invoices yet: " + error);
+                            currentInvoices = [];
+                        };
+
                     }
 
                     /*end invoices merge*/
